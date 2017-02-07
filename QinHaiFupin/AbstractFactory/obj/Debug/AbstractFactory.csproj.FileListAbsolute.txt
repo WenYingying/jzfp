@@ -17,3 +17,8 @@ E:\教育扶贫项目\QinHaiFupin\AbstractFactory\bin\Debug\AbstractFactory.pdb
 E:\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Debug\AbstractFactory.csprojResolveAssemblyReference.cache
 E:\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Debug\AbstractFactory.dll
 E:\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Debug\AbstractFactory.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\AbstractFactory\bin\Debug\AbstractFactory.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\AbstractFactory\bin\Debug\AbstractFactory.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\AbstractFactory\obj\Debug\AbstractFactory.csprojResolveAssemblyReference.cache
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\AbstractFactory\obj\Debug\AbstractFactory.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\AbstractFactory\obj\Debug\AbstractFactory.pdb

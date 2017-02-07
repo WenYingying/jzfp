@@ -42,3 +42,14 @@ E:\教育扶贫项目\QinHaiFupin\BLL\bin\Debug\Model.pdb
 E:\教育扶贫项目\QinHaiFupin\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
 E:\教育扶贫项目\QinHaiFupin\BLL\obj\Debug\BLL.dll
 E:\教育扶贫项目\QinHaiFupin\BLL\obj\Debug\BLL.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\BLL.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\BLL.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\AbstractFactory.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\DAL.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\Model.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\AbstractFactory.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\DAL.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\bin\Debug\Model.pdb
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\obj\Debug\BLL.dll
+E:\教育扶贫项目\jzfp\jzfp\QinHaiFupin\BLL\obj\Debug\BLL.pdb
