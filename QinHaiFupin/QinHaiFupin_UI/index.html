@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html style="font-size: 20px;">
+	<head>
+		<title></title>
+		<meta id="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/header.css"/>
+		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
+	</head>
+	<body>
+		<div class="wrap">
+			<header class="header">
+				<div class="head">
+					<div>
+						<h3>青海省教育精准扶贫大数据平台</h3>
+						<h3>Big data platform of education precision poverty relief for QingHai province</h3>
+					</div>
+					<div>
+						<ul>
+							<li><a id="nav" class="active" href="data/data.html" target="unusual">扶贫大数据</a> </li>
+							<li><a id="Poverty" class="nav2" href="Poverty/poverty_list.html" target="unusual">精准扶贫</a> </li>
+							<li><a id="s_nav"  href="policy_manage/index.html" target="unusual">综合管理</a> </li>
+							<li><a class="nav2" id="User" href="javascript:void(0)" target="unusual">用户管理</a> </li>
+						
+						</ul>
+					</div>
+					
+				</div>
+			</header>
+			<div class="small_nav">
+				<div>
+					<ul>
+						<li><a class="small_nav_active" href="data/data.html" target="unusual"><i>|</i>扶贫概览</a></li>
+						<li><a href="data/area.html" target="unusual"><i>|</i>地区指数</a></li>
+						<li><a href="data/education.html" target="unusual"><i>|</i>教育指数</a></li>
+					</ul>
+				</div>	
+					
+			</div>
+			<div class="policy_nav" style="display: none;">
+				<div>
+					<ul>
+						<li><a class="policy_nav_active" href="policy_manage/index.html" target="unusual"><i>|</i>政策管理</a></li>
+						<li class="OutSchoolReason"><a href="Not_school/Not_school.html" target="unusual"><i>|</i>未入学原因管理</a></li>
+						<li><a href="notice/notice.html" target="unusual"><i>|</i>公告</a></li>
+					</ul>
+				</div>	
+					
+			</div>
+            <div class="affiche">
+                <div>
+                    <span>最新公告:</span>
+                    <div class="roll">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+			<div class="Ibox">
+				<iframe class="IndexIframe"  src="about:blank" style="width: 100%;height: 100%;" name="unusual"></iframe>
+			</div>
+			
+			<footer class="footer">
+				<h3>技术支持：青海城市云计算大数据技术有限公司</h3>
+				<h3>版权所有：青海省教育厅</h3>
+			</footer>
+		</div>
+        <script src="js/jquery-1.12.1.min.js"></script>
+        <script src="js/Common.js"></script>
+        <script src="js/scroll.js"></script>
+		<script type="text/javascript">
+            //z公告
+            $(document).ready(function () {
+                $("div.roll").myScroll({
+                    speed: 120, //数值越大，速度越慢
+                    rowHeight: 24//li的高度
+                });
+            });
+				$(function () {
+				    $('.Ibox').css('height', '' + ($(window).height() - 200) + 'px');
+				    $(window).on('resize', function () {
+				        $('.Ibox').css('height', '' + ($(window).height() - 200) + 'px');
+				        console.log(11111);
+				    })
+
+				    if(UserList.CountyId==0)
+				    {
+				        $("#nav").click();
+				        $(".IndexIframe").attr("src", "data/data.html");
+				        $("#Poverty").hide();
+
+				    }
+				    else
+				    {
+				        $("#Poverty").click();
+				        $(".IndexIframe").attr("src", "Poverty/poverty_list.html");
+				        $("#s_nav").attr("href", "notice/notice.html");
+				        $(".policy_nav_active").hide();
+				    }
+				    if (UserList.CityId != 0) {
+				        $(".OutSchoolReason").hide();
+				    }
+				    if(UserList.CountyId==0)
+				    {
+				        $("#User").attr("href","user/user_manage.html");
+				    }
+				    else
+				    {
+				        $("#User").attr("href", "user/modify_user.html");
+				    }
+				    $.post(ServiceUrl + "NoticeInterface/PagerHandler.ashx", { pageno: 1, pagesize: 5, ProvinceID: UserList.ProvinceId, CityId: UserList.CityId, CountyId: UserList.CountyId },function(data) {
+				        var result = JSON.parse(data);
+				        if(result!=null)
+				        {
+				            if(result.Result)
+				            {
+				               $(".roll ul").empty();
+				                $(result.Data).each(function () {
+				                    var rollul = $(".roll ul");
+				                    var li = $("<li>").appendTo(rollul);
+				                    var lia = $("<a>").appendTo(li);
+				                    var PostTime = "";
+				                    if (this.PostTime != "" && this.PostTime != null && this.PostTime != undefined) {
+				                        PostTime = new Date(this.PostTime).getFullYear() + "-" + checklength(new Date(this.PostTime).getMonth() + 1) + "-" + checklength(new Date(this.PostTime).getDate());
+				                    }
+				                    $("<text>").appendTo(lia).text(PostTime);
+				                    $("<span>").appendTo(lia).text("|");
+				                    $("<text>").appendTo(lia).text(this.Name);
+				                    lia.attr("href", "notice/notice_info.html?ID=" + this.ID).attr("target", "unusual");
+				                });
+				            }
+				        }
+
+				    });
+				});
+//				二级导航
+				$(".small_nav div ul li a").click(function() {
+					$(".small_nav div ul li a").removeClass("small_nav_active");
+					$(this).addClass("small_nav_active");
+			
+				});
+//				二级导航
+				$(".policy_nav div ul li a").click(function() {
+					$(".policy_nav div ul li a").removeClass("policy_nav_active");
+					$(this).addClass("policy_nav_active");
+			
+				});
+//				导航
+				$(".head div:nth-of-type(2) ul li a").click(function() {
+					$(".head div:nth-of-type(2) ul li a").removeClass("active");
+					$(this).addClass("active");
+			
+				});
+//				二级导航显示
+				$('#nav').click(function() {
+					$('.small_nav').show();
+					$('.policy_nav').hide();
+					$('.affiche').css('margin-top', '5px');
+				})
+				$('.nav2').click(function() {
+					$('.small_nav').hide();
+					$('.affiche').css('margin-top','85px');
+					$('.policy_nav').hide();
+				})
+				
+				$('#s_nav').click(function() {
+					$('.policy_nav').show();
+					$('.small_nav').hide();
+					$('.affiche').css('margin-top', '5px');
+				})
+		</script>
+	</body>
+</html>

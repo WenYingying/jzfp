@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>用户管理-列表</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<div class="index">
+			<!--头部start-->
+			<header>
+				<ul>
+					<li>您好,<span>李先森</span>,欢迎登陆!</li>
+					<li><a href="javascript:void(0)"><i></i>修改密码</a></li>
+					<li><a href="javascript:void(0)"><i></i>退出登录</a></li>
+				</ul>
+				<div>
+					<ul>
+						<li><a href="javascript:void(0)" class="active">数据统计</a></li>
+						<li><a href="javascript:void(0)">精准扶贫</a></li>
+						<li><a href="javascript:void(0)">用户管理</a></li>
+					</ul>
+				</div>
+			</header>
+			<!--头部end-->
+			<!--内容-->
+			<div class="content-wrapper">
+				<div>
+					
+				</div>
+				
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script>
+			
+			 $("header div:nth-of-type(1) ul li a").click(function() {
+				$("header div:nth-of-type(1) ul li a").removeClass("active");
+				$(this).addClass("active");
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,766 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>青海教育精准扶贫大数据平台</title>
+    <meta charset="UTF-8">
+    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <style type="text/css">
+		body{
+			background-color: #f5f5f5;
+			overflow: hidden;
+		}
+		body,footer,header,.sub,.notice{
+			width: 100%;
+		}
+		/*头部 start*/
+		header,footer{
+			background-color: #005982;
+			position: fixed;
+			left: 0;
+			z-index: 10;
+			height: 7.1rem;
+		}
+		.head,.notice>div{
+			width: 59rem;
+			display: block;
+			margin: 0 auto;
+			overflow: hidden;
+			height: 4rem;
+		}
+		.head h1{
+			width: 100%;
+			color: #fff;
+			float: left;
+			font-size: 0.9rem;
+			margin-top: 1rem;
+		}
+		.head h2{
+			color: #fff;
+		    font-size: 0.6rem;
+		    margin-top: 0.5rem;
+		    float: left;
+		}
+		.head>nav{
+			width: 22rem;
+			height: 2rem;
+			line-height: 2rem;
+			float: right;
+		}
+		.head>nav>a{
+			border-radius: 5px 5px 0 0;
+			width: 5.15rem;
+			text-align: center;
+			display: inline-block;
+			color: #fff;
+			font-size: 0.7rem;
+		}
+		.head>nav>a:hover,.head>nav>a.active{
+			background-color: #fafafa;
+			color: #f39800;
+			border-radius: 5px 5px 0 0;
+		}
+		.sub,.notice{
+			height: 1.5rem;
+			border-bottom: 1px solid #CCCCCC;
+			background-color: #fafafa;
+		}
+		.sub>nav{
+			height: 100%;
+			position: relative;
+			top:0;
+			left: 0;
+			width: auto;
+		}
+		.sub>nav>a{
+		    line-height: 1.5rem;
+		    width: 5rem;
+		    color: #999999;
+			font-size: 0.7rem;
+			margin-left: -0.35rem;
+            display:none;
+		}
+		.sub>nav>a.active,.sub>nav>a:hover{color: #f39800;}
+		.sub>nav a i{
+			width: 0.05rem;
+			display: inline-block;
+			margin-right: 1rem;
+		}
+		.notice div>span{
+			width: 4.75rem;
+		    float: left;
+		    color: #ee422f;
+		    font-size: 0.7rem;
+		    line-height: 1.5rem;
+		}
+		.notice ul{
+			color: #999999;
+			width: 52rem;
+		    float: left;
+		    overflow: hidden;
+		    height: 1.5rem;
+		}
+		.notice ul li{
+			line-height: 1.5rem;
+			font-size: 0.7rem;
+		}
+		.notice ul li i{
+			padding: 0 0.7rem;
+			font-size: 0.6rem;
+		}
+		/*footer h1{
+			color: #fff;
+			text-align: center;
+			font-size: 0.6rem;
+			margin-top: 1.5rem;
+			line-height: 1rem;
+		}*/
+		/*尾部 end*/
+           /*弹框*/
+            .household_alert,.poverty_alert,.alert,.add_school,.school_info{
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                background: rgba(0,0,0,0.6);
+                left: 0;
+                top: 0;
+                z-index: 10;
+                display:none;
+             }
+            .poverty_info>h3{
+	            background-color: #fafafa;
+                color: #7a7a7a;
+                font-size: 0.9rem;
+                height:2.25rem;
+                line-height: 2.25rem;
+                text-align: center;
+                border-radius: 5px 5px 0 0;
+                position: fixed;
+                width: 45rem;
+            }
+            .poverty_info>h3>text{
+                font-weight:600;
+            }
+            .poverty_info>h3 a{
+                width: 0.8rem;
+                height: 0.8rem;
+                display: block;
+                position: absolute;
+                top: 0.1rem;
+                right: 3%;
+            }
+             .poverty_top{
+	            width: 100%;
+                display: inline-block;
+                margin-top: 2.25rem;
+                overflow-y:auto;
+                height:23rem;
+                padding-bottom:1rem;
+                vertical-align:top;
+            }
+             .poverty_top .poverty_top_left{
+	            width:94%;
+                margin:0.5rem 1rem;
+	            display: inline-block;
+                vertical-align:top;
+            }
+          
+            .poverty_top .poverty_top_left>h3{
+	            width: 100%;
+                height: 2rem;
+                border-bottom: 1px solid #cccccc;
+                color: #333333;
+                font-size: 0.8rem;
+                line-height: 2rem;
+                font-weight: 600;
+            }
+             .poverty_top .poverty_top_left ul{
+	            width: 100%;
+	            display: block;
+	            overflow: hidden;
+	            margin-top: 0.5rem;
+            }
+             .poverty_top .poverty_top_left ul li{
+	             width: 33%;
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
+            .poverty_top .poverty_top_left ul li span{
+	            display:inline-block;
+                font-size: 0.7rem;
+                color: #808080;
+                margin-right: 0.5rem;
+                width: 30%;
+                font-weight:600;
+                text-align: right;
+            }
+            .poverty_top .poverty_top_left ul li label{
+	                display: inline-block;
+                    font-size: 0.7rem;
+                    color: #808080;
+                    margin-right: 0.5rem;
+                    width: 61%;
+                    vertical-align: top;
+                    margin-top: 0.3rem;
+                    word-wrap: break-word;
+                    word-break: break-all;
+            }
+            .poverty_top .poverty_top_left ul li a{
+	                width: 3.5rem;
+                height: 1.1rem;
+                line-height: 1.1rem;
+                color: #fff;
+                background-color: #7198ba;
+                display: block;
+                text-align: center;
+                border-radius: 3px;
+               display:inline-block;
+               font-size:0.6rem;
+            }
+            .poverty_top .poverty_top_left ul .top_left2{
+	            width: 33% !important;
+	           display:inline-block;
+	
+            }
+             
+            .nam_alert,.poverty_info,.alert>.name_alert{
+				width: 45rem;
+			    height: 26rem;
+			    border-radius: 5px;
+			    background-color: #fff;
+			    margin: 2.5rem auto;
+			    padding-bottom: 0.5rem;
+			}
+			.nam_alert>h1{
+				background-color: #fafafa;
+			    color: #7a7a7a;
+			    font-size: 0.9rem;
+			    height: 2.25rem;
+			    line-height: 2.25rem;
+			    text-align: center;
+			    border-radius: 5px 5px 0 0;
+			    position: fixed;
+			    width: 45rem;
+			}
+			.nam_alert>h1>a{
+				float: right;
+     			margin-right: 0.5rem; 
+			}
+			.nam_alert>.name_box>.middle>.Anmelden>li>div,.nam_alert>.name_box>.middle>div>.Anmelden>li>div{
+                display: inline-block;
+                color: #4f4f4f;
+            }
+           .nam_alert>.name_box{
+            	margin-top: 2.25rem;
+			    height: 23.5rem;
+			    overflow-y: auto;
+			    display: inline-block;
+            }
+             .nam_alert>.name_box>.middle{
+            	padding-bottom: 1rem;
+                vertical-align:top;
+            }
+
+            .nam_alert>.name_box>.middle>.Anmelden>li>span,.nam_alert>.name_box>.middle>div>.Anmelden>li>span{
+            	width: 29%;
+                font-weight:600;
+                margin-right:0.2rem;
+            }
+            .nam_alert>.name_box>.middle>.Anmelden>li,.nam_alert>.name_box>.middle>div>.Anmelden>li{
+                width:33%
+            }
+            .middle>div{
+            	border-bottom: 1px dashed #0193d7;
+            	padding-bottom: 1rem;
+            }
+            .nam_alert>.name_box>.middle>div>.Anmelden>li>div>p{
+                 width:100%;
+                 display:block;
+             }
+            .nam_alert>.name_box>.middle>.Anmelden>li>div,.nam_alert>.name_box>.middle>div>.Anmelden>li>div{
+                width: 68%;
+                vertical-align: top;
+                word-wrap: break-word;
+word-break: break-all;
+            }
+            .nam_alert>.name_box>.middle>div>.Anmelden>li>div>p>text{
+               display:inline-block;
+            }
+	        .nam_alert>.name_box>.middle>div>.Anmelden>li>div>p>span{
+              	display: inline;
+              	margin-left: 1rem;
+           	}
+	        .nam_alert>.name_box>.middle .title{
+	             margin-top: 0;
+	            height: 2rem;
+	            line-height: 2rem;
+	        }
+         	/*贫困调查表下载*/
+	      	.alert>.name_alert> h1 {
+	            width: 99%;
+	            height: 2.2rem;
+	            line-height: 2.2rem;
+	            text-align: center;
+	            color: #333;
+	            background-color: #fafafa;
+	            font-size: 0.8rem;
+	            margin: 0 0.5%;
+	            position: relative;
+	        }
+	        .alert>.name_alert> h1 a {
+	            position: absolute;
+	            top: 0rem;
+	            right: 0.7rem;
+	            display: block;
+	        }
+	        .alert>.name_alert>ul {
+	            width: 100%;
+	            height: 25rem;
+	            overflow-y: auto;
+	            background-color: #fafafa;
+	        }
+	      	.alert>.name_alert>ul li:first-child {
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	        }
+	        .school{
+	        	width: 45rem;
+	        	height: 25rem;
+	        	background-color: #fff;
+	        	border-radius: 5px;
+	        	margin: 3rem auto;
+
+	        }
+	        .school>h1{
+	        	width: 99%;
+	            height: 2.2rem;
+	            line-height: 2.2rem;
+	            text-align: center;
+	            color: #333;
+	            background-color: #fafafa;
+	            font-size: 0.8rem;
+	            margin: 0 0.5%;
+	            position: relative;
+	        }
+	        .school>h1>a{
+	        	position: absolute;
+	            top: 0rem;
+	            right: 0.7rem;
+	            display: block;
+	        }
+	        .school_box>.middle>.Anmelden>li{
+	        	width: 32%;
+	        }
+	        .school_box>.middle>.Anmelden>li>span{
+	        	width: 32%;
+	        }
+	        .school_info .school .school_box>.middle>.Anmelden>li>span{
+	        	width: 33%;
+	        }
+	        .school_box>.middle>.Anmelden>li>div{
+	        	display: inline-block;
+	        	vertical-align: top;
+	        	width: 65%;
+	        }
+            .download {
+                width: 100%;
+                color: #0193de;
+                font-size: 1rem;
+                display: block;
+                margin-top: 0.3rem;
+                text-align: center;
+            }
+    </style>
+</head>
+<body >
+    <header style="top:0;">
+        <div class="head">
+            <h1>青海省教育精准扶贫大数据平台</h1>
+            <h2>Big data platform of education precision poverty relief for QingHai province</h2>
+            <nav>
+            	<a href="Report/age.html" target="Iframe" data-role="ReportLink">扶贫大数据</a> 
+            	<a href="Poverty/Pager.html" target="Iframe" data-role="PovertyLink" style="display:none">精准扶贫</a> 
+            	<a href="Policy/Pager.html" target="Iframe" data-role="PolicyLink">综合管理</a>
+            	<a href="User/UpdatePassword.html" target="Iframe" class="UserLink">用户管理</a> 
+            </nav>
+        </div>
+        <div class="sub">
+        	<nav >
+             	<a class="active" href="Report/age.html" target="Iframe" data-role="Sub_ReportLink"><i class="iconfont">&#xe60b;</i> 年龄指数</a>
+            	<a href="Report/edu.html" target="Iframe" data-role="Sub_ReportLink"><i class="iconfont">&#xe60b;</i> 教育指数</a>
+            	<a href="Report/funds.html" target="Iframe" data-role="Sub_ReportLink"><i class="iconfont" >&#xe60b;</i> 帮扶指数</a>
+                <a href="Report/CheckReport.html" target="Iframe" data-role="Sub_ReportLink"><i class="iconfont">&#xe60b;</i> 复核情况</a>
+             	<a href="Poverty/Pager.html" target="Iframe" data-role="Sub_PovertyLink"><i class="iconfont" >&#xe60b;</i> 扶贫信息</a>
+            	<a  href="Poverty/ExportRecord.html" target="Iframe" data-role="Sub_PovertyLink"><i class="iconfont">&#xe60b;</i> 调查表导出</a>
+                <a href="Poverty/edit_personnel.html" target="Iframe" data-role="Sub_PovertyLink" class="edit_personnel"><i class="iconfont">&#xe60b;</i> 人员操作</a>
+                
+            	<a href="Policy/Pager.html" target="Iframe" data-role="Sub_PolicyLink"><i class="iconfont" >&#xe60b;</i> 政策管理</a>
+             	<a href="OutPreschoolReason/Get.html" target="Iframe" data-role="Sub_PolicyLink" class="outschoolreason"><i class="iconfont" >&#xe60b;</i> 未入学原因</a>
+                <!--<a href="Kindergarten/Pager.html" target="Iframe" data-role="Sub_PolicyLink"><i class="iconfont">&#xe60b;</i>幼儿园管理</a>-->
+            	<a  href="Notice/Pager.html" target="Iframe" data-role="Sub_PolicyLink"><i class="iconfont">&#xe60b;</i> 公告</a>
+            	<!--<a  href="Short_message/Pager.html" target="Iframe" data-role="Sub_PolicyLink"><i class="iconfont">&#xe60b;</i> 短信</a>-->
+
+            	
+        	</nav>
+        </div>
+    	<div class="notice" style="background-color: #fff;">
+	        <div style="height: 1.5rem;">
+	            <span class="iconfont">&#xe608;  最新公告:</span>
+	            <div class="roll">
+	                <ul>
+	                	<li>2016-1-1<i class="iconfont">&#xe60b;</i>精准帮扶大数据平台已经成功上线</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+    </header>
+    <div class="content">
+        <iframe src="about:blank" width="100%" height= "100%" name="Iframe" class="IndexIframe"></iframe>
+    </div>
+    <!--<footer style="background-color: #333333;bottom: 0;height: 4rem;">
+        <h1>技术支持：青海城市云计算大数据技术有限公司<br/> 版权所有：青海省教育厅</h1>
+    </footer>-->
+    <div class="close_top">
+        <a href="javascript:void(0)" onclick="Quit()"><i class="iconfont">&#xe602;</i>退出</a>
+        <a href="javascript:window.frames['Iframe'].window.scrollTo(0, 0);"><i class="iconfont">&#xe603;</i>顶部</a>
+    </div>
+    <div class="poverty_alert">
+        </div>
+    <div class="household_alert">
+    </div>
+   	<div class="add_school">
+   		<div class="school">
+   			<h1>
+   				添加学校
+   				<a href="javascript:void(0)" class="iconfont school_close">&#xe60e;</a>
+   			</h1>
+   			<div class="school_box" style="overflow-y:auto;width:100%;height:22.5rem;">
+   				<div class="middle">
+   					<h1 class="title" style="height: 1.5rem; line-height: 1.5rem; font-size: 0.7rem;">添加信息</h1>
+   					<ul class="Anmelden">
+   						<li>
+   							<span>幼儿园名称:</span>
+   							<input type="text" name="" id="school_Name" value="" placeholder="输入幼儿园名称"/>
+                            <input type="text" name="" id="school_Id" value=""hidden />
+   						</li>
+   						<li>
+   							<span>学校性质:</span>
+   							<select>
+   								<option value="True">公办</option>
+   								<option value="False">民办</option>
+   							</select>
+   						</li>
+   						<br />
+   						<li>
+   							<span>选择市:</span>
+   							<select id="school_dlCity">
+   								<option value="0">选择市/州</option>
+   							</select>
+   						</li>
+   						<li>
+   							<span>选择县:</span>
+   							<select id="school_dlCounty">
+   								<option value="0">选择县/镇</option>
+   							</select>
+   						</li>
+   						<li>
+   							<span>选择乡:</span>
+   							<select id="school_dlCountrySide">
+   								<option value="0">选择乡/街道</option>
+   							</select>
+   						</li>
+   						<li>
+   							<span>选择村:</span>
+   							<select id="school_dlVillage">
+   								<option value="0">选择村</option>
+   							</select>
+   						</li>
+   						<li>
+   							<span>详细地址:</span>
+   							<input type="text" name=""  id="school_Address" value="" placeholder="输入幼儿园详细地址"/>
+   						</li>
+   						<li>
+   							<span>建园时间:</span>
+   							<input name="" id="school_SetupTime" class="Wdate" type="text" onclick="WdatePicker()" placeholder="选择建园时间" readonly="readonly">
+   						</li>
+   						<li>
+   							<span>班级规模:</span>
+   							<input type="number" name=""  id="school_ClassSize" value="" placeholder="请输入班级规模" />
+   						</li>
+   						<li>
+   							<span>在校人数:</span>
+   							<input type="number" name=""   id="school_StuEnrollment" value="" placeholder="请输入园内儿童" />
+   						</li>
+   						<li>
+   							<span>教师人数:</span>
+   							<input type="number" name=""   id="school_TchEnrollment" value="" placeholder="请输入老师人数" />
+   						</li>
+   						<li style="width: 100%;">
+   							<span style="width: 4.2rem;">简介:</span>
+   							<textarea style="width:35.8rem;max-width:35.8rem;height:18rem;max-height:18rem;" id="school_detail"></textarea>   						
+   						</li>
+
+   					</ul>
+   					<div class="btn" style="width: 100%;text-align:center;margin: 1rem 0 0 0;border-bottom:none;">
+                        <a href="javascript:void(0)" id="school_Add" >确认</a>
+                        <a href="javascript:void(0)" id="school_cancel">取消</a>
+					</div>
+   				</div>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="school_info">
+   		<div class="school" style="height: 18rem;margin-top: 4rem;">
+   			<h1>
+   				幼儿园详情
+   				<a href="javascript:void(0)" class="iconfont school_close">&#xe60e;</a>
+   			</h1>
+   			<div class="school_box" style="overflow-y:auto;width:100%;height:15.5rem;">
+   				<div class="middle">
+   					<h1 class="title" style="height: 1.5rem; line-height: 1.5rem; font-size: 0.7rem;">信息</h1>
+   					<ul class="Anmelden">
+   						<li>
+   							<span>幼儿园名称:</span>
+   							<div>青海音协爱乐幼儿园</div>
+   						</li>
+   						<li>
+   							<span>建园时间:</span>
+   							<div>2016-09-09</div>
+   						</li>
+   						<li>
+   							<span>标准化幼儿园:</span>
+   							<div>是</div>
+   						</li>
+   						<li>
+   							<span>园内儿童:</span>
+   							<div>222人</div>
+   						</li>
+   						<li>
+   							<span>班级规模:</span>
+   							<div>21</div>
+   						</li>
+   						<li>
+   							<span>老师人数:</span>
+   							<div>23人</div>
+   						</li>
+   						<br />
+   						<li style="width: 100%;">
+   							<span style="width: 10.5%;">详细地址:</span>
+   							<div style="width: 89%;">青海音协青海音协爱乐幼儿园</div>
+   						</li>
+   						<li style="width: 100%;">
+   							<span style="width: 10.5%;">幼儿园介绍:</span>
+   							<div style="width: 89%;">该单位位于青海省西宁市城中区南大街建材巷9号欢迎来我单位了解具体业务，主要服务范围是幼儿园教育、校外艺术教育和服务</div>
+   						</li>
+   					</ul>
+   				</div>
+   			</div>
+   		</div>
+   	</div>
+    <div class="alert">
+        <div class="name_alert">
+            <h1>贫困调查表下载<a class="iconfont close" href="javascript:void(0)">&#xe60e;</a></h1>
+            <div class="middle">
+                <h1 class="title" style="height: 2rem;line-height: 2rem;font-size: 0.7rem;">导出信息</h1>
+                <div class="cont_list exportlist" style="position: relative;">
+                    <ul style="overflow-y:auto;height:19rem;">
+                        <li style="position:absolute;width:100%;">
+                            <div style="width: 6%;">
+                                <input type="checkbox" name="checkalldown" id="" value="" />
+                            </div>
+                            <div style="width: 6%;">序列</div>
+                            <div style="width: 39%;">文件名称</div>
+                            <div style="width: 12%;">户主姓名</div>
+                            <div style="width: 23%;">户主身份证</div>
+                            <div style="width: 8%;">下载</div>
+                        </li>
+                    </ul>
+                    <a href="javascript:void(0)" class="download iconfont">&#xe612;全部下载</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="js/My97DatePicker/WdatePicker.js" ></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.close').click(function () {
+                $('.alert').hide();
+            });
+            $(".school_close").click(function () {
+                $(".add_school").hide();
+            });
+            $("#school_cancel").click(function () {
+                $(".add_school").hide();
+            });
+            //document.getElementById("mainIframe").document.
+            var ServiceUrl = "http://open.joybom.com/";
+            //var ServiceUrl = "http://localhost:11464/";
+            var UserList = {};
+            //验证登录
+            var str = localStorage.getItem("qhfp_user");
+            if (str != "" && str != null && str != undefined && str != "null") {
+                UserList = str = JSON.parse(str);
+                var d = new Date(str.LoginTime);
+                d.setDate(d.getDate() + 1);
+                var nowdate = new Date();
+                if (d < nowdate) {
+                    window.location.href = "../login.html";
+                }
+            }
+            else {
+                window.location.href = "../login.html";
+            }
+           
+            if (UserList.CountrySideId != 0)
+            {
+                $("a[data-role='ReportLink']").css("display", "none");
+                $("a[data-role='PolicyLink']").css("display", "none");
+                $(".UserLink").attr("href", "User/UpdatePassword.html");
+                $("a[data-role='PovertyLink']").css("display", "inline-block");
+                
+            }
+            else if (UserList.CountrySideId == 0 && UserList.CountyId != 0)
+            {
+                $("a[data-role='PovertyLink']").css("display", "inline-block");
+            }
+            if (UserList.CityId == 0)
+            {
+                $(".UserLink").attr("href", "User/Pager.html");
+            }
+            if (UserList.CityId != 0 || UserList.CountyId != 0)
+            {
+                $(".outschoolreason").remove();
+            }
+//  			导航
+			$(".head>nav>a").click(function() {
+				$(this).addClass("active").siblings("a").removeClass("active");
+				$(".sub>nav>a").hide();
+				if($(this).attr("data-role")==undefined)
+				{
+					return true;
+				}
+				$(".sub>nav>a[data-role='Sub_" + $(this).attr("data-role") + "']").css("display", "inline-block")[0].click();
+				if ($(this).attr("data-role") == "PovertyLink")
+				{
+				    if (UserList.IsModify != "True") {
+				        $(".edit_personnel").hide();
+				    }
+				}
+				$(".sub>nav").offset({left:$(this).offset().left});
+			});
+			if (UserList.CountyId != 0) {
+			    $("a[data-role='PovertyLink']").click();
+			}
+			else {
+			    $("a[data-role='ReportLink']").click();
+			}
+
+			$(".sub>nav>a").click(function(){
+				$(this).addClass("active").siblings("a").removeClass("active");
+			});
+			$('.IndexIframe').css('height', '' + ($(window).height() - 135) + 'px');
+		    $(window).on('resize', function () {
+		        $('.IndexIframe').css('height', '' + ($(window).height() - 135) + 'px');
+		    })
+//          公告
+            $("div.roll").myScroll({
+                speed: 120, //数值越大，速度越慢
+                rowHeight: 25//li的高度
+            });
+            $.post(ServiceUrl + "NoticeInterface/PagerHandler.ashx", { pageno: 1, pagesize: 5, ProvinceID: UserList.ProvinceId, CityId: UserList.CityId, CountyId: UserList.CountyId }, function (data) {
+                var result = JSON.parse(data);
+                if (result != null) {
+                    if (result.Result) {
+                        $(".roll ul").empty();
+                        $(result.Data).each(function () {
+                            var rollul = $(".roll ul");
+                            var li = $("<li>").appendTo(rollul);
+                            var lia = $("<a>").appendTo(li).prop("href","javascript:void(0)");
+                            var PostTime = "";
+                            if (this.PostTime != "" && this.PostTime != null && this.PostTime != undefined) {
+                                PostTime = new Date(this.PostTime).getFullYear() + "-" + checklength(new Date(this.PostTime).getMonth() + 1) + "-" + checklength(new Date(this.PostTime).getDate());
+                            }
+                            var noticeId=this.ID;
+                            $("<text>").appendTo(lia).text(PostTime);
+                            $("<span>").appendTo(lia).text("|");
+                            $("<text>").appendTo(lia).text(this.Name);
+                            lia.click(function () {
+                                $(".IndexIframe").prop("src", "Notice/Detail.html?ID=" + noticeId);
+                                $(".IndexIframe").reload();
+                            });
+                            lia.attr("target", "unusual");
+                        });
+                    }
+                }
+
+            });
+            function checklength(str) {
+                if (str.toString().length < 2) {
+                    return "0" + str;
+                }
+                else {
+                    return str;
+                }
+            }
+		});
+		(function($){
+			$.fn.myScroll = function(options){
+			//默认配置
+			var defaults = {
+				speed:40,  //滚动速度,值越大速度越慢
+				rowHeight:24 //每行的高度
+			};
+			
+			var opts = $.extend({}, defaults, options),intId = [];
+			
+			function marquee(obj, step){
+			
+				obj.find("ul").animate({
+					marginTop: '-=1'
+				},0,function(){
+						var s = Math.abs(parseInt($(this).css("margin-top")));
+						if(s >= step){
+							$(this).find("li").slice(0, 1).appendTo($(this));
+							$(this).css("margin-top", 0);
+						}
+					});
+				}
+				
+				this.each(function(i){
+					var sh = opts["rowHeight"],speed = opts["speed"],_this = $(this);
+					intId[i] = setInterval(function(){
+						if(_this.find("ul").height()<=_this.height()){
+							clearInterval(intId[i]);
+						}else{
+							marquee(_this, sh);
+						}
+					}, speed);
+		
+					_this.hover(function(){
+						clearInterval(intId[i]);
+					},function(){
+						intId[i] = setInterval(function(){
+							if(_this.find("ul").height()<=_this.height()){
+								clearInterval(intId[i]);
+							}else{
+								marquee(_this, sh);
+							}
+						}, speed);
+					});
+				
+				});
+		
+			}
+		
+		})(jQuery);
+		function Quit()
+		{
+		    localStorage.setItem('qhfp_user', null);
+		    window.location.href = "login.html";
+		}
+    </script>
+</body>
+</html>

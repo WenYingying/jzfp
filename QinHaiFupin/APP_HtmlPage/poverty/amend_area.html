@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改地区</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.household_info>div {
+			    width: 100%;
+			    border-bottom: 1px solid #ccc;
+			}
+			.household_info li a.iconfont{
+				color: #999999;
+    			font-size: 0.8rem;
+			}
+            .active a{
+				color: #0075a9 !important;
+			}
+			li>a.box{
+				color: #999;
+			    font-size: 0.7rem;
+			    width: 68%;
+			    display: inline-block;
+			    max-width: 73%;
+			    vertical-align: top;
+			    margin-left: 1rem;
+			}
+			li>a.box>.right{
+				margin-left: 0;
+				max-width: 86%;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<h2>地址信息</h2>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li class="position">
+		             	当前户主:
+		         	<label></label>
+            	</li>
+				<li class="household_info">
+					<div>
+						<ul>
+							<li  data-role="city" class="area">
+								<label class="left">市/州</label>
+								<span class="right"></span>
+                                <input type="hidden" value="0" />
+								<a class="iconfont">&#xe610;</a>
+							</li>
+							<li  data-role="county" class="area">
+								<label class="left">县/区</label>
+								<span class="right"></span>
+                                <input type="hidden" value="0" />
+								<a class="iconfont">&#xe610;</a>
+							</li>
+							<li  data-role="countryside" class="area">
+								<label class="left">乡/镇</label>
+								<span class="right"></span>
+                                <input type="hidden" value="0" />
+								<a class="iconfont">&#xe610;</a>
+							</li>
+							<li  data-role="village" class="area">
+								<label class="left">村/居委会</label>
+								<span class="right"></span>
+                                <input type="hidden" value="0" />
+								<a class="iconfont">&#xe610;</a>
+							</li>
+							<li class="multi-line" data-role="address">
+								<label class="left">详细地址</label>
+								<a class="iconfont box" >
+                                    <span class="right"></span>
+                                    &#xe610;
+                                </a>
+                                <div class="hide" style="display: none;width: 75%;">
+                                    <input name="" id="" value="" class="ipt_right" placeholder="详细地址" style="width: 65%;"/>
+                                    <a class="iconfont affirm">&#xe604;</a>
+                                    <a class="iconfont close" style="margin-top: 0.2rem;">&#xe608;</a>
+                                </div>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+        <div class="cause_alert2">
+            <div>
+                <h1 class="cause_tit">
+                    <label></label>
+                    <a href="javascript:void(0)" class="iconfont close">&#xe608;</a> 
+                </h1>
+                <ul>
+
+                </ul>
+                <div class="cause_btn">
+                    <a href="javascript:void(0)" class="cancel">取消</a>
+                    <a href="javascript:void(0)" class="active add">确定</a>
+                </div>
+            </div>
+        </div>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+        <script src="../js/common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                IsLogin();
+                var houseid = GetQueryString("houseid");
+                var housename = unescape(GetQueryString("name"));
+                $(".position>label").text(housename);
+                $("[data-role='city']>span").text(unescape(GetQueryString("cityname")));
+                $("[data-role='city']>input").val(GetQueryString("cityid"));
+                $("[data-role='county']>span").text(unescape(GetQueryString("countyname")));
+                $("[data-role='county']>input").val(GetQueryString("countyid"));
+                $("[data-role='countryside']>span").text(unescape(GetQueryString("countrysidename")));
+                $("[data-role='countryside']>input").val(GetQueryString("countrysideid"));
+                $("[data-role='village']>span").text(unescape(GetQueryString("villagename")));
+                $("[data-role='village']>input").val(GetQueryString("villageid"));
+                $("[data-role='address']>span").text(unescape(GetQueryString("address")));
+                $("[data-role='address']>input").val(GetQueryString("address"));
+                $(".household_info a.box").click(function () {
+
+                    $(this).hide();
+                    $(this).siblings(".hide").css("display", "inline-block");
+                });
+                $(".household_info .close").click(function () {
+                    $(this).parent("div").hide();
+                    $(this).parent("div").siblings("a.box").css("display", "inline-block");
+                });
+                //区域
+                $(".area").click(function () {
+                    var This = this;
+                    var currentid = $(this).children("input");
+                    $(".cause_alert2>div>h1>label").empty();
+                    $(".cause_alert2>div>ul").empty();
+                    $(".cause_alert2 .cause_btn").hide();
+                    $(".cause_alert2").show();
+                    switch($(this).attr("data-role")) {
+                        case "city":
+                            $(".cause_alert2>div>h1>label").text("选择市/州");
+                            $.post(sysConfig.serviceUrl + "CityInterface/GetHandler.ashx", { "ProvinceID": 29 }, function (res) {
+                                var json = JSON.parse(res);
+                                if (json.Result) {
+                                    $(json.Data).each(function () {
+                                        var li = $("<li>").appendTo(".cause_alert2>div>ul").attr("data-val", this.ID);
+                                        $("<a>").appendTo(li).prop("href", "javascript:void(0)").text(this.Name);
+                                        if (currentid.val() == this.ID) {
+                                            li.addClass("active").siblings().removeClass("active");
+                                        }
+                                        li.click(function () {
+                                            $(this).addClass("active").siblings("li").removeClass("active");
+                                            if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                                $("[data-role='county']").children("span").text("请选择");
+                                                $("[data-role='county']").children("input").val(0);
+                                                $("[data-role='countryside']").children("span").text("请选择");
+                                                $("[data-role='countryside']").children("input").val(0);
+                                                $("[data-role='village']").children("span").text("请选择");
+                                                $("[data-role='village']").children("input").val(0);
+                                            }
+                                            $(This).children("input").val($(this).attr("data-val"));
+                                            $(This).children("span").text($(this).text());
+                                            $(".cause_alert2").hide();
+                                        });
+                                    });
+                                }
+                            });
+                            break;
+                        case "county":
+                            $(".cause_alert2>div>h1>label").text("选择县/区");
+                            var cityid = $("[data-role='city']").children("input").val();
+                            if (cityid > 0) {
+                                $.post(sysConfig.serviceUrl + "CountyInterface/GetHandler.ashx", { "CityId": cityid }, function (res) {
+                                    var json = JSON.parse(res);
+                                    if (json.Result) {
+                                        $(json.Data).each(function () {
+                                            var li = $("<li>").appendTo(".cause_alert2>div>ul").attr("data-val", this.ID);
+                                            $("<a>").appendTo(li).prop("href", "javascript:void(0)").text(this.Name);
+                                            if (currentid.val() == this.ID) {
+                                                li.addClass("active").siblings().removeClass("active");
+                                            }
+                                            li.click(function () {
+                                                $(this).addClass("active").siblings("li").removeClass("active");
+                                                if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                                    $("[data-role='countryside']").children("span").text("请选择");
+                                                    $("[data-role='countryside']").children("input").val(0);
+                                                    $("[data-role='village']").children("span").text("请选择");
+                                                    $("[data-role='village']").children("input").val(0);
+                                                }
+                                                $(This).children("input").val($(this).attr("data-val"));
+                                                $(This).children("span").text($(this).text());
+                                                $(".cause_alert2").hide();
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                            break;
+                        case "countryside":
+                            $(".cause_alert2>div>h1>label").text("选择乡/镇");
+                            var countyid = $("[data-role='county']").children("input").val();
+                            if (countyid > 0) {
+                                $.post(sysConfig.serviceUrl + "CountrysideInterface/GetHandler.ashx", { "CountyId": countyid }, function (res) {
+                                    var json = JSON.parse(res);
+                                    if (json.Result) {
+                                        $(json.Data).each(function () {
+                                            var li = $("<li>").appendTo(".cause_alert2>div>ul").attr("data-val", this.ID);
+                                            $("<a>").appendTo(li).prop("href", "javascript:void(0)").text(this.Name);
+                                            if (currentid.val() == this.ID) {
+                                                li.addClass("active").siblings().removeClass("active");
+                                            }
+                                            li.click(function () {
+                                                $(this).addClass("active").siblings("li").removeClass("active");
+                                                if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                                    $("[data-role='village']").children("span").text("请选择");
+                                                    $("[data-role='village']").children("input").val(0);
+                                                }
+                                                $(This).children("input").val($(this).attr("data-val"));
+                                                $(This).children("span").text($(this).text());
+                                                $(".cause_alert2").hide();
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                            break;
+                        case "village":
+                            $(".cause_alert2 .cause_btn").show();
+                            $(".cause_alert2>div>h1>label").text("选择村/居委会");
+                            var countysideid = $("[data-role='countryside']").children("input").val();
+                            if (countysideid > 0) {
+                                $.post(sysConfig.serviceUrl + "VillageInterface/GetHandler.ashx", { "CountrysideId": countysideid }, function (res) {
+                                    var json = JSON.parse(res);
+                                    if (json.Result) {
+                                        $(json.Data).each(function () {
+                                            var li = $("<li>").appendTo(".cause_alert2>div>ul").attr("data-val", this.ID);
+                                            $("<a>").appendTo(li).prop("href", "javascript:void(0)").text(this.Name);
+                                            if (currentid.val() == this.ID) {
+                                                li.addClass("active").siblings().removeClass("active");
+                                            }
+                                            li.click(function () {
+                                                $(this).addClass("active").siblings("li").removeClass("active");
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                            break;
+                    }
+
+                });
+                $(".cause_alert2 .cancel").click(function () {
+                    $(".cause_alert2").hide();
+                });
+                $(".cause_alert2 .close").click(function () {
+                    $(".cause_alert2").hide();
+                });
+                $(".cause_alert2 .add").click(function () {
+                    var villageId = $(".cause_alert2>div>ul>.active").attr("data-val");
+                    var villagename = $(".cause_alert2>div>ul>.active>a").text();
+                    if (villageId == "" || villageId == undefined || villageId == null || villageId == NaN || villageId == "null")
+                    {
+                        alert("请先选择市/州、县/区、乡/镇");
+                        return false;
+                    }
+                    $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateVillageIdByHolderHandler.ashx", { HouseholderId: houseid, VillageId: villageId }, function (res) {
+                        var json = JSON.parse(res);
+                        if(json.Result)
+                        {
+                            alert(json.Message);
+                            $("[data-role='village']").children("span").text(villagename);
+                            $("[data-role='village']").children("input").val(villageId);
+                            $(".cause_alert2").hide();
+                        }
+                        else
+                        {
+                            alert("修改失败");
+                        }
+                    });
+                });
+                $(".hide .close").click(function () {
+                    $(this).parent("div").hide();
+                    $(this).parent("div").siblings("a").css("display", "inline-block");
+                });
+                $("[data-role='address'] .affirm").click(function () {
+                    var address = $(this).siblings("input").val();
+                    var This = $(this);
+                    if(address=="")
+                    {
+                        alert("请输入详细地址");
+                        return false;
+                    }
+                    $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateAddressByHolderHandler.ashx", { HouseholderId: houseid, Address: address }, function (res) {
+                        var json = JSON.parse(res);
+                        if (json.Result) {
+                            alert(json.Message);
+                            This.parent("div").hide();
+                            This.parent("div").siblings("a").children("span").text(address);
+                            This.parent("div").siblings("a").css("display", "inline-block");
+                        }
+                        else {
+                            alert("修改失败");
+                        }
+                    });
+                });
+            });
+        </script>
+	</body>
+</html>

@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加成员</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.content .left{
+				vertical-align: middle;
+			}
+			input[type="search"]{
+				height: 1.5rem;
+			    line-height: 1.5rem;
+			    width: 75%;
+			    border: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<h2>添加成员</h2>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li class="position">
+					当前户主:
+					<label>李卓</label>
+				</li>
+				<li class="household_info" style="border-bottom: 1px solid #cccccc;">
+					<div>
+						<ul>
+							<li>
+								<label class="left">证件号码</label>
+								<input type="search" name="" id="IdCardNo" value=""  placeholder="请输入添加的人员身份证号码">
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="btn">
+	                <a class="btn-login" href="javascript:void(0)" style="margin-top: 4.25rem;">添加到本户</a>
+	            </li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+        <script src="../js/common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                IsLogin();
+                var houseid = GetQueryString("houseid");
+                var name = unescape(GetQueryString("name"));
+                $(".position>label").text(name);
+                $(".btn-login").click(function () {
+                    var IdCardNo = $("#IdCardNo").val();
+                    if(IdCardNo=="")
+                    {
+                        alert("请输入身份证号");
+                        return false;
+                    }
+                    //if(!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(IdCardNo))
+                    //{
+                    //    alert("请输入正确的身份证号");
+                    //    return false;
+                    //}
+                    $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/GetHandler.ashx", { IdCardNo: IdCardNo }, function (res) {
+                        var json = JSON.parse(res);
+                        if (json.Result) {
+                            if (json.Data.length > 0) {
+                                $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateHouseholderIdHandler.ashx", { ID: json.Data[0].ID, HouseholderId: houseid }, function (res1) {
+                                    var json1 = JSON.parse(res1);
+                                    if (json1.Result) {
+                                        window.location.href = "personnel_info.html?id=" + json.Data[0].ID;
+                                    }
+                                    else {
+                                        alert("操作失败，请重试");
+                                        return false;
+                                    }
+                                });
+                            }
+                            else {
+                                alert("用户不存在，请重新输入");
+                                return false;
+                            }
+
+                        }
+                        else {
+                            alert("获取失败");
+                            return false;
+                        }
+                    });
+                });
+              
+
+            });
+		</script>
+	</body>
+</html>

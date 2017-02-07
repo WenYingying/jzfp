@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>公告详情页</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			.empty{
+				color: #b3b3b3;
+				font-weight: 100;
+			}
+			.policy_box>h3>b{
+				font-weight: 100;
+				color: #333333;
+				float: right;
+				margin: 0.2rem 0.8rem 0 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="cont_box">
+				<div class="middle">
+					<h1 class="title">公告详情页</h1>
+					<ul class="tit_search">
+                        <li>
+                            <a class="a_search" href="javascript:void(0)" onclick="window.history.go(-1)">返回</a>
+                        </li>
+                    </ul>
+					<div id="PolicyList">
+						<div class="policy_box">
+                    		<h3><text id="Region"></text><text id="Name"></text>
+                    			
+                    			<b>发表时间:<text id="PostTime"></text></b>
+                    		</h3>
+                    		<p id="Detail">
+                    		</p>
+                    	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+        <script>
+            $(function () {
+                var ID = getUrlParam("ID");
+                if(ID==null)
+                {
+                    alert("对不起，不能查看");
+                    window.location.href = "../login.html";
+                    return;
+                }
+                $.post(ServiceUrl + "NoticeInterface/GetHandler.ashx", { ID: ID }, function (data) {
+                    var result = JSON.parse(data);
+                    if(result!=null)
+                    {
+                        if(result.Result)
+                        {
+                            if(result.Data.length>0)
+                            {
+                                var RegionName="";
+                                if (result.Data[0].CountyName != "" && result.Data[0].CountyName !=null)
+                                {
+                                    RegionName = result.Data[0].CountyName;
+                                }
+                                else if (result.Data[0].CountyName == "" && result.Data[0].CityName != "")
+                                {
+                                    RegionName = result.Data[0].CityName;
+                                }
+                                else
+                                {
+                                    RegionName="青海省"
+                                }
+                                $("#Region").text("【" + RegionName + "】")
+                                $("#Name").text(result.Data[0].Name);
+                                $("#Detail").html(result.Data[0].Detail);
+                                var PostTime = "";
+                                if (result.Data[0].PostTime != null && result.Data[0].PostTime != undefined && result.Data[0].PostTime != "") {
+                                    PostTime = new Date(result.Data[0].PostTime).getFullYear() + "-" + checklength(new Date(result.Data[0].PostTime).getMonth() + 1) + "-" + checklength(new Date(result.Data[0].PostTime).getDate());
+                                }
+                                $("#PostTime").text(PostTime);
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\bin\Release\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\bin\Release\AbstractFactory.pdb
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.csprojResolveAssemblyReference.cache
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.pdb
+D:\WorkStation\教育扶贫项目\QinHaiFupin\AbstractFactory\bin\Release\AbstractFactory.dll
+D:\WorkStation\教育扶贫项目\QinHaiFupin\AbstractFactory\bin\Release\AbstractFactory.pdb
+D:\WorkStation\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.csprojResolveAssemblyReference.cache
+D:\WorkStation\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.dll
+D:\WorkStation\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.pdb
+E:\教育扶贫项目\QinHaiFupin\AbstractFactory\bin\Release\AbstractFactory.dll
+E:\教育扶贫项目\QinHaiFupin\AbstractFactory\bin\Release\AbstractFactory.pdb
+E:\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.csprojResolveAssemblyReference.cache
+E:\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.dll
+E:\教育扶贫项目\QinHaiFupin\AbstractFactory\obj\Release\AbstractFactory.pdb

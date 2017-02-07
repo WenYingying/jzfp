@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改贫困信息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.household_info>div {
+			    width: 100%;
+			    border-bottom: 1px solid #ccc;
+			}
+			.household_info li a.iconfont{
+				color: #999999;
+    			font-size: 0.8rem;
+			}
+			.active a{
+				color: #0075a9 !important;
+			}
+			.active{
+				color: #0075a9 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<h2>修改贫困信息</h2>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li class="position">
+		             	当前户主:
+		         	<label></label>
+            	</li>
+				<li class="household_info">
+					<div>
+						<ul>
+							<li class="cause" data-val="1">
+								<label class="left">贫困原因</label>
+								<span class="right">缺技术</span>
+								<a class="iconfont">&#xe610;</a>
+							</li>
+							<li class="attribute" data-val="2">
+								<label class="left">贫困属性</label>
+								<span class="right">一般贫困户</span>
+								<a class="iconfont">&#xe610;</a>
+							</li>
+							<li class="criterion" data-val="3">
+								<label class="left">识别标准</label>
+								<span class="right">国家标准</span>
+								<a class="iconfont">&#xe610;</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="cause_alert" style="display: none;" data-parent="1">
+			<div>
+				<h1 class="cause_tit">
+						贫困原因
+				</h1>
+				<ul>
+					
+					<li>
+						<input type="checkbox" name="" id="" value="因病" />
+						因病
+					</li>
+					<li>
+						<input type="checkbox" name="" id="" value="因残" />
+						因残
+					</li>
+					<li>
+						<input type="checkbox" name="" id="" value="因学" />
+                        因学
+					</li>
+					<li>
+						<input type="checkbox" name="" id="" value="因灾" />
+                        因灾
+					</li>
+					<li>
+						<input type="checkbox" name="" id="" value="缺技术" />
+                        缺技术
+					</li>
+					<li>
+						<input type="checkbox" name="" id="" value="缺水" />
+                        缺水
+					</li>
+                    <li>
+                        <input type="checkbox" name="" id="" value="缺资金" />
+                        缺资金
+                    </li>
+					<li>
+						<input type="checkbox" name="" id="" value="缺劳力" />
+                        缺劳力
+					</li>
+					<li>
+						<input type="checkbox" name="" id="" value="交通条件落后" />
+                        交通条件落后
+					</li>
+                    <li>
+                        <input type="checkbox" name="" id="" value="自身发展力不足" />
+                        自身发展力不足
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="" value="其他" />
+                        其他
+                    </li>
+				</ul>
+				<div class="cause_btn">
+					<a href="javascript:void(0)" class="cancel">取消</a>
+					<a href="javascript:void(0)" class="active add">确定</a>
+				</div>
+			</div>
+		</div>
+		<div class="cause_alert2" data-parent="2">
+			<div>
+				<h1 class="cause_tit">
+					贫困属性
+				</h1>
+				<ul>
+					<li>
+						<a href="javascript:void(0)">一般贫困户</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">低保户</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">低保贫困户</a>
+					</li>
+				</ul>
+				<div class="cause_btn">
+					<a href="javascript:void(0)" class="cancel">取消</a>
+					<a href="javascript:void(0)" class="active add">确定</a>
+				</div>
+			</div>
+		</div>
+		<div class="cause_alert2" data-parent="3">
+			<div>
+				<h1 class="cause_tit">
+					识别标准
+				</h1>
+				<ul>
+					<li>
+						<a href="javascript:void(0)">国家标准</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">省级标准</a>
+					</li>
+				</ul>
+				<div class="cause_btn">
+					<a href="javascript:void(0)" class="cancel">取消</a>
+					<a href="javascript:void(0)" class="active add">确定</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+        <script src="../js/common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                IsLogin();
+                var houseid = GetQueryString("houseid");
+                var housename = unescape(GetQueryString("name"));
+                $(".position>label").text(housename);
+			    //填充数据
+			    $("[data-val='1']>span").text(unescape(GetQueryString("povertyreason")));
+			    $("[data-val='2']>span").text(unescape(GetQueryString("povertyproperties")));
+			    $("[data-val='3']>span").text(unescape(GetQueryString("discerningstandards")));
+			    $(".household_info li").click(function () {
+			        $("[data-parent='" + $(this).attr("data-val") + "']").css("display", "inline-block");
+			        var houseli=$(this);
+			        switch($(this).attr("data-val"))
+			        {
+			            case "1":
+			                $("[data-parent='1']>div>ul>li>input").prop("checked", false);
+			                $($(this).children("span").text().split(',')).each(function () {
+			                    $("[data-parent='1']>div>ul>li>input[value='" + this.toString() + "']").prop("checked", "checked");
+			                });
+			                break;
+			            case "2":
+			                $("[data-parent='2']>div>ul>li").removeClass("active");
+			                $("[data-parent='2']>div>ul>li>a").each(function () {
+			                    if($(this).text()==houseli.children("span").text())
+			                    {
+			                        $(this).parent("li").addClass("active");
+			                    }
+			                });
+			                break;
+			            case "3":
+			                $("[data-parent='3']>div>ul>li").removeClass("active");
+			                $("[data-parent='3']>div>ul>li>a").each(function () {
+			                    if ($(this).text() == houseli.children("span").text()) {
+			                        $(this).parent("li").addClass("active");
+			                    }
+			                });
+			                break;
+			        }
+
+			    });
+			    $(".cause_btn a").click(function () {
+			        $(this).addClass("active").siblings("a").removeClass("active");
+
+			    });
+			    $(".add").click(function () {
+			        switch($(this).parent("div").parent("div").parent("div").attr("data-parent"))
+			        {
+			            case "1":
+			                var povertyreson = "";
+			                $(this).parent("div").siblings("ul").children("li").children("input").each(function () {
+			                    if($(this).is(":checked"))
+			                    {
+			                        povertyreson += $(this).val() + ",";
+			                    }
+			                });
+			                if (povertyreson.length > 1) {
+			                    povertyreson = povertyreson.substring(0, povertyreson.length - 1);
+			                }
+			                else {
+			                    alert("请选择贫困原因");
+			                    return false;
+			                }
+			                $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdatePovertyReasonByHolderHandler.ashx", { HouseholderId: houseid, PovertyReason: povertyreson }, function (res) {
+			                    var json = JSON.parse(res);
+			                    if(json.Result)
+			                    {
+			                        alert(json.Message);
+			                        $("[data-val='1']>span").text(povertyreson);
+			                        $("[data-parent='1']").hide();
+			                    }
+			                    else {
+			                        alert("修改失败");
+			                    }
+			                });
+			                break;
+			            case "2":
+			                var povertyproperties = $(this).parent("div").siblings("ul").children(".active").children("a").text();
+			                $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdatePovertyPropertiesByHolderHandler.ashx", { HouseholderId: houseid, PovertyProperties: povertyproperties }, function (res) {
+			                    var json = JSON.parse(res);
+			                    if (json.Result) {
+			                        alert(json.Message);
+			                        $("[data-val='2']>span").text(povertyproperties);
+			                        $("[data-parent='2']").hide();
+			                    }
+			                    else {
+			                        alert("修改失败");
+			                    }
+			                });
+			                break;
+			            case "3":
+			                var discerningstandards = $(this).parent("div").siblings("ul").children(".active").children("a").text();
+			                $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateDiscerningStandardsByHolderHandler.ashx", { HouseholderId: houseid, DiscerningStandards: discerningstandards }, function (res) {
+			                    var json = JSON.parse(res);
+			                    if (json.Result) {
+			                        alert(json.Message);
+			                        $("[data-val='3']>span").text(discerningstandards);
+			                        $("[data-parent='3']").hide();
+			                    }
+			                    else {
+			                        alert("修改失败");
+			                    }
+			                });
+			                break;
+			        }
+			    });
+			    $(".cancel").click(function () {
+			        $(".cause_alert").hide();
+			        $(".cause_alert2").hide();
+			        $(".cause_alert3").hide();
+
+			    });
+			    $(".cause_alert2 li").click(function () {
+			        $(this).addClass("active").siblings("li").removeClass("active");
+			    });
+
+			});
+		</script>
+	</body>
+</html>

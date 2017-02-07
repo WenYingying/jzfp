@@ -1,0 +1,1627 @@
+﻿<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no" ,="" name="viewport" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script type="text/javascript" src="../js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+    <link href="../js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .middle_info > h2 {
+            height: 2rem;
+            line-height: 2rem;
+            margin-top: 1rem;
+        }
+
+            .middle_info > h2 > i {
+                color: #3B94E1;
+            }
+
+            .middle_info > h2 > a {
+                float: right;
+                margin-right: 1.5rem;
+                color: #b3b3b3;
+                font-size: 1rem;
+            }
+
+                .middle_info > h2 > a.edit {
+                    color: #32b16c;
+                }
+
+                .middle_info > h2 > a.pack_up2 {
+                    float: right;
+                    margin-right: 0.6rem;
+                    color: #3b94e1;
+                    transform: rotate(180deg) !important;
+                    -webkit-transform: rotate(180deg) !important;
+                    -moz-transform: rotate(180deg) !important;
+                }
+
+                .middle_info > h2 > a.pack_up {
+                    float: right;
+                    margin-right: 0.6rem;
+                    color: #3b94e1;
+                    transform: rotate(0deg);
+                    -webkit-transform: rotate(0deg);
+                    -moz-transform: rotate(0deg);
+                }
+
+        .Anmelden > li > div {
+            display: inline-block;
+            color: #4f4f4f;
+        }
+
+        .Anmelden > li > span,
+        .choice > li > span {
+            color: #aaa;
+        }
+
+        .choice li,
+        .choice span,
+        .choice div {
+            display: inline-block;
+        }
+
+        .choice > li > div {
+            width: 70%;
+        }
+
+        .choice > li {
+            width: 49%;
+            font-size: 0.7rem;
+        }
+
+        .choice div li {
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            width: 25%;
+        }
+
+        .choice div span {
+            color: #4F4F4F;
+            width: 80%;
+            vertical-align: top;
+        }
+
+        .choice > li > span {
+            font-size: 0.7rem;
+            width: 17%;
+            text-align: right;
+            margin-top: 0.8rem;
+            vertical-align: top;
+        }
+
+        .choice > li input {
+            border: 1px solid #ccc;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            color: #333;
+            width: 5rem;
+            border-radius: 3px;
+            padding: 0 0.3rem;
+            margin-left: 1rem;
+        }
+
+        li.LhsHide input[type="radio"] {
+            border: 1px solid #ccc;
+            height: 1rem;
+            line-height: 1.5rem;
+            color: #333;
+            width: 2rem;
+            border-radius: 3px;
+            padding: 0 0.3rem;
+            margin-left: 0rem;
+        }
+
+        li.LhsHide input[type="checkbox"] {
+            width: 0.7rem;
+            height: 0.7rem;
+        }
+
+        .choice select {
+            border: 1px solid #ccc;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            color: #333;
+            width: 8.7rem;
+            border-radius: 3px;
+            padding: 0 0.3rem;
+            margin-top: 0.4rem;
+        }
+
+        textarea {
+            vertical-align: top;
+            width: 17rem;
+            max-width: 17rem;
+            border-radius: 5px;
+            height: 7rem;
+            max-height: 7rem;
+            outline: none;
+            border: 1px solid #e3e4e6;
+        }
+
+        .add_personnel {
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+            margin: 1rem 0;
+            color: #7198ba;
+        }
+
+        .middle_details {
+            display: none;
+        }
+
+        .btn {
+            text-align: center;
+        }
+
+        .cont_policy {
+            width: 70%;
+            display: inline-block;
+        }
+
+        .LhsHide {
+            vertical-align: top;
+        }
+
+        .Anmelden > li > div {
+            width: 80%;
+        }
+
+        .Anmelden > li .Policylist span {
+            width: 95%;
+            text-align: left;
+            margin-left: 2%;
+        }
+
+        .check {
+            color: #32b16c;
+        }
+
+        .no_check {
+            color: red;
+        }
+
+        .Anmelden > li input {
+            width: 8.5rem;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            /*margin-left: 1%;*/
+        }
+
+        .Anmelden > li select {
+            width: 8.5rem;
+        }
+
+        .btn {
+            width: 100% !important;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cont">
+        <div class="cont_box">
+            <div class="middle middle_household">
+                <h1 class="title">贫困档案</h1>
+                <div class="middle_info">
+                    <h2>
+                        <i class="iconfont">&#xe60b;</i>户口信息
+                        <a href="javascript:void(0)" class="iconfont edit householdedit">&#xe60f;</a>
+                    </h2>
+                    <ul class="Anmelden">
+                        <li>
+                            <span>户主姓名:</span>
+                            <input type="text" name="" id="HouseholderName" value="" placeholder="请输入姓名" style="display:none;" />
+                            <b id="HouseholderID" style="display:none"></b>
+                            <div id="DivHouseholderName"></div>
+                        </li>
+                        <li>
+                            <span>户主证件:</span>
+                            <input type="text" name="" id="HouseholderIdCardNo" value="" placeholder="请输入证件" style="display:none;" />
+                            <div id="DivHouseholderIdCardNo"></div>
+                        </li>
+                        <li>
+                            <span>选择市:</span>
+                            <select id="dlCity" style="display:none;"></select>
+                            <div id="DivCity"></div>
+                        </li>
+                        <li>
+                            <span>选择县:</span>
+                            <select id="dlCounty" style="display:none;"></select>
+                            <div id="DivCounty"></div>
+                        </li>
+                        <li>
+                            <span>选择乡:</span>
+                            <select id="dlCountrySide" style="display:none;"></select>
+                            <div id="DivCountrySide"></div>
+                        </li>
+                        <li>
+                            <span>选择村:</span>
+                            <select id="dlVillage" style="display:none;"></select>
+                            <div id="DivVillage"></div>
+                        </li>
+                        <li>
+                            <span>详细地址:</span>
+                            <input type="text" name="" id="Address" value="" placeholder="请输入地址" style="display:none;" />
+                            <div id="DivAddress"></div>
+                        </li>
+                        <li>
+                            <span>家庭人数:</span>
+                            <input type="number" name="" id="FamilySize" value="" placeholder="请输入人数" style="display:none;" />
+                            <div id="DivFamilySize"></div>
+                        </li>
+                        <li>
+                            <span>联系电话:</span>
+                            <input type="tel" name="" id="Phone" value="" placeholder="请输入电话" style="display:none;" />
+                            <div id="DivPhone"></div>
+                        </li>
+                        <li>
+                            <span>家庭在读人数:</span>
+                            <input type="number" name="" id="FamilySize" value="" placeholder="请输入人数" style="display:none;" />
+                            <div id="DivInSchoolCount"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="middle_info">
+                    <h2><i class="iconfont">&#xe60b;</i>贫困信息</h2>
+                    <ul class="choice">
+                        <li>
+                            <span>贫困原因:</span>
+                            <div style="display:none;" class="PovertyReason">
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="因病" disabled="disabled" />
+                                        <span>因病</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="因残" disabled="disabled" />
+                                        <span>因残</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="因学" disabled="disabled" />
+                                        <span>因学</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="因灾" disabled="disabled" />
+                                        <span>因灾</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="缺技术" disabled="disabled" />
+                                        <span>缺技术</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="缺土地" disabled="disabled" />
+                                        <span>缺土地</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="缺资金" disabled="disabled" />
+                                        <span>缺资金</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="缺水" disabled="disabled" />
+                                        <span>缺水</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="缺劳力" disabled="disabled" />
+                                        <span>缺劳力</span>
+                                    </li>
+
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="交通条件落后" disabled="disabled" />
+                                        <span>交通条件落后</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="自身发展力不足" disabled="disabled" />
+                                        <span>自身发展力不足</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" name="" id="" value="其他" disabled="disabled" />
+                                        <span>其他</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="DivPovertyReason" style="margin-top: 0.8rem;">
+
+                            </div>
+                        </li>
+                        <li style="vertical-align: top;">
+                            <span>贫困属性:</span>
+                            <select id="PovertyProperties" style="display:none;" disabled="disabled">
+                                <option value="低保户">低保户</option>
+                                <option value="低保贫困户">低保贫困户</option>
+                                <option value="一般贫困户">一般贫困户</option>
+                                <option value="一般农户">一般农户</option>
+                            </select>
+                            <div id="DivPovertyProperties" style="margin-top: 0.8rem;">一般农户</div>
+                        </li>
+                        <li>
+                            <span>识别标志:</span>
+                            <select id="DiscerningStandards" style="display:none;" disabled="disabled">
+                                <option value="国家标准">国家标准</option>
+                                <option value="省级标准">省级标准</option>
+                            </select>
+                            <div id="DivDiscerningStandards" style="margin-top: 0.8rem;">省级标准</div>
+                        </li>
+                        <li>
+                            <span>是否脱贫:</span>
+                            <div class="OffPovertystate" style="margin-top:0.4rem;display:none;">
+                                <select id="selectState" style="margin-top:0rem;">
+                                    <option value="False">待脱贫</option>
+                                    <option value="True">已脱贫</option>
+                                </select>
+                                <div id="divoffpoverty">脱贫时间<input id="OffPovertyTime" onclick="WdatePicker()" type="text" /></div>
+                            </div>
+                            <div id="DivState" style="margin-top: 0.8rem;"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn" style="display:none;">
+                    <a href="javascript:void(0)" class="householdsave">保存</a>
+                    <a href="javascript:void(0)" class="householdcancel">取消</a>
+                </div>
+            </div>
+        </div>
+        <div class="cont_box">
+            <div class="middle">
+                <h1 class="title">家庭成员信息</h1>
+                <a href="javascript:void(0)" class="iconfont add_personnel familylist">添加人员</a>
+            </div>
+        </div>
+    </div>
+    <script src="../js/Common.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            LoadHouseHold();
+            LoadFamily();
+            //脱贫状态change
+            $("#selectState").change(function () {
+                if ($(this).val() == "True") {
+                    $("#divoffpoverty").css("display", "inline-block");
+                } else {
+                    $("#divoffpoverty").css("display", "none");
+                }
+            });
+            $(".householdedit").click(function () {
+                $(this).parents(".middle").find("input").css("display", "inline-block");
+                $(this).parents(".middle").find("select").css("display", "inline-block");
+                $(this).parents(".middle").find(".Anmelden li ul").css("display", "inline-block");
+                $(this).parents(".middle").find("label").css("display", "inline-block");
+                $(this).parents(".middle").find("ul div").css("display", "none");
+                $(this).parents(".middle").find(".btn").css("display", "inline-block");
+                $(this).parents(".middle").find(".PovertyReason").css("display", "inline-block");
+                $(this).parents(".middle").find(".OffPovertystate").css("display", "inline-block");
+                $("#selectState").trigger("change");
+            });
+            $(".householdcancel").click(function () {
+                $(this).parents(".middle").find("input").css("display", "none");
+                $(this).parents(".middle").find("select").css("display", "none");
+                $(this).parents(".middle").find(".Anmelden li ul").css("display", "none");
+                $(this).parents(".middle").find("label").css("display", "none");
+                $(this).parents(".middle").find("ul div").css("display", "inline-block");
+                $(this).parents(".middle").find(".btn").css("display", "none");
+                $(this).parents(".middle").find(".PovertyReason").css("display", "none");
+                $(this).parents(".middle").find(".OffPovertystate").css("display", "none");
+            });
+            $(".familylist").click(function () {
+                addPeople(null);
+                $(this).hide();
+            });
+        });
+
+        function GetCityList(SelectID) {
+            $.post(ServiceUrl + "CityInterface/GetHandler.ashx", {
+                ProvinceID: 29
+            }, function (data) {
+                var result = JSON.parse(data);
+                if (result != null) {
+                    if (result.Result) {
+                        $(result.Data).each(function () {
+                            $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                        });
+                        if (SelectID != 0) {
+                            $("#dlCity").val(SelectID);
+                        }
+
+                    }
+                }
+            });
+        }
+
+        function GetCountyList(CityID, SelectID) {
+            $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", {
+                CityID: CityID
+            }, function (data) {
+                var result = JSON.parse(data);
+                if (result != null) {
+                    if (result.Result) {
+                        $(result.Data).each(function () {
+                            $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+                        });
+                        if (SelectID != 0) {
+                            $("#dlCounty").val(SelectID);
+                        }
+                    }
+                }
+            });
+        }
+
+        function GetCountrySideList(CountyID, SelectID) {
+            $.post(ServiceUrl + "CountrysideInterface/GetHandler.ashx", {
+                CountyID: CountyID
+            }, function (data) {
+                var result = JSON.parse(data);
+                if (result != null) {
+                    if (result.Result) {
+                        $(result.Data).each(function () {
+                            $("<option>").appendTo($("#dlCountrySide")).val(this.ID).text(this.Name);
+                        });
+                        if (SelectID != 0) {
+                            $("#dlCountrySide").val(SelectID);
+                        }
+                    }
+                }
+            });
+        }
+
+        function GetVillageList(CountrySideID, SelectID) {
+            $.post(ServiceUrl + "VillageInterface/GetHandler.ashx", {
+                CountrySideID: CountrySideID
+            }, function (data) {
+                var result = JSON.parse(data);
+                if (result != null) {
+                    if (result.Result) {
+                        $(result.Data).each(function () {
+                            $("<option>").appendTo($("#dlVillage")).val(this.ID).text(this.Name);
+                        });
+                        if (SelectID != 0) {
+                            $("#dlVillage").val(SelectID);
+                        }
+
+                    }
+                }
+            });
+        }
+
+        function LoadHouseHold() {
+            var ID = getUrlParam("ID");
+            $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", {
+                ID: ID
+            }, function (res) {
+                var json = JSON.parse(res);
+                if (json.Result) {
+                    if (json.Data.length > 0) {
+                        //id
+                        $("#HouseholderID").text(json.Data[0].ID)
+                        //户主姓名
+                        $("#HouseholderName").val(json.Data[0].Name);
+                        $("#DivHouseholderName").text(json.Data[0].Name);
+                        //户主证件
+                        $("#HouseholderIdCardNo").val(json.Data[0].IdCardNo);
+                        $("#DivHouseholderIdCardNo").text(json.Data[0].IdCardNo);
+                        //家庭人数
+                        $("#FamilySize").val(json.Data[0].FamilySize);
+                        $("#DivFamilySize").text(json.Data[0].FamilySize);
+                        //城市
+                        GetCityList(json.Data[0].CityID);
+                        $("#DivCity").text(json.Data[0].CityName);
+                        //县/区
+                        GetCountyList(json.Data[0].CityID, json.Data[0].CountyID);
+                        $("#DivCounty").text(json.Data[0].CountyName);
+                        //乡/镇
+                        GetCountrySideList(json.Data[0].CountyID, json.Data[0].CountrySideID);
+                        $("#DivCountrySide").text(json.Data[0].CountrySideName);
+                        //村/居委会
+                        GetVillageList(json.Data[0].CountrySideID, json.Data[0].VillageId);
+                        $("#DivVillage").text(json.Data[0].VillageName);
+                        //详细地址
+                        $("#Address").val(json.Data[0].Address);
+                        $("#DivAddress").text(json.Data[0].Address);
+                        //电话
+                        $("#Phone").val(json.Data[0].Phone);
+                        $("#DivPhone").text(json.Data[0].Phone);
+                        //贫困原因
+                        var PovertyReason = json.Data[0].PovertyReason.toString().split(',');
+                        $(PovertyReason).each(function () {
+                            $(".PovertyReason li input[value='" + this.toString() + "']").prop("checked", "checked");
+                        });
+                        $("#DivPovertyReason").text(json.Data[0].PovertyReason);
+                        //贫困属性
+                        $("#PovertyProperties").val(json.Data[0].PovertyProperties);
+                        $("#DivPovertyProperties").text(json.Data[0].PovertyProperties);
+                        //识别标准
+                        $("#DiscerningStandards").val(json.Data[0].DiscerningStandards);
+                        $("#DivDiscerningStandards").text(json.Data[0].DiscerningStandards);
+                        //脱贫状态
+                        $("#selectState").val(json.Data[0].State);
+                        //脱贫时间
+                        if (json.Data[0].OffPovertyTime != "") {
+                            $("#OffPovertyTime").val(new Date(json.Data[0].OffPovertyTime).getFullYear() + "-" + checklength(new Date(json.Data[0].OffPovertyTime).getMonth() + 1) + "-" + checklength(new Date(json.Data[0].OffPovertyTime).getDate()));
+                        }
+                        if (json.Data[0].State == "False") {
+                            $("#DivState").text("待脱贫");
+
+                        } else {
+                            var OffPovertyTime = "";
+                            if (json.Data[0].OffPovertyTime != "") {
+                                OffPovertyTime = new Date(json.Data[0].OffPovertyTime).getFullYear() + "-" + checklength(new Date(json.Data[0].OffPovertyTime).getMonth() + 1) + "-" + checklength(new Date(json.Data[0].OffPovertyTime).getDate());
+                            }
+                            $("#DivState").text("已脱贫（" + OffPovertyTime + ")");
+                        }
+                    }
+                    $(".householdsave").click(function () {
+                        EditHousehold(json.Data[0])
+                    });
+                }
+            });
+
+        }
+
+        function LoadFamily() {
+            var ID = getUrlParam("ID");
+            $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", {
+                HouseholderId: ID
+            }, function (res) {
+                var json = JSON.parse(res);
+                if (json.Result) {
+                    var paixudata = PaiXu(json.Data);
+                    $(paixudata).each(function () {
+                        addPeople(this);
+                    });
+                }
+            });
+        }
+        var povertyid = 0;
+
+        function addPeople(data) {
+            var checkpovertyid = 0;
+            if (data != null) {
+                checkpovertyid = data.ID;
+            } else {
+                checkpovertyid = povertyid;
+                povertyid++;
+            }
+            var middle_info = $("<div>").insertBefore($(".familylist")).css({
+                "border-bottom": "1px dashed #0093d7",
+                "padding-bottom": "1rem"
+            }).addClass("middle_info").prop("id", "middle_info" + checkpovertyid);
+            var h2 = $("<h2>").appendTo(middle_info);
+            $("<i>").appendTo(h2).addClass("iconfont").html("&#xe60b;");
+            $("<text>").appendTo(h2).prop("id", "TitleName" + checkpovertyid)
+            $("<span>").appendTo(h2).prop("id", "PovertyStates" + checkpovertyid);
+            $("<a>").appendTo(h2).addClass("iconfont pack_up pack_up2 arrows").prop("href", "javascript:void(0)").html("&#xe615;").click(function () {
+                $(this).parents('.middle_info').siblings('.middle_info').children('.middle_details').hide();
+                $(this).parents('h2').siblings('.middle_details').toggle();
+                if (!$(this).parents('h2').siblings('.middle_details').is(":hidden")) {
+                    $(this).parents('.middle_info').siblings(".middle_info").find('h2>.arrows').addClass("pack_up2");
+                    $(this).parents('.middle_info').siblings(".middle_info").find('h2>.arrows').removeClass("pack_up");
+                    $(this).addClass("pack_up");
+                    $(this).removeClass("pack_up2");
+                } else {
+                    $(this).addClass("pack_up2");
+                    $(this).removeClass("pack_up");;
+                }
+            });
+            $("<a>").appendTo(h2).addClass("iconfont empty").prop("href", "javascript:void(0)").prop("id", "delete" + checkpovertyid).attr("povertyid", data == null ? "" : data.ID).html("&#xe60c;");
+            $("<a>").appendTo(h2).addClass("iconfont edit").prop("href", "javascript:void(0)").html("&#xe60f;").prop("id", "editicon" + checkpovertyid).click(function () {
+                middle_info.find(".beforeeidt").hide();
+                middle_info.find("[id^='divAge']").show();
+                middle_info.find("input").css("display", "inline-block");
+                middle_info.find("select").css("display", "inline-block");
+                middle_info.find("textarea").css("display", "inline-block");
+                middle_info.find("label").css("display", "inline-block");
+                middle_info.find(".switch").css("display", "inline-block");
+                middle_info.find(".btn").css("display", "inline-block");
+                middle_info.find(".lhswork").css("display", "inline-block");
+                middle_info.find(".pllicy_radio").css("display", "inline-block");
+                if ($("#PolicyTrue" + checkpovertyid).is(":checked")) {
+                    $("#PolicyID" + checkpovertyid).css("display", "inline-block");
+                }
+                $(this).hide();
+            });
+            var div = $("<div>").appendTo(middle_info).addClass("middle_details").css("display", "block").prop("id", "middle_details" + checkpovertyid);
+            var firstul = $("<ul>").appendTo(div).addClass("Anmelden");
+            //与户主关系
+            var householderrelationli = $("<li>").appendTo(firstul).css("width", "100%");
+            $("<span>").appendTo(householderrelationli).text("户主关系:").css("width", "8.5%");
+            var selecthouseholderrelation = $("<select>").appendTo(householderrelationli).prop("id", "HouseholderRelation" + checkpovertyid).css("display", "none");
+            $("<option>").appendTo(selecthouseholderrelation).text("本人或户主").val("本人或户主");
+            $("<option>").appendTo(selecthouseholderrelation).text("之子").val("之子");
+            $("<option>").appendTo(selecthouseholderrelation).text("之女").val("之女");
+            $("<option>").appendTo(selecthouseholderrelation).text("之孙子").val("之孙子");
+            $("<option>").appendTo(selecthouseholderrelation).text("之孙女").val("之孙女");
+            $("<option>").appendTo(selecthouseholderrelation).text("之外孙女").val("之外孙女");
+            $("<option>").appendTo(selecthouseholderrelation).text("之外孙子").val("之外孙子");
+            $("<option>").appendTo(selecthouseholderrelation).text("配偶").val("配偶");
+            $("<option>").appendTo(selecthouseholderrelation).text("之儿媳").val("之儿媳");
+            $("<option>").appendTo(selecthouseholderrelation).text("之父").val("之父");
+            $("<option>").appendTo(selecthouseholderrelation).text("之母").val("之母");
+            $("<option>").appendTo(selecthouseholderrelation).text("之公公").val("之公公");
+            $("<option>").appendTo(selecthouseholderrelation).text("之女婿").val("之女婿");
+            $("<option>").appendTo(selecthouseholderrelation).text("之婆婆").val("之婆婆");
+            $("<option>").appendTo(selecthouseholderrelation).text("之祖父").val("之祖父");
+            $("<option>").appendTo(selecthouseholderrelation).text("之祖母").val("之祖母");
+            $("<option>").appendTo(selecthouseholderrelation).text("之外祖父").val("之外祖父");
+            $("<option>").appendTo(selecthouseholderrelation).text("之外祖母").val("之外祖母");
+            $("<option>").appendTo(selecthouseholderrelation).text("之岳父").val("之岳父");
+            $("<option>").appendTo(selecthouseholderrelation).text("之岳母").val("之岳母");
+            $("<option>").appendTo(selecthouseholderrelation).text("之兄妹").val("之兄妹");
+            $("<option>").appendTo(selecthouseholderrelation).text("其他").val("其他");
+            $("<div>").appendTo(householderrelationli).addClass("beforeeidt").prop("id", "divHouseholderRelation" + checkpovertyid);
+            //姓名
+            var nameli = $("<li>").appendTo(firstul);
+            $("<span>").appendTo(nameli).text("姓名:");
+            $("<input>").appendTo(nameli).prop("type", "text").prop("placeholder", "请输入姓名").prop("id", "Name" + checkpovertyid).css("display", "none");
+            $("<div>").appendTo(nameli).addClass("beforeeidt").prop("id", "divName" + checkpovertyid);
+            //性别
+            var genderli = $("<li>").appendTo(firstul);
+            $("<span>").appendTo(genderli).text("性别:");
+            var selectgender = $("<select>").appendTo(genderli).prop("id", "Gender" + checkpovertyid).css("display", "none");
+            $("<option>").appendTo(selectgender).text("男").val("True");
+            $("<option>").appendTo(selectgender).text("女").val("False");
+            $("<div>").appendTo(genderli).addClass("beforeeidt").prop("id", "divGender" + checkpovertyid);
+            //证件号码
+            var IdCardli = $("<li>").appendTo(firstul);
+            $("<span>").appendTo(IdCardli).text("证件号码:");
+            $("<input>").appendTo(IdCardli).prop("type", "text").prop("placeholder", "请输入证件号码").prop("id", "IdCardNo" + checkpovertyid).css("display", "none");
+            $("<div>").appendTo(IdCardli).addClass("beforeeidt").prop("id", "divIdCardNo" + checkpovertyid);
+            //民族
+            var nationli = $("<li>").appendTo(firstul);
+            $("<span>").appendTo(nationli).text("民族:");
+            var selectnation = $("<select>").appendTo(nationli).prop("id", "Nation" + checkpovertyid).css("display", "none");
+            addNation(selectnation);
+            $("<div>").appendTo(nationli).addClass("beforeeidt").prop("id", "divNation" + checkpovertyid);
+            //出生日期
+            var birhtdayli = $("<li>").appendTo(firstul);
+            $("<span>").appendTo(birhtdayli).text("出生日期:");
+            $("<input>").appendTo(birhtdayli).prop("type", "text").prop("placeholder", "请输入出生日期").prop("id", "BirthDay" + checkpovertyid).addClass("Wdate").click(function () {
+                WdatePicker({
+                    onpicked: function (e) {
+                        $("#BirthDay" + checkpovertyid).change();
+                    }
+                });
+            }).change(function () {
+                if ($(this).val().length > 0) {
+                    $("#divAge" + checkpovertyid).text(((new Date()).getFullYear() - (new Date($(this).val())).getFullYear()) + "岁");
+                }
+            }).css("display", "none");
+            $("<div>").appendTo(birhtdayli).addClass("beforeeidt").prop("id", "divBirthDay" + checkpovertyid);
+            //年龄
+            var ageli = $("<li>").appendTo(firstul);
+            $("<span>").appendTo(ageli).text("年龄:");
+            $("<div>").appendTo(ageli).addClass("beforeeidt").prop("id", "divAge" + checkpovertyid);
+            //贫困状态
+            //var povertystateli = $("<li>").appendTo(firstul);
+            //$("<span>").appendTo(povertystateli).text("是否复核:");
+            //$("<label>").appendTo(povertystateli).prop("id", "PovertyStates" + checkpovertyid).css("display", "none");
+            //$("<div>").appendTo(povertystateli).addClass("beforeeidt").prop("id", "divPovertyStates" + checkpovertyid);
+            //教育阶段
+            var edulevelli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(edulevelli).text("教育阶段:");
+            var selectedulevel = $("<select>").appendTo(edulevelli).prop("id", "EduLevels" + checkpovertyid).css("display", "none");
+            $("<option>").appendTo(selectedulevel).text("请选择").val("");
+            $("<option>").appendTo(selectedulevel).text("非学龄段").val("非学龄段");
+            $("<option>").appendTo(selectedulevel).text("适龄未入学或辍学").val("适龄未入学或辍学");
+            $("<option>").appendTo(selectedulevel).text("学前教育").val("学前教育");
+            $("<option>").appendTo(selectedulevel).text("小学").val("小学");
+            $("<option>").appendTo(selectedulevel).text("初中").val("初中");
+            $("<option>").appendTo(selectedulevel).text("高中").val("高中");
+            $("<option>").appendTo(selectedulevel).text("中职教育").val("中职教育");
+            $("<option>").appendTo(selectedulevel).text("高职教育").val("高职教育");
+            $("<option>").appendTo(selectedulevel).text("预科").val("预科");
+            $("<option>").appendTo(selectedulevel).text("专科").val("专科");
+            $("<option>").appendTo(selectedulevel).text("本科").val("本科");
+            $("<option>").appendTo(selectedulevel).text("硕士").val("硕士");
+            $("<option>").appendTo(selectedulevel).text("博士").val("博士");
+            $("<div>").appendTo(edulevelli).addClass("beforeeidt").prop("id", "divEduLevels" + checkpovertyid);
+            //文化程度
+            var dropoutschoolli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(dropoutschoolli).text("文化程度:");
+            var selectdrpschool = $("<select>").appendTo(dropoutschoolli).prop("id", "DropoutSchool" + checkpovertyid).css("display", "none");
+            $("<option>").appendTo(selectdrpschool).text("请选择").val("");
+            $("<option>").appendTo(selectdrpschool).text("文盲或半文盲").val("文盲或半文盲");
+            $("<option>").appendTo(selectdrpschool).text("学龄前儿童").val("学龄前儿童");
+            $("<option>").appendTo(selectdrpschool).text("小学").val("小学");
+            $("<option>").appendTo(selectdrpschool).text("初中").val("初中");
+            $("<option>").appendTo(selectdrpschool).text("高中").val("高中");
+            $("<option>").appendTo(selectdrpschool).text("大专及以上").val("大专及以上");
+            $("<div>").appendTo(dropoutschoolli).addClass("beforeeidt").prop("id", "divDropoutSchool" + checkpovertyid);
+            //年级
+            var studentstausli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(studentstausli).text("年级:");
+            var selectstudentstau = $("<select>").appendTo(studentstausli).prop("id", "StudentStatus" + checkpovertyid).css("display", "none");
+            $("<option>").appendTo(selectstudentstau).text("学前班").val("学前班");
+            $("<option>").appendTo(selectstudentstau).text("小").val("小");
+            $("<option>").appendTo(selectstudentstau).text("中").val("中");
+            $("<option>").appendTo(selectstudentstau).text("大").val("大");
+            $("<option>").appendTo(selectstudentstau).text("一年级").val("一年级");
+            $("<option>").appendTo(selectstudentstau).text("二年级").val("二年级");
+            $("<option>").appendTo(selectstudentstau).text("三年级").val("三年级");
+            $("<option>").appendTo(selectstudentstau).text("四年级").val("四年级");
+            $("<option>").appendTo(selectstudentstau).text("五年级").val("五年级");
+            $("<option>").appendTo(selectstudentstau).text("六年级").val("六年级");
+            $("<option>").appendTo(selectstudentstau).text("七年级").val("七年级");
+            $("<option>").appendTo(selectstudentstau).text("八年级").val("八年级");
+            $("<option>").appendTo(selectstudentstau).text("九年级").val("九年级");
+            //$("<option>").appendTo(selectstudentstau).text("非在校生").val("非在校生");
+            $("<div>").appendTo(studentstausli).addClass("beforeeidt").prop("id", "divStudentStatus" + checkpovertyid);
+            //学校名称
+            var schoolnameli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(schoolnameli).text("学校名称:");
+            $("<input>").appendTo(schoolnameli).prop("type", "text").prop("placeholder", "请输入学校名称").prop("id", "SchoolName" + checkpovertyid).css("display", "none");
+            $("<div>").appendTo(schoolnameli).addClass("beforeeidt").prop("id", "divSchoolName" + checkpovertyid);
+            //就读
+            var isprovincestudyli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(isprovincestudyli).text("省内就读:");
+            var isprovincestudydiv = $("<div>").appendTo(isprovincestudyli).addClass("switch").css("display", "none").css("width", "auto");
+            $("<input>").appendTo(isprovincestudydiv).prop("type", "checkbox").addClass("test").prop("id", "IsProvinceStudy" + checkpovertyid);
+            $("<i>").appendTo($("<span>").appendTo(isprovincestudydiv));
+            $("<div>").appendTo(isprovincestudyli).addClass("beforeeidt").prop("id", "divIsProvinceStudy" + checkpovertyid);
+            //学校性质
+            var schoolnatureli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(schoolnatureli).text("学校性质:");
+            var schoolnaturelevel = $("<select>").appendTo(schoolnatureli).prop("id", "SchoolNature" + checkpovertyid).css("display", "none");
+            $("<option>").appendTo(schoolnaturelevel).text("公办").val("True");
+            $("<option>").appendTo(schoolnaturelevel).text("民办").val("False");
+            $("<div>").appendTo(schoolnatureli).addClass("beforeeidt").prop("id", "divSchoolNature" + checkpovertyid);
+            //帮扶政策
+            var policylistli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block").css("width", "100%");
+            $("<span>").appendTo(policylistli).text("扶持政策:").css("vertical-align", "top").css("width", "8.5%");
+            var policydiv = $("<div>").appendTo(policylistli);
+            var pllicy_radio = $("<div>").appendTo(policydiv).addClass("pllicy_radio").css("display", "none");
+            $("<input>").appendTo(pllicy_radio).prop("type", "radio").prop("name", "Policyradio" + checkpovertyid).prop("id", "PolicyFalse" + checkpovertyid).prop("placeholder", "不享受政策").val(0);
+            $("<label>").appendTo(pllicy_radio).text("不享受政策");
+            $("<input>").appendTo(pllicy_radio).prop("type", "radio").prop("name", "Policyradio" + checkpovertyid).prop("id", "PolicyTrue" + checkpovertyid).prop("placeholder", "享受政策").prop("checked", "checked");
+            $("<label>").appendTo(pllicy_radio).text("享受政策");
+            var policylistdiv = $("<ul>").appendTo(policydiv).addClass("Assist Policylist").prop("id", "PolicyID" + checkpovertyid).css("display", "none").css("width", "100%").css("margin-left", "1.3%").css("margin-top", "1%");
+            $("input[name='Policyradio" + checkpovertyid + "']").click(function () {
+                if ($(this).val() == 0) {
+                    policylistdiv.hide();
+                } else {
+                    policylistdiv.show();
+                }
+            });
+
+            $("<div>").appendTo(policydiv).addClass("beforeeidt").prop("id", "divPolicyID" + checkpovertyid);
+            //适龄未入学原因
+            var outpreschoolreasonli = $("<li>").appendTo(firstul).addClass("LhsHide").css("vertical-align", "top").css("display", "inline-block").prop("id", "outschoolli" + checkpovertyid);
+            $("<span>").appendTo(outpreschoolreasonli).text("未入学原因:").prop("id", "outschoolname" + checkpovertyid);
+            var outpreschoolselect = $("<select>").appendTo(outpreschoolreasonli).prop("id", "OutpreschoolReason" + checkpovertyid).hide();
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: ServiceUrl + "OutPreschoolReasonInterface/GetHandler.ashx",
+                data: {},
+                success: function (res) {
+                    var json = JSON.parse(res);
+                    if (json.Result) {
+                        $("<option>").appendTo(outpreschoolselect).val("").text("请选择");
+                        $(json.Data).each(function () {
+                            $("<option>").appendTo(outpreschoolselect).val(this.ID).text(this.Name);
+                        });
+                    }
+                }
+            });
+            $("<div>").appendTo(outpreschoolreasonli).addClass("beforeeidt").prop("id", "divOutpreschoolReason" + checkpovertyid);
+            ///劝返情况
+            var returnschoolli = $("<li>").appendTo(firstul).addClass("LhsHide").css("display", "inline-block");
+            $("<span>").appendTo(returnschoolli).text("劝反情况:");
+            var selectreturnschool = $("<select>").appendTo(returnschoolli).prop("id", "ReturnSchool" + checkpovertyid).hide();
+            $("<option>").appendTo(selectreturnschool).text("无需劝反").val("");
+            $("<option>").appendTo(selectreturnschool).text("未返校").val("False");
+            $("<option>").appendTo(selectreturnschool).text("已返校").val("True");
+            $("<div>").appendTo(returnschoolli).addClass("beforeeidt").prop("id", "divReturnSchool" + checkpovertyid);
+            //两后生
+            var LHSli = $("<li>").appendTo(firstul).css("vertical-align", "top").css("display", "inline-block");
+            $("<span>").appendTo(LHSli).text("培训需求:");
+            var lhsdiv = $("<div>").appendTo(LHSli).addClass("switch").css("display", "none").css("width", "auto");
+            $("<input>").appendTo(lhsdiv).prop("type", "checkbox").addClass("test").prop("id", "IsLHS" + checkpovertyid);
+            $("<i>").appendTo($("<span>").appendTo(lhsdiv));
+            $("<div>").appendTo(LHSli).addClass("beforeeidt").prop("id", "divIsLHS" + checkpovertyid);
+            //两后生需求
+            var lhsworkli = $("<li>").appendTo(firstul).hide();
+            $("<span>").appendTo(lhsworkli).text("需求:");
+            var lhsworkdiv = $("<div>").appendTo(lhsworkli).addClass("lhswork").css("display", "none");
+            var lhsworktype = $("<select>").appendTo(lhsworkdiv).prop("id", "LHSWorkType" + checkpovertyid);;
+            $("<option>").appendTo(lhsworktype).text("请选择").val("");
+            $("<option>").appendTo(lhsworktype).text("轻工类").val("轻工类");
+            $("<option>").appendTo(lhsworktype).text("机械操作").val("机械操作");
+            $("<option>").appendTo(lhsworktype).text("机械加工、维修").val("机械加工、维修");
+            $("<option>").appendTo(lhsworktype).text("矿产类").val("矿产类");
+            $("<option>").appendTo(lhsworktype).text("创业培训").val("创业培训");
+            $("<option>").appendTo(lhsworktype).text("企业新招培训").val("企业新招培训");
+            $("<option>").appendTo(lhsworktype).text("\"技能+创业\"培训").val("\"技能+创业\"培训");
+            $("<option>").appendTo(lhsworktype).text("其他").val("其他");
+            var lhswork = $("<select>").appendTo(lhsworkdiv).prop("id", "LHSWorkId" + checkpovertyid);
+            $("<option>").appendTo(lhswork).text("请选择").val("0");
+            lhsworktype.change(function () {
+                lhswork.empty();
+                $("<option>").appendTo(lhswork).text("请选择").val("0");
+                if ($(this).val() == "") {
+                    return;
+                }
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: ServiceUrl + "WorkInterface/GetHandler.ashx",
+                    data: {
+                        Type: $(this).val()
+                    },
+                    success: function (res) {
+                        var json = JSON.parse(res);
+                        if (json.Result) {
+                            $(json.Data).each(function () {
+                                $("<option>").appendTo(lhswork).val(this.ID).text(this.Name);
+                            });
+                        }
+
+                    }
+                });
+            });
+            $("<div>").appendTo(lhsworkli).addClass("beforeeidt").prop("id", "divLHSWorkId" + checkpovertyid);
+            ////学号
+            //var studentnoli = $("<li>").appendTo(firstul).addClass("LhsHide");
+            //$("<span>").appendTo(studentnoli).text("学号:");
+            //$("<input>").appendTo(studentnoli).prop("type", "text").prop("placeholder", "请输入学号").prop("id", "StudentNo" + checkpovertyid).css("display", "none");
+            //$("<div>").appendTo(studentnoli).addClass("beforeeidt").prop("id", "divStudentNo" + checkpovertyid);
+
+            //var secondul = $("<ul>").appendTo($("<div>").appendTo(div)).addClass("choice").css("width", "100%");
+            //备注
+            var remarkli = $("<li>").appendTo(firstul).css({
+                "vertical-align": "top",
+                "width": "100%"
+            });
+            $("<span>").appendTo(remarkli).text("备注:").css("width", "8.5%");
+            $("<textarea>").appendTo(remarkli).prop("id", "Remark" + checkpovertyid).css("display", "none");
+            $("<div>").appendTo(remarkli).addClass("beforeeidt").prop("id", "divRemark" + checkpovertyid).css("margin-top", "0.8rem");
+            //两后生change
+            $("#IsLHS" + checkpovertyid).click(function () {
+                if ($(this).is(":checked")) {
+                    lhsworkli.css("display", "inline-block");
+                } else {
+                    lhsworkli.hide();
+                }
+            });
+            //教育阶段change
+            $("#EduLevels" + checkpovertyid).change(function () {
+                if ($(this).val() == "适龄未入学或辍学") {
+                    firstul.children(".LhsHide").css("display", "none");
+                    edulevelli.css("display", "inline-block");
+                    outpreschoolreasonli.css("display", "inline-block");
+                    LHSli.css("display", "inline-block");
+                    $("#IsLHS" + checkpovertyid).is(":checked") ? lhsworkli.show() : lhsworkli.hide();
+                    dropoutschoolli.show();
+                    returnschoolli.show();
+                } else if ($(this).val() == "非学龄段") {
+                    firstul.children(".LhsHide").hide();
+                    outpreschoolreasonli.hide();
+                    $(this).parent().show();
+                    dropoutschoolli.show();
+                    LHSli.css("display", "inline-block");
+                    $("#IsLHS" + checkpovertyid).is(":checked") ? lhsworkli.show() : lhsworkli.hide();
+                } else {
+                    firstul.children(".LhsHide").css("display", "inline-block");
+                    dropoutschoolli.show();
+                    outpreschoolreasonli.hide();
+                    LHSli.hide();
+                    lhsworkli.hide();
+                    returnschoolli.hide();
+                    selectdrpschool.val("");
+                    selectdrpschool.children("option[value='" + $(this).val() + "']").prop("selected", true);
+                    schoolnaturelevel.val("True");
+                }
+                loadpolicy($(this).val(), policylistdiv);
+            });
+            //文化程度
+            //$("#DropoutSchool" + checkpovertyid).change(function() {
+            //	if($(this).val() == "") {
+            //		outpreschoolreasonli.hide();
+            //		returnschoolli.hide();
+            //		$("#ReturnSchool" + checkpovertyid).val("");
+            //	} else {
+            //		outpreschoolreasonli.show();
+            //		$("#outschoolname" + checkpovertyid).text("辍学原因");
+            //		returnschoolli.show();
+            //		$("#ReturnSchool" + checkpovertyid).val("False");
+            //	}
+            //});
+            //保存修改
+            var editdiv = $("<li>").appendTo(firstul).addClass("btn").prop("id", "btn" + checkpovertyid).hide();
+            var eidta = $("<a>").appendTo(editdiv).prop("href", "javascript:void(0)").text("保存").prop("id", "edit" + checkpovertyid);
+            $("<a>").appendTo(editdiv).prop("href", "javascript:void(0)").prop("id", "cancel" + checkpovertyid).text("取消");
+            if (data != null) {
+                addData(checkpovertyid, data);
+            } else {
+                $("#TitleName" + checkpovertyid).text("新增家庭成员");
+                eidta.off().click(function () {
+                    if ($("#IdCardNo" + checkpovertyid).val().length <15)
+                    {
+                        alert("请先输入证件号码！");
+                        return;
+                    }
+                });
+                middle_info.find(".beforeeidt").css("display", "none");
+                middle_info.find("input").css("display", "inline-block");
+                middle_info.find("select").css("display", "inline-block");
+                middle_info.find("textarea").css("display", "inline-block");
+                middle_info.find("label").css("display", "inline-block");
+                middle_info.find(".switch").css("display", "inline-block");
+                middle_info.find(".btn").css("display", "inline-block");
+                middle_info.find("ul").css("display", "inline-block");
+                middle_info.find(".lhswork").css("display", "inline-block");
+                middle_info.siblings('.middle_info').children('.middle_details').hide();;
+                middle_info.find(".arrows").addClass("pack_up");
+                middle_info.find(".arrows").removeClass("pack_up2");
+                $("#editicon" + checkpovertyid).hide();
+                $("#cancel" + checkpovertyid).unbind("click");
+                $("#cancel" + checkpovertyid).click(function () {
+                    $("#middle_info" + checkpovertyid).remove();
+                    $(".familylist").css("display", "inline-block");
+                });
+                $("#delete" + checkpovertyid).unbind("click");
+                $("#delete" + checkpovertyid).click(function () {
+                    if (confirm("确认需要删除吗")) {
+                        var athis = $(this);
+                        athis.closest('.middle_info').remove();
+                        $(".familylist").css("display", "inline-block");
+                        return;
+                    }
+
+                });
+                $("#IdCardNo" + checkpovertyid).blur(function () {
+                    $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", {
+                        IdCardNo: $(this).val()
+                    }, function (res) {
+                        var json = JSON.parse(res);
+                        if (json.Result) {
+                            if (json.Data.length > 0) {
+                                addData(checkpovertyid, json.Data[0]);
+                                eidta.unbind("click");
+                                eidta.click(function () {
+                                    EditPeopleData(json.Data[0], checkpovertyid);
+                                });
+                            } else {
+                                alert("对不起，用户不存在");
+                                eidta.unbind("click");
+                                eidta.click(function () {
+                                    alert("用户不存在，不能保存");
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+        function addData(finid, data) {
+            $("#TitleName" + finid).text(data.Name);
+            $("#IdCardNo" + finid).val(data.IdCardNo);
+            $("#divIdCardNo" + finid).text(data.IdCardNo);
+            $("#Name" + finid).val(data.Name);
+            $("#divName" + finid).text(data.Name);
+            if (data.PovertyStates == "0") {
+                $("#PovertyStates" + finid).addClass("no_check").text(" [未复核]");
+            } else {
+                $("#PovertyStates" + finid).addClass("check").text(" [已复核]");
+            }
+            $("#Nation" + finid).val(data.Nation);
+            $("#divNation" + finid).text(data.Nation);
+            var Birthday = new Date(data.BirthDay).getFullYear() + "-" + checklength(new Date(data.BirthDay).getMonth() + 1) + "-" + checklength(new Date(data.BirthDay).getDate());
+            $("#BirthDay" + finid).val(Birthday);
+            $("#divBirthDay" + finid).text(Birthday);
+            $("#divAge" + finid).text(data.BirthDay ? ((new Date()).getFullYear() - (new Date(data.BirthDay).getFullYear())) + "岁" : "");
+            $("#Gender" + finid).val(data.Gender);
+            if (data.Gender == "True") {
+                $("#divGender" + finid).text("男");
+            } else {
+                $("#divGender" + finid).text("女");
+            }
+            $("#HouseholderRelation" + finid).val(data.HouseholderRelation);
+            $("#divHouseholderRelation" + finid).text(data.HouseholderRelation);
+            $("#DropoutSchool" + finid).val(data.DropoutSchool);
+            $("#divDropoutSchool" + finid).text(data.DropoutSchool);
+
+            $("#EduLevels" + finid).val(data.EduLevels);
+            $("#divEduLevels" + finid).text(data.EduLevels);
+            if (data.EduLevels != "适龄未入学或辍学") {
+                $("#OutpreschoolReason" + finid).parent().hide();//ReturnSchool
+                $("#ReturnSchool" + finid).parent().hide();//
+            }
+            if (data.EduLevels != "适龄未入学或辍学" && data.EduLevels != "非学龄段") {
+                $("#divIsLHS" + finid).parent().hide();//ReturnSchool
+                $("#divLHSWorkId" + finid).parent().hide();//
+            }
+            loadpolicy(data.EduLevels, $("#PolicyID" + finid));
+
+            //就读
+            if (data.IsProvinceStudy == "True") {
+                $("#IsProvinceStudy" + finid).prop("checked", "checked");
+                $("#divIsProvinceStudy" + finid).text("省内");
+            } else {
+                $("#IsProvinceStudy" + finid).prop("checked", false);
+                $("#divIsProvinceStudy" + finid).text("省外");
+            }
+            if (data.LHSWorkId != 0 && data.LHSWorkId != "" && data.LHSWorkId != null && data.LHSWorkId != undefined && data.LHSWorkId != NaN) {
+                $.post(ServiceUrl + "WorkInterface/GetHandler.ashx", {
+                    ID: data.LHSWorkId
+                }, function (res) {
+                    var json = JSON.parse(res);
+                    if (json.Result) {
+                        if (json.Data.length > 0) {
+                            $("#LHSWorkType" + finid).val(json.Data[0].Type);
+                            $("#LHSWorkType" + finid).trigger("change");
+                            $("#LHSWorkId" + finid).val(json.Data[0].ID);
+                            $("#divLHSWorkId" + finid).text(json.Data[0].Name);
+                        }
+                    }
+
+                });
+            }
+            $("#StudentStatus" + finid).val(data.StudentStatus);
+            $("#divStudentStatus" + finid).text(data.StudentStatus);
+            $("#SchoolName" + finid).val(data.SchoolName);
+            $("#divSchoolName" + finid).text(data.SchoolName);
+            $("#SchoolNature" + finid).val(data.SchoolNature);
+            if (data.SchoolNature == "True") {
+                $("#divSchoolNature" + finid).text("公办");
+            } else {
+                $("#divSchoolNature" + finid).text("民办");
+            }
+
+            $("#OutpreschoolReason" + finid).val(data.OutpreschoolReason);
+            $("#divOutpreschoolReason" + finid).text($("#OutpreschoolReason" + finid + "[value='" + data.OutpreschoolReason + "']").text());
+            if (data.OutpreschoolReason != "") {
+                $("#outschoolli" + finid).css("display", "inline-block");
+            }
+            var policylist = "";
+            if (data.PolicyID.length > 0) {
+                if (data.PolicyID == 0) {
+                    $("#PolicyFalse" + finid).prop("checked", "checked");
+                } else {
+                    $(data.PolicyID.split(',')).each(function () {
+                        $("#PolicyID" + finid).find("li[policyid='" + this + "'] input[type='checkbox']").prop("checked", "checked");
+                        policylist += $("#PolicyID" + finid).find("li[policyid='" + this + "'] span").text() + ",";
+                    });
+                    $("#PolicyTrue" + finid).prop("checked", "checked");
+                }
+
+            }
+
+            $("#divPolicyID" + finid).text(policylist.length > 0 ? policylist.substr(0, policylist.length - 2) : "无政策");
+            $("#Remark" + finid).val(data.Remark);
+            $("#divRemark" + finid).text(data.Remark);
+            $("#edit" + finid).off().click(function () {
+                EditPeopleData(data, finid);
+            });
+            cancel(finid);
+            $("#delete" + finid).unbind("click");
+            $("#delete" + finid).attr("povertyid", data.ID);
+            $("#delete" + finid).click(function () {
+                if (confirm("确认需要删除吗")) {
+                    var athis = $(this);
+                    athis.closest('.middle_info').remove();
+                    $.post(ServiceUrl + "PovertyArchivesInterface/UpdateHouseholderIdHandler.ashx", {
+                        ID: $(this).attr("povertyid"),
+                        HouseholderId: "0"
+                    }, function (res) {
+                        var json = JSON.parse(res);
+                        if (json.Result) {
+                            athis.closest('.middle_info').remove();
+                        }
+                    });
+                }
+
+            });
+
+        }
+
+        function loadpolicy(edulevel, policy) {
+            policy.empty();
+            if (edulevel == "小学" || edulevel == "初中") {
+                edulevel = "义务教育";
+            } else if (edulevel == "中职教育" || edulevel == "高职教育") {
+                edulevel = "职业教育"
+            } else if (edulevel == "专科" || edulevel == "本科" || edulevel == "硕士" || edulevel == "博士") {
+                edulevel = "普通高等教育"
+            }
+            var CityID = $("#dlCity").val();
+            var CountyID = $("#dlCounty").val();
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: ServiceUrl + "PolicyInterface/GetHandler.ashx",
+                data: {
+                    ProvinceID: 29,
+                    CityID: CityID,
+                    CountyID: CountyID,
+                    EduLevels: edulevel
+                },
+                success: function (res) {
+                    var json = JSON.parse(res);
+                    if (json.Result) {
+                        $(json.Data).each(function () {
+                            var thisli = $("<li>").appendTo(policy).attr("policyid", this.ID);
+                            $("<input>").appendTo(thisli).prop("type", "checkbox").val(this.ID);
+                            $("<span>").appendTo(thisli).text(this.Name + "(补助金额：" + this.Amount + "元）").prop("title", this.Detail);
+                        });
+                    }
+
+                }
+            });
+        }
+
+        function addNation(selectnation) {
+            $("<option>").appendTo(selectnation).val("汉族").text("汉族");
+            $("<option>").appendTo(selectnation).val("蒙古族").text("蒙古族");
+            $("<option>").appendTo(selectnation).val("彝族").text("彝族");
+            $("<option>").appendTo(selectnation).val("侗族").text("侗族");
+            $("<option>").appendTo(selectnation).val("哈萨克族").text("哈萨克族");
+            $("<option>").appendTo(selectnation).val("畲族").text("畲族");
+            $("<option>").appendTo(selectnation).val("纳西族").text("纳西族");
+            $("<option>").appendTo(selectnation).val("仫佬族").text("仫佬族");
+            $("<option>").appendTo(selectnation).val("仡佬族").text("仡佬族");
+            $("<option>").appendTo(selectnation).val("保安族").text("保安族");
+            $("<option>").appendTo(selectnation).val("鄂伦春族").text("鄂伦春族");
+            $("<option>").appendTo(selectnation).val("回族").text("回族");
+            $("<option>").appendTo(selectnation).val("壮族").text("壮族");
+            $("<option>").appendTo(selectnation).val("瑶族").text("瑶族");
+            $("<option>").appendTo(selectnation).val("傣族").text("傣族");
+            $("<option>").appendTo(selectnation).val("高山族").text("高山族");
+            $("<option>").appendTo(selectnation).val("景颇族").text("景颇族");
+            $("<option>").appendTo(selectnation).val("羌族").text("羌族");
+            $("<option>").appendTo(selectnation).val("乌孜别克族").text("乌孜别克族");
+            $("<option>").appendTo(selectnation).val("裕固族").text("裕固族");
+            $("<option>").appendTo(selectnation).val("藏族").text("藏族");
+            $("<option>").appendTo(selectnation).val("布依族").text("布依族");
+            $("<option>").appendTo(selectnation).val("白族").text("白族");
+            $("<option>").appendTo(selectnation).val("黎族").text("黎族");
+            $("<option>").appendTo(selectnation).val("拉祜族").text("拉祜族");
+            $("<option>").appendTo(selectnation).val("柯尔克孜族").text("柯尔克孜族");
+            $("<option>").appendTo(selectnation).val("布朗族").text("布朗族");
+            $("<option>").appendTo(selectnation).val("阿昌族").text("阿昌族");
+            $("<option>").appendTo(selectnation).val("俄罗斯族").text("俄罗斯族");
+            $("<option>").appendTo(selectnation).val("京族").text("京族");
+            $("<option>").appendTo(selectnation).val("门巴族").text("门巴族");
+            $("<option>").appendTo(selectnation).val("维吾尔族").text("维吾尔族");
+            $("<option>").appendTo(selectnation).val("朝鲜族").text("朝鲜族");
+            $("<option>").appendTo(selectnation).val("土家族").text("土家族");
+            $("<option>").appendTo(selectnation).val("傈僳族").text("傈僳族");
+            $("<option>").appendTo(selectnation).val("水族").text("水族");
+            $("<option>").appendTo(selectnation).val("土族").text("土族");
+            $("<option>").appendTo(selectnation).val("撒拉族").text("撒拉族");
+            $("<option>").appendTo(selectnation).val("普米族").text("普米族");
+            $("<option>").appendTo(selectnation).val("鄂温克族").text("鄂温克族");
+            $("<option>").appendTo(selectnation).val("塔塔尔族").text("塔塔尔族");
+            $("<option>").appendTo(selectnation).val("珞巴族").text("珞巴族");
+            $("<option>").appendTo(selectnation).val("苗族").text("苗族");
+            $("<option>").appendTo(selectnation).val("满族").text("满族");
+            $("<option>").appendTo(selectnation).val("哈尼族").text("哈尼族");
+            $("<option>").appendTo(selectnation).val("佤族").text("佤族");
+            $("<option>").appendTo(selectnation).val("东乡族").text("东乡族");
+            $("<option>").appendTo(selectnation).val("达斡尔族").text("达斡尔族");
+            $("<option>").appendTo(selectnation).val("毛南族").text("毛南族");
+            $("<option>").appendTo(selectnation).val("塔吉克族").text("塔吉克族");
+            $("<option>").appendTo(selectnation).val("德昂族").text("德昂族");
+            $("<option>").appendTo(selectnation).val("独龙族").text("独龙族");
+            $("<option>").appendTo(selectnation).val("基诺族").text("基诺族");
+        }
+
+        function EditHousehold(data) {
+            //差异内容
+            var PovertyChange = "";
+            //户主ID
+            var ID = $("#HouseholderID").text();
+            //户主姓名
+            var HouseholderName = $("#HouseholderName").val();
+            PovertyChange += CheckPovertyChange("Name", HouseholderName, data.Name);
+            //户主证件
+            var HouseholderIdCardNo = $("#HouseholderIdCardNo").val();
+            PovertyChange += CheckPovertyChange("IdCardNo", HouseholderIdCardNo, data.IdCardNo);
+            //家庭人数
+            var FamilySize = $("#FamilySize").val();
+            PovertyChange += CheckPovertyChange("FamilySize", FamilySize, data.FamilySize);
+            //村/居委会
+            var VillageID = $("#dlVillage").val();
+            PovertyChange += CheckPovertyChange("VillageId", VillageID, data.VillageId);
+            //详细地址
+            var Address = $("#Address").val();
+            PovertyChange += CheckPovertyChange("Address", Address, data.Address);
+            //联系电话
+            var PeoplePhone = $("#Phone").val();
+            PovertyChange += CheckPovertyChange("Phone", PeoplePhone, data.Phone);
+            //贫困原因
+            var PovertyReason = "";
+            $(".PovertyReason li input[type='checkbox']").each(function () {
+                if ($(this).is(":checked")) {
+                    PovertyReason += $(this).val() + ",";
+                }
+            });
+            if (PovertyReason.length > 0) {
+                PovertyReason = PovertyReason.substring(0, PovertyReason.length - 1);
+            }
+            PovertyChange += CheckPovertyChange("PovertyReason", PovertyReason, data.PovertyReason);
+            //贫困属性
+            var PovertyProperties = $("#PovertyProperties").val();
+            PovertyChange += CheckPovertyChange("PovertyProperties", PovertyProperties, data.PovertyProperties);
+            //识别标准
+            var DiscerningStandards = $("#DiscerningStandards").val();
+            PovertyChange += CheckPovertyChange("DiscerningStandards", DiscerningStandards, data.DiscerningStandards);
+            //教育脱贫状态
+            var State = $("#selectState").val();
+            PovertyChange += CheckPovertyChange("State", State, data.State);
+            //教育脱贫时间
+            var OffPovertyTime = $("#OffPovertyTime").val();
+            if (State == "False") {
+                OffPovertyTime = "";
+            }
+            PovertyChange += CheckPovertyChange("OffPovertyTime", OffPovertyTime, data.State);
+            //if (PovertyChange == "")
+            //{
+            //    alert("没有需要修改的内容！");
+            //    return;
+            //}
+            if (HouseholderName == "") {
+                alert("请输入户主姓名！");
+                return;
+            }
+            if (FamilySize == "") {
+                alert("请输入家庭人数！");
+                return;
+            }
+            if (Address == "") {
+                alert("请输入家庭详细地址！");
+                return;
+            }
+            if (PeoplePhone == "") {
+                alert("请输入联系电话！");
+                return;
+            }
+            //if (PovertyReason == "") {
+            //    alert("请选择贫困原因！");
+            //    return;
+            //}
+            if (State == "True" && OffPovertyTime.length == 0) {
+                alert("请选择脱贫时间！");
+                return;
+            }
+            $.post(ServiceUrl + "PovertyArchivesInterface/UpadteFamilyDataHandler.ashx", {
+                HouseholderId: ID,
+                FamilySize: FamilySize,
+                VillageID: VillageID,
+                Address: Address,
+                Phone: PeoplePhone,
+                PovertyReason: PovertyReason,
+                PovertyProperties: PovertyProperties,
+                DiscerningStandards: DiscerningStandards,
+                State: State,
+                OffPovertyTime: OffPovertyTime
+            }, function (res) {
+                var json = JSON.parse(res);
+                if (json.Result) {
+                    $.post(ServiceUrl + "PovertyArchivesInterface/UpdateCardNameHandler.ashx", {
+                        ID: ID,
+                        IdCardNo: HouseholderIdCardNo,
+                        Name: HouseholderName
+                    }, function (data) {
+                        var result = JSON.parse(data);
+                        if (result.Result) {
+                            alert("修改成功！");
+                            LoadHouseHold();
+                            $(".middle_household").find("input").css("display", "none");
+                            $(".middle_household").find("select").css("display", "none");
+                            $(".middle_household").find(".Anmelden li ul").css("display", "none");
+                            $(".middle_household").find("label").css("display", "none");
+                            $(".middle_household").find("ul div").css("display", "inline-block");
+                            $(".middle_household").find(".btn").css("display", "none");
+                            $(".middle_household").find(".PovertyReason").css("display", "none");
+                            $(".middle_household").find(".OffPovertystate").css("display", "none");
+                        }
+                    });
+                    $.post(ServiceUrl + "PovertyArchivesChangeLogInterface/PostHandler.ashx", {
+                        UserId: UserList.ID,
+                        PovertyArchivesId: ID,
+                        ChangeText: escape(PovertyChange)
+                    }, function (data) { });
+                }
+            });
+
+        }
+
+        function CheckPovertyChange(name, after, before) {
+            if (after != before) {
+                return "<" + name + ">" + after + "</" + name + ">";
+            } else {
+                return "";
+            }
+        }
+
+        function EditPeopleData(data, findid) {
+            //差异内容
+            var PovertyChange = "";
+            var ID = data.ID;
+            //姓名
+            var Name = $("#Name" + findid).val();
+            PovertyChange += CheckPovertyChange("Name", Name, data == null ? "" : data.Name);
+            //出生日期
+            var birhtday = $("#BirthDay" + findid).val();
+            var dataBirthday = "";
+            if (data != null) {
+                dataBirthday = new Date(data.BirthDay).getFullYear() + "-" + checklength(new Date(data.BirthDay).getMonth() + 1) + "-" + checklength(new Date(data.BirthDay).getDate());
+            }
+            PovertyChange += CheckPovertyChange("birhtday", birhtday, data == null ? "" : dataBirthday);
+            //民族
+            var Nation = $("#Nation" + findid).val();
+            PovertyChange += CheckPovertyChange("Nation", Nation, data == null ? "" : data.Nation);
+            //性别
+            var Gender = $("#Gender" + findid).val();
+            PovertyChange += CheckPovertyChange("Gender", Gender, data == null ? "" : data.Gender);
+            //证件号码
+            var IdCardNo = $("#IdCardNo" + findid).val();
+            PovertyChange += CheckPovertyChange("IdCardNo", IdCardNo, data == null ? "" : data.IdCardNo);
+            //与户主关系
+            var HouseholderRelation = $("#HouseholderRelation" + findid).val();
+            if (data.HouseholderRelation == "本人或户主" && HouseholderRelation != "本人或户主") {
+                alert("本人或户主不能修改");
+                return false;
+            }
+            if (data.HouseholderRelation != "本人或户主" && HouseholderRelation == "本人或户主") {
+                alert("不能更换户主");
+                return false;
+            }
+            PovertyChange += CheckPovertyChange("HouseholderRelation", HouseholderRelation, data == null ? "" : data.HouseholderRelation);
+            //教育信息修改
+            var StudentChange = "";
+            //省内就读
+            var IsProvinceStudy = $("#IsProvinceStudy" + findid).is(":checked") ? "True" : "False";
+            StudentChange += CheckPovertyChange("IsProvinceStudy", IsProvinceStudy, data == null ? "" : data.IsProvinceStudy);
+            //两后生(培训需求)
+            var IsLHS = !$("#divIsLHS" + findid).parent().is(":hidden") ? ($("#IsLHS" + findid).is(":checked") ? "True" : "False") : "False";
+            StudentChange += CheckPovertyChange("IsLHS", IsLHS, data == null ? "" : data.IsLHS);
+            //两后生工作
+            var LHSWorkId = $("#LHSWorkId" + findid).val();
+            StudentChange += CheckPovertyChange("LHSWorkId", LHSWorkId, data == null ? "" : data.LHSWorkId);
+            //辍学阶段
+            var DropoutSchool = $("#DropoutSchool" + findid).val();
+            StudentChange += CheckPovertyChange("DropoutSchool", DropoutSchool, data == null ? "" : data.DropoutSchool);
+            //劝返情况
+            var ReturnSchool = $("#ReturnSchool" + findid).val();
+            StudentChange += CheckPovertyChange("ReturnSchool", ReturnSchool, data == null ? "" : data.ReturnSchool);
+            //教育阶段
+            var EduLevels = $("#EduLevels" + findid).val();
+            PovertyChange += CheckPovertyChange("EduLevels", EduLevels, data == null ? "" : data.EduLevels);
+            StudentChange += CheckPovertyChange("EduLevels", EduLevels, data == null ? "" : data.EduLevels);
+            //适龄未入学原因
+            var OutpreschoolReason = "";
+            if (EduLevels == "适龄未入学或辍学") {
+                OutpreschoolReason = $("#OutpreschoolReason" + findid).val();
+            }
+            StudentChange += CheckPovertyChange("OutpreschoolReason", OutpreschoolReason, data == null ? "" : data.OutpreschoolReason);
+            var policyid = "";
+            var PolicyFalse = $("#PolicyFalse" + findid).is(":checked") ? "0" : "";
+            if (PolicyFalse == "0") {
+                policyid = "0";
+            } else {
+                $("#PolicyID" + findid).find("li").each(function () {
+                    if ($(this).find("input[type='checkbox']").is(":checked")) {
+                        policyid += $(this).find("input[type='checkbox']").val() + ",";
+
+                    }
+                });
+                if (policyid.length > 0) {
+                    policyid = policyid.substring(0, policyid.length - 1);
+                }
+            }
+
+            //年级
+            var StudentStatus = $("#StudentStatus" + findid).val();
+            StudentChange += CheckPovertyChange("StudentStatus", StudentStatus, data == null ? "" : data.StudentStatus);
+            PovertyChange += CheckPovertyChange("StudentStatus", StudentStatus, data == null ? "" : data.StudentStatus);
+            //学校名称
+            var SchoolName = $("#SchoolName" + findid).val().trim();
+            StudentChange += CheckPovertyChange("SchoolName", SchoolName, data == null ? "" : data.SchoolName);
+            //学校性质
+            var SchoolNature = $("#SchoolNature" + findid).val().trim();
+            //学生信息差异内容
+            StudentChange += CheckPovertyChange("SchoolNature", SchoolNature, data == null ? "" : data.SchoolNature);
+            //学号
+            //var StudentNo = $("#StudentNo" + findid).val().trim();
+            //StudentChange += CheckPovertyChange("StudentNo", StudentNo, data == null ? "" : data.StudentNo);
+            //备注
+            var Remark = $("#Remark" + findid).val().trim();
+            StudentChange += CheckPovertyChange("Remark", Remark, data == null ? "" : data.Remark);
+            //户主证件
+            var HouseholderId = $("#HouseholderID").text();
+            PovertyChange += CheckPovertyChange("HouseholderId", HouseholderId, data == null ? "" : data.HouseholderId);
+            //联系电话
+            var PeoplePhone = $("#Phone").val();
+            PovertyChange += CheckPovertyChange("Phone", PeoplePhone, data.Phone);
+            if (ReturnSchool == "True") {
+                IsLHS = "False";
+                LHSWorkId = "";
+            }
+            if (DropoutSchool.length == 0) {
+                alert("请选择文化程度");
+                return;
+            }
+            if (OutpreschoolReason == "" && EduLevels == "适龄未入学或辍学") {
+                alert("请选择未入学原因");
+                return;
+            }
+            if (Name == "") {
+                alert("请输入姓名");
+                return;
+            }
+            if (birhtday == "") {
+                alert("请输入出生日期");
+                return;
+            }
+            if (FamilySize == "") {
+                alert("请输入家庭人数");
+                return;
+            }
+            if (IdCardNo == "") {
+                alert("请输入证件号码");
+                return;
+            }
+            if (ReturnSchool == "True" && SchoolName == "") {
+                alert("请输入学校名称");
+                return;
+
+            }
+            if (EduLevels != "适龄未入学或辍学" && EduLevels != "非学龄段" && StudentStatus != "非在校生" && SchoolName == "") {
+                alert("请输入学校名称");
+                return;
+            }
+            if (EduLevels != "适龄未入学或辍学" && EduLevels != "非学龄段" && (!StudentStatus || StudentStatus.length == 0)) {
+                alert("请选择年级");
+                return;
+            }
+            if (IsLHS == "True" && LHSWorkId == 0) {
+                alert("请完善培训需求选项");
+                return;
+            }
+            if (EduLevels != "适龄未入学或辍学" && EduLevels != "非学龄段" && StudentStatus != "非在校生" && policyid.length == 0) {
+                alert("请选择帮扶政策");
+                return;
+            }
+            if (!$("#PolicyTrue" + findid).is(":hidden") && $("#PolicyTrue" + findid).is(":checked") && policyid.length == 0) {
+                alert("请选择帮扶政策");
+                return;
+            }
+            if (data == null) {
+                return;
+            } else {
+                $.post(ServiceUrl + "PovertyArchivesInterface/EditHandler.ashx", {
+                    ID: ID,
+                    Name: Name,
+                    Nation: Nation,
+                    IdCardNo: IdCardNo,
+                    Phone: PeoplePhone,
+                    BirthDay: birhtday,
+                    Gender: Gender,
+                    HouseholderRelation: HouseholderRelation,
+                    EduLevels:EduLevels,
+                    StudentStatus: StudentStatus,
+                    HouseholderId: HouseholderId
+                }, function (res) {
+                    var result = JSON.parse(res);
+                    if (result != null) {
+                        if (result.Result) {
+                            if (StudentChange != "") {
+                                $.post(ServiceUrl + "StudentArchivesInterface/PostHandler.ashx", {
+                                    UserID: UserList.ID,
+                                    PovertyArchivesID: data.ID,
+                                    PolicyID: policyid,
+                                    SchoolName: SchoolName,
+                                    EduLevels: EduLevels,
+                                    StudentStatus: StudentStatus,
+                                    IsLHS: IsLHS,
+                                    LHSWorkId: LHSWorkId,
+                                    ReturnSchool: ReturnSchool,
+                                    DropoutSchool: DropoutSchool,
+                                    OutpreschoolReason: OutpreschoolReason,
+                                    IsProvinceStudy: IsProvinceStudy,
+                                    SchoolNature: SchoolNature,
+                                    Remark: Remark
+                                }, function (data1) {
+                                    var result1 = JSON.parse(data1);
+                                    if (result1 != null) {
+                                        if (result1.Result) {
+                                            var studentArchiverID = result1.Message;
+                                            $.post(ServiceUrl + "StudentArchivesChangeLogInterface/PostHandler.ashx", {
+                                                StudentArchivesId: studentArchiverID,
+                                                UserId: UserList.ID,
+                                                ChangeText: escape(StudentChange)
+                                            }, function (data2) {
+                                                var result2 = JSON.parse(data2);
+                                                if (result2 != null) {
+                                                    if (result2.Result) {
+                                                        alert("修改成功");
+                                                        Repeatload(findid, data.ID);
+                                                    } else {
+                                                        alert("修改失败");
+                                                    }
+                                                } else {
+                                                    alert("修改失败");
+                                                }
+                                            });
+                                        } else {
+                                            alert("修改失败");
+                                        }
+                                    } else {
+                                        alert("修改失败");
+                                    }
+                                });
+                            }
+
+                            if (PovertyChange != "") {
+                                if (StudentChange == "") {
+                                    Repeatload(findid, data.ID);
+                                    alert("修改成功");
+                                }
+                                $.post(ServiceUrl + "PovertyArchivesChangeLogInterface/PostHandler.ashx", {
+                                    PovertyArchivesId: data.ID,
+                                    UserId: UserList.ID,
+                                    ChangeText: escape(PovertyChange)
+                                }, function (data2) {
+                                    var result2 = JSON.parse(data2);
+                                });
+                            }
+
+                        } else {
+                            alert("修改失败");
+                        }
+                    } else {
+                        alert("修改失败");
+                    }
+                });
+            }
+        }
+
+        function cancel(findid) {
+            $("#cancel" + findid).unbind("click");
+            $("#cancel" + findid).click(function () {
+                $("#middle_info" + findid).find(".arrows").css("display", "inline-block");
+                $("#middle_details" + findid).find(".beforeeidt").css("display", "inline-block");
+                $("#middle_details" + findid).find("input").css("display", "none");
+                $("#middle_details" + findid).find("select").css("display", "none");
+                $("#middle_details" + findid).find("textarea").css("display", "none");
+                $("#middle_details" + findid).find("label").css("display", "none");
+                $("#middle_details" + findid).find(".switch").css("display", "none");
+                $("#middle_info" + findid).find(".lhswork").css("display", "none");
+                $("#middle_details" + findid).find(".btn").css("display", "none");
+                $("#middle_details" + findid).find(".Assist").css("display", "none");
+                $("#middle_details" + findid).find(".outpreschoollist").css("display", "none");
+                $("#editicon" + findid).css("display", "inline-block");
+            });
+        }
+
+        function Repeatload(findid, povertyid) {
+            $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", {
+                ID: povertyid
+            }, function (data3) {
+                var result3 = JSON.parse(data3);
+                if (result3.Result) {
+                    addData(findid, result3.Data[0]);
+                }
+            });
+            $("#middle_info" + findid).find(".arrows").css("display", "inline-block");
+            $("#middle_details" + findid).find(".beforeeidt").css("display", "inline-block");
+            $("#middle_details" + findid).find("input").css("display", "none");
+            $("#middle_details" + findid).find("select").css("display", "none");
+            $("#middle_details" + findid).find("textarea").css("display", "none");
+            $("#middle_details" + findid).find("label").css("display", "none");
+            $("#middle_details" + findid).find(".switch").css("display", "none");
+            $("#middle_details" + findid).find(".btn").css("display", "none");
+            $("#middle_details" + findid).find(".Assist").css("display", "none");
+            $("#middle_details" + findid).find(".outpreschoollist").css("display", "none");
+            $("#editicon" + findid).css("display", "inline-block");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\BLL.dll
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\BLL.pdb
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\DAL.dll
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\Model.dll
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\AbstractFactory.pdb
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\DAL.pdb
+E:\work\扶贫项目\QinHaiFupin\BLL\bin\x86\Debug\Model.pdb
+E:\work\扶贫项目\QinHaiFupin\BLL\obj\x86\Debug\BLL.csprojResolveAssemblyReference.cache
+E:\work\扶贫项目\QinHaiFupin\BLL\obj\x86\Debug\BLL.dll
+E:\work\扶贫项目\QinHaiFupin\BLL\obj\x86\Debug\BLL.pdb

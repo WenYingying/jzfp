@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>用户列表</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			.user_name{
+				margin: 1rem 0;
+			    font-size: 0.7rem;
+			    font-weight: 600;
+			}
+			.user_name>a{
+				float: right;
+			    background-color: #32b16c;
+			    width: 5rem;
+			    height: 1.5rem;
+			    line-height: 1.5rem;
+			    text-align: center;
+			    color: #FFFFFF;
+			    border-radius: 3px;
+			}
+			.user_name>span{
+				color: #3b94e1;
+    			font-size: 0.9rem;
+			}
+			.user_time{
+				font-size: 0.8rem;
+			}
+			.user_time>div{
+				display: inline-block;
+			}
+			.user_time>div:first-child{
+				margin-right: 4rem;
+			}
+			.cont_box:first-child .middle>ul{
+				margin-top: 1rem;
+			}
+			.cont_box:first-child .middle>ul>li{
+				display: inline-block;
+			    width: 32.5%;
+			    border-right: 1px solid #ccc;
+			    height: 2rem;
+			    line-height: 2rem;
+			    text-align: center;
+			    font-size: 0.8rem;
+			}
+			.cont_box:first-child .middle>ul>li:last-child{
+				border-right: none;
+			}
+			.cont_box:first-child .middle>ul>li>span>i{
+				font-size: 1rem;
+    			margin-right: 0.3rem;
+			}
+			.cont_box:first-child .middle>ul>li:nth-of-type(1)>span>i{
+				color: #f39700;
+			}
+			.cont_box:first-child .middle>ul>li:nth-of-type(2)>span>i{
+				color: #32b16c;
+			}
+			.cont_box:first-child .middle>ul>li:nth-of-type(3)>span>i{
+				color: #0075a9;
+			}
+			.cont_list li div:nth-of-type(1){
+				width: 5%;
+			}
+			.cont_list li div:nth-of-type(2){
+				width: 10%;
+			}
+			.cont_list li div:nth-of-type(3){
+				width: 15%;
+			}
+			.cont_list li div:nth-of-type(4){
+				width: 15%;
+			}
+			.cont_list li div:nth-of-type(5){
+				width: 30%;
+			}
+			.cont_list li div:nth-of-type(6){
+				width: 15%;
+			}
+            .cont_list li div:nth-of-type(7){
+				width: 10%;
+			}
+			.user_name>a.time{
+				float: right;
+			    background-color: #f39800;
+			    width: 5rem;
+			    height: 1.5rem;
+			    line-height: 1.5rem;
+			    text-align: center;
+			    color: #FFFFFF;
+			    border-radius: 3px;
+			    margin-right: 0.8rem;
+			}
+			
+			 /*未入学原因弹框*/
+	        .school_alert {
+	            width: 100%;
+	            height: 100%;
+	            position: fixed;
+	            background: rgba(40,40,40,0.8);
+	            left: 0;
+	            top: 0;
+	            z-index: 10;
+	            display: none;
+	        }
+            .school_alert .scoll_info {
+                width: 20rem;
+                display: block;
+                background-color: #fff;
+                margin-left: auto;
+                margin-right: auto;
+                height: 12rem;
+                position: fixed;
+                left: 35%;
+                top: 22%;
+                border-radius: 5px;
+                overflow-y: auto;
+            }
+	        .school_alert .scoll_info h3 {
+	            background-color: #fafafa;
+	            color: #7a7a7a;
+	            font-size: 0.9rem;
+	            height: 2.25rem;
+	            line-height: 2.25rem;
+	            text-align: center;
+	            border-radius: 5px 5px 0 0;
+	            position: fixed;
+	            width: 20rem;
+	        }
+	        .school_alert .scoll_info > ul {
+	            width: 90%;
+	            margin: 13% 5% 1rem 5%;
+	        }
+            .school_alert .scoll_info > ul li {
+                width: 100%;
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
+            .school_alert .scoll_info > ul li span {
+                float: left;
+                font-size: 0.7rem;
+                color: #808080;
+                line-height: 1.5rem;
+                margin-right: 0.5rem;
+                width: 20%;
+            }
+
+            .school_alert .scoll_info > ul li input {
+                float: left;
+                border: 1px solid #e3e4e6;
+                border-radius: 3px;
+                outline: none;
+                color: #cccccc;
+                font-size: 0.6rem;
+                padding: 0 0.3rem;
+                height: 1.5rem;
+                width: 13rem;
+                line-height: 1.5rem;
+                background-color: #fff;
+            }
+	        .btn {
+	            margin: 0;
+	            text-align: center;
+	            width: auto;
+	        }
+            .btn > a {
+                margin: 0 0.8rem;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="cont_box">
+				<div class="middle" style="padding-bottom: 1rem">
+					<div class="user_name">
+						您好！<span id="Name">文女士</span>
+						<a href="UpdatePassword.html">修改密码</a>
+						<a href="javascript:void(0)" class="time" style="display:none">设置录入时间</a>
+					</div>
+					<div class="user_time">
+						<div>
+							今天是<span id="NowDate"></span>&nbsp;
+							<span id="WeekDay"></span>&nbsp;
+							登录Ip:<span id="LoginIp"></span>    
+						</div>
+						<div>
+							登录时间:<span id="LoginTime"></span>&nbsp;
+						</div>
+					</div>
+					<ul>
+						<li>
+							<span><i class="iconfont">&#xe60a;</i>用户级别:</span>
+							<span id="Jurisdiction"></span>
+						</li>
+						<li>
+							<span><i class="iconfont">&#xe609;</i>当前地区:</span>
+							<span id="Place"></span>
+						</li>
+						<li>
+							<span><i class="iconfont">&#xe604;</i>手机号码:</span>
+							<span id="Phone"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		
+			<div class="cont_box">
+				<div class="middle">
+					<h1 class="title">账户管理</h1>
+					<ul class="tit_search">
+						<li>
+							<a href="Post.html" class="a_search a_add" style="width: 5rem;display:none">添加用户</a>
+						</li>
+						<li>
+							筛选信息
+						</li>
+						<li>
+                            <select id="dlCity"></select>
+						</li>
+						<li>
+                            <select id="dlCounty"></select> 
+						</li>
+						<li>
+                            <input type="text" placeholder="输入姓名/手机号/证件号" id="SearchText">
+						</li>
+						<li>
+							<a class="a_search searchlist" href="javascript:void(0)">搜索</a>
+						</li>
+					</ul>
+					<div class="cont_list">
+						<ul>
+							<li>
+								<div>序列</div>
+								<div>登录名</div>
+								<div>姓名</div>
+								<div>手机号码</div>
+								<div>地区</div>
+								<div>用户级别</div>
+							</li>
+						</ul>
+						<div class="clear">
+	                        <div class="tcdPageCode"></div>
+	                    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!--弹框-->
+	    <div class="school_alert">
+	        <div class="scoll_info">
+	            <h3 id="AddTitle">设置录入时间</h3>
+	            <ul>
+	                <li>
+	                    <span>录入时间:</span>
+	                    <input type="text" name="" value="" class="Wdate"  placeholder="选择录入时间" data-role="inputtime" onclick="WdatePicker()"/>
+	                </li>
+	                <li>
+	                    <span>录入天数:</span>
+	                    <input type="tel" name="" value="" placeholder="输入天数" data-role="inputday"/>
+	                </li>
+	            </ul>
+	            <div class="btn">
+	                <a class="school_ok" href="javascript:void(0)">确定</a>
+	                <a class="school_no" href="javascript:void(0)">取消</a>
+	
+	            </div>
+	        </div>
+	    </div>
+        
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+        <script type="text/javascript" src="../js/jquery.page.js"></script>
+        <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+        <script>
+            $(function () {
+                $(".time").click(function () {
+                    if (UserList.InputBeginTime != "")
+                    {
+                        var begintime = new Date(UserList.InputBeginTime).getFullYear() + "-" + checklength(new Date(UserList.InputBeginTime).getMonth() + 1) + "-" + checklength(new Date(UserList.InputBeginTime).getDate());
+                        var endtime = new Date(UserList.InputEndTime).getFullYear() + "-" + checklength(new Date(UserList.InputEndTime).getMonth() + 1) + "-" + checklength(new Date(UserList.InputEndTime).getDate());
+                        $("[data-role='inputtime']").val(begintime);
+                    $("[data-role='inputday']").val(DateDiff(begintime, endtime));
+                    }
+            		$(".school_alert").show();
+            	});
+            	$(".school_no").click(function () {
+            	    $(".school_alert").hide();
+            	});
+            	$(".school_ok").click(function () {
+
+            	    updatetime($("[data-role='inputtime']").val(), $("[data-role='inputday']").val());
+            	});
+                var nowdate = new Date().getFullYear() + "年" + checklength(new Date().getMonth() + 1) + "月" + checklength(new Date().getDate()) + "日";
+                $("#NowDate").text(nowdate);
+                $("#WeekDay").text(getweek);
+                $("#LoginIp").text(UserList.LastLoginIp);
+                $("#LoginTime").text(UserList.LastLoginTime);
+                if (UserList.CountyId != 0) {
+                    $("#Jurisdiction").text("县级用户");
+                    $("#Place").text(UserList.CountyName);
+                    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+                    $("<option>").appendTo($("#dlCounty")).val(UserList.CountyId).text(UserList.CountyName);
+                }
+                else if (UserList.CountyId == 0 && UserList.CityId != 0) {
+                    $("#Jurisdiction").text("市级用户");
+                    $("#Place").text(UserList.CityName);
+                    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+                    GetCounty(UserList.CityId);
+                }
+                else {
+                    $(".a_add").css("display", "inline-block");
+                    $(".time").css("display", "inline-block");
+                    $("#Jurisdiction").text("省级用户");
+                    $("#Place").text("青海省");
+                    GetCity();
+                    $("#dlCity").change(function () {
+                        var CityId = $(this).val();
+                        GetCounty(CityId);
+                    });
+                }
+                $("#Phone").text(UserList.Phone);
+                $("#Name").text(UserList.Name);
+                
+                $(".searchlist").click(function () {
+                    PageCheck = true;
+                    GetList(1);
+                });
+                PageCheck = true;
+                GetList(1);
+            });
+            function GetCity()
+            {
+                $("#dlCity").empty();
+                $("<option>").appendTo($("#dlCity")).val("").text("全部");
+                $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                            });
+                        }
+                    }
+                });
+            }
+            function GetCounty(CityID)
+            {
+                $("#dlCounty").empty();
+                $("<option>").appendTo($("#dlCounty")).val("").text("全部");
+                $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityId }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+                            });
+                        }
+                    }
+                });
+            }
+            var pagesize = 15;
+            var PageCheck = true;
+            function GetList(Pageno)
+            {
+                var CityId = $("#dlCity").val();
+                var CountyId = $("#dlCounty").val();
+                var searchtext = $("#searchtext").val();
+                $.post(ServiceUrl + "UserInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, SearchAll: searchtext, CityId: CityId, CountyId: CountyId }, function (data) {
+                    var result = JSON.parse(data);
+                    if(result!=null)
+                    {
+                        if(result.Result)
+                        {
+                            if (PageCheck)
+                            {
+                                PageCheck = false;
+                                $(".clear").empty();
+                                $("<div>").appendTo($(".clear")).addClass("tcdPageCode").createPage({
+                                    pageCount: result.PageCount,
+                                    current: 1,
+                                    backFn: function (p) {
+                                        GetList(p);
+                                    }
+                                });
+                            }
+                            var list = $(".cont_list ul");
+                            list.empty();
+                            var titleul = $("<li>").appendTo(list);
+                            $("<div>").appendTo(titleul).text("序列");
+                            $("<div>").appendTo(titleul).text("登录名");
+                            $("<div>").appendTo(titleul).text("姓名");
+                            $("<div>").appendTo(titleul).text("手机号码");
+                            $("<div>").appendTo(titleul).text("地区");
+                            $("<div>").appendTo(titleul).text("用户级别");
+                            $("<div>").appendTo(titleul).text("修改信息");
+                            var xulie = 0;
+                            $(result.Data).each(function () {
+                                xulie += 1;
+                                var thisul = $("<li>").appendTo(list);
+                                $("<div>").appendTo(thisul).text(xulie);
+                                $("<div>").appendTo(thisul).text(this.LoginName);
+                                $("<div>").appendTo(thisul).text(this.Name);
+                                $("<div>").appendTo(thisul).text(this.Phone);
+                                var Region = this.ProvinceName + (this.CityName == null ? "" : this.CityName) + (this.CountyName == null ? "" : this.CountyName) + (this.CountrySideName == null ? "" : this.CountrySideName);
+                                $("<div>").appendTo(thisul).text(Region);
+                                if (this.CountrySideId != 0)
+                                {
+                                    $("<div>").appendTo(thisul).text("乡级用户");
+                                }
+                                else if (this.CountrySideId == 0&&this.CountyId != 0)
+                                {
+                                    $("<div>").appendTo(thisul).text("县级用户");
+                                }
+                                else if(this.CountyId == 0&&this.CityId!=0)
+                                {
+                                    $("<div>").appendTo(thisul).text("市级用户");
+                                }
+                                else
+                                {
+                                    $("<div>").appendTo(thisul).text("省级用户");
+                                }
+                                var userid= this.ID;
+                                var editdiv = $("<div>").appendTo(thisul);
+                                $("<a>").appendTo(editdiv).text("修改").prop("href", "Edit.html?id=" + this.ID).css("margin-right","0.3rem");
+                                $("<a>").appendTo(editdiv).text("重置密码").prop("href", "JavaScript:void(0)").click(function () {
+                                    if (confirm("确定需要重置密码吗？"))
+                                    {
+                                        $.post(ServiceUrl + "UserInterface/UpdatePasswordHandler.ashx", { ID: userid, PassWord: "123456" }, function (data) {
+                                            var result = JSON.parse(data);
+                                            if (result != null) {
+                                                if (result.Result) {
+                                                    alert("重置密码成功");
+
+                                                }
+                                                else {
+                                                    alert("重置密码失败");
+                                                }
+                                            }
+                                            else {
+                                                alert("重置密码失败");
+                                            }
+                                        });
+                                    }
+
+                                });
+                            });
+                        }
+                    }
+
+                });
+            }
+			 function getweek()
+			 {
+			     var day = new Date();   //需要正则转换的则 此处为 ： var day = new Date(Date.parse(date.replace(/-/g, '/')));
+			     var today = new Array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
+			     var week = today[day.getDay()];
+			     return week;
+			 }
+
+			 function updatetime(startime,day)
+			 {
+			     if (startime == "")
+			     {
+			         alert("请选择录入时间");
+			         return false;
+			     }
+			     if (day == "")
+			     {
+			         alert("请输入录入天数");
+			         return false;
+			     }
+			     var endtime = new Date(startime);
+			     endtime.setDate(endtime.getDate() + parseInt(day));
+			     endtime = new Date(endtime).getFullYear() + "-" + checklength(new Date(endtime).getMonth() + 1) + "-" + checklength(new Date(endtime).getDate());
+			     $.post(ServiceUrl + "UserInterface/UpdateInputTimeHandler.ashx", { InputBeginTime: startime, InputEndTime:endtime}, function (res) {
+			         var json = JSON.parse(res);
+			         if(json.Result)
+			         {
+			             alert("修改成功");
+			             UserList.InputBeginTime = startime;
+			             UserList.InputEndTime = endtime;
+			             localStorage.setItem('qhfp_user', JSON.stringify(UserList));
+			             $(".school_alert").hide();
+			         }
+			     });
+			 }
+			 function DateDiff(sDate1, sDate2) {  //sDate1和sDate2是yyyy-MM-dd格式
+
+			     var aDate, oDate1, oDate2, iDays;
+			     aDate = sDate1.split("-");
+			     oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+			     aDate = sDate2.split("-");
+			     oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+			     iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+
+			     return iDays;  //返回相差天数
+			 }
+        </script>
+	</body>
+</html>

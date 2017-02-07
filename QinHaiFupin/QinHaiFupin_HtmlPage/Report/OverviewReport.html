@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>扶贫大数据</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<script type="text/javascript" src="../js/jquery-1.12.1.min.js" ></script>
+		<style type="text/css">
+			.middle{
+				padding-bottom: 0;
+			}
+			.Edure_info{
+				width: 96%;
+			   
+			    display: block;
+			    overflow: hidden;
+			    border: 1px solid #e6e6e6;
+			    background: url(../img/alert_bg.jpg);
+			    line-height: 3.5rem;
+			    font-size: 0.8rem;
+			    padding-left: 4%;
+			}
+			.Edure_info>li{
+				width: 50%;
+			    float: left;
+			    display: inline-block;
+			    height: 1.5rem;
+			    line-height: 1.5rem;
+			}
+			.Edure_info>li>span{
+				float: left;
+			    font-size: 0.7rem;
+			    color: #808080;
+			    line-height: 1.5rem;
+			    margin-right: 0.5rem;
+			}
+			.Edure_info>li>label{
+				color: #005982;
+			}
+			.Edure_info>li:nth-child(2N+3)>label{
+				color: #ff7d2a;
+			}
+			.report_list{
+				width: 100%;
+				height: 6rem;
+				margin: 0.5rem 0;
+			}
+			.report_list>dl{
+				display: inline-block;
+				width: 19%;
+				height: 6rem;
+				text-align: center;
+			}
+			.report_list>dl>dt.iconfont{
+				font-size: 3rem;
+				color: #b3b3b3;
+			}
+            .report_list>dl>dt{
+                position:relative;
+            }
+            .report_list>dl>dt>span{
+                position: absolute;
+                top: 45%;
+                /* left: 40.5%; */
+                font-size: 0.7rem;
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
+			.report_list>dl>dd{
+				font-size: 0.8rem;
+			}
+			.report_list>dl>dd>span{
+				display: block;
+			    margin-top: 0.3rem;
+			    font-size: 1rem;
+			}
+			.report_list>dl>dd.yituopin>span{
+				color: #005982;
+			}
+			.report_list>dl>dd.weituopin>span{
+				color: #ff7d2a;
+			}
+            .progress>div{
+                position:relative;
+                width:49%;
+                height:195px;
+                display:inline-block;
+            }
+            .progress div>span{
+                position: absolute;
+                top: 45%;
+                /* left: 39%; */
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+           .report_list>dl>dd>text{
+               margin-top:0.3rem;
+               display:block;
+           }
+           #box>.cont_box:nth-of-type(1){
+           	margin-top: 1rem !important;
+           }
+           .li_info {
+                width: 33% !important;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="cont_box">
+				<div class="cont_left">
+					<div class="middle">
+						<div id="main3" style="width: 100%;height:400px;"></div>
+                        <div id="citymap" style="width: 100%;height:400px;display:none;"></div>
+					</div>
+				</div>
+				<div class="cont_right">
+					<div class="middle">
+						<h1 class="title Place_name"></h1>
+						<ul class="tit_search">
+							<li>
+								<a href="javascript:void(0)" class="a_search Place_GoNext">点击进入</a>
+							</li>
+						</ul>
+						<div class="cont_right_pie">
+							<ul class="Edure_info">
+								<li class="li_info">
+									<span>贫困户数</span>
+									<label class="palce_HouseSumCount">加载中</label>
+                                    
+								</li>
+                                <li class="li_info">
+                                    <span>贫困人数</span>
+                                    <label class="palce_SumCount" style="color: #005982; ">加载中</label>
+                                </li>
+                                <li class="li_info">
+                                    <span>在校生人数</span>
+                                    <label class="palce_InSchoolSumCount" style="color: #005982; ">加载中</label>
+                                </li>
+
+								<li>
+									<span>已复核人数:</span>
+									<label class="palce_NotPovertyCount">加载中</label>
+								</li>
+								<li>
+									<span>未复核人数:</span>
+									<label class="palce_PovertyCount">加载中</label>
+								</li>
+								<li>
+									<span>已复核比例:</span>
+									<label class="palce_NotPovertyRebate">加载中</label>
+								</li>
+								<li>
+									<span>未复核比例:</span>
+									<label class="palce_PovertyRebate">加载中</label>
+								</li>
+							</ul>
+							<div class="progress">
+                                <div>
+                                    <div id="RegionChart1" style="height:195px;width: 100%;"></div>
+                                    <span id="RegionChart1Rebate"></span>
+                                </div>
+								<div>
+                                    <div id="RegionChart2" style="width: 100%;height:195px;"></div>
+                                    <span id="RegionChart2Rebate"></span>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="box">
+				
+			</div>
+    	</div>
+        <script src="../js/Common.js"></script>
+        <script src="../js/echarts.js"></script>
+		<script type="text/javascript">
+            $(function () {
+              
+			    var placename = "";
+			    if (UserList.CountyId != 0)
+			    {
+			        placename = UserList.CountyName;
+			        $("#main3").hide();
+			        $("#citymap").css("display", "inline-block");
+			        LoadCityMap(UserList.CityId, UserList.CityName);
+			    }
+			    else if (UserList.CountyId == 0 && UserList.CityId != 0)
+			    {
+			        placename = UserList.CityName;
+			        $("#main3").hide();
+			        $("#citymap").css("display", "inline-block");
+			        LoadCityMap(UserList.CityId, UserList.CityName);
+			    }
+			    else
+			    {
+			        placename = "青海省";
+			        LoadMap();
+			    }
+			    LoadRegion(placename, UserList.ProvinceId, UserList.CityId, UserList.CountyId);
+			    GetList(UserList.CityId, UserList.CountyId);
+			});
+			function LoadMap() {
+			    var mapChart = echarts.init(document.getElementById('main3'));
+			    $.get('/js/qinghai.json', function (geoJson) {
+			        echarts.registerMap('qinghai', geoJson);
+			    });
+			    var MapData = [];
+			    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (res) {
+			        var json = JSON.parse(res);
+			        if (json.Result) {
+			            $(json.Data).each(function () {
+			                var CityID = this.ID;
+			                var CityName = this.Name;
+			                $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { CityID: CityID }, function (res1) {
+			                    var cityjson = JSON.parse(res1);
+			                    if (cityjson.Result) {
+			                        var Count = 0;
+			                        $(cityjson.Data).each(function () {
+			                            Count += parseInt(this.ID);
+			                        });
+			                        MapData.push({
+			                            name: CityName,
+			                            value: Count,
+			                            ID: CityID
+			                        });
+			                        OverloadMap(mapChart, MapData);
+			                    }
+
+			                });
+			            });
+			        }
+
+			    });
+			    mapChart.on('click', function (params) {
+			        if (UserList.CountyId == 0 && UserList.CityId == 0) {
+			            LoadRegion(params.data.name, 29, params.data.ID, 0);
+			            GetList(params.data.ID, 0);
+			            $("#main3").hide();
+			            $("#citymap").css("display", "inline-block");
+			            LoadCityMap(params.data.ID, params.data.name);
+			        }
+			    });
+			}
+			function OverloadMap(MapChart, Data) {
+			    var MaxCount = 0;
+			    var MinCount = 99999999;
+			    $(Data).each(function () {
+			        if (parseInt(this.value) > MaxCount) {
+			            MaxCount = parseInt(this.value);
+			        }
+			        if (parseInt(this.value) < MinCount) {
+			            MinCount = parseInt(this.value);
+			        }
+			    });
+			    MapChart.setOption(option = {
+			        tooltip: {
+			            trigger: 'item',
+			            formatter: '{b}<br/>{c}'
+			        },
+			      
+			        visualMap: {
+			            min: MinCount,
+			            max: MaxCount,
+			            text: ['High', 'Low'],
+			            realtime: false,
+			            calculable: true,
+			            inRange: {
+			                color: ['lightskyblue', 'yellow', 'orangered']
+			            }
+			        },
+			        series: [
+                        {
+                            name: '青海省扶贫分布',
+                            type: 'map',
+                            mapType: 'qinghai', // 自定义扩展图表类型
+                            itemStyle: {
+                                normal: { label: { show: true } },
+                                emphasis: { label: { show: true } }
+                            },
+                            data: Data
+                        }
+			        ]
+			    });
+
+			}
+			function LoadCityMap(CityId,CityName)
+			{
+			    var jsonname = GetJsonName(CityName);
+			    var mapChart = echarts.init(document.getElementById('citymap'));
+			    $.get("/js/"+jsonname+".json", function (geoJson) {
+			        echarts.registerMap(jsonname, geoJson);
+			    });
+			    var MapData = [];
+			    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityId: CityId }, function (res) {
+			        var json = JSON.parse(res);
+			        if (json.Result) {
+			            $(json.Data).each(function () {
+			                var CountyID = this.ID;
+			                var CountyName = this.Name;
+			                $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { CountyID: CountyID}, function (res1) {
+			                    var cityjson = JSON.parse(res1);
+			                    if (cityjson.Result) {
+			                        var Count = 0;
+			                        $(cityjson.Data).each(function () {
+			                            Count += parseInt(this.ID);
+			                        });
+			                        MapData.push({
+			                            name: CountyName,
+			                            value: Count,
+			                            ID: CountyID
+			                        });
+			                        OverloadCityMap(jsonname, mapChart, MapData, CityName);
+			                    }
+
+			                });
+			            });
+			        }
+
+			    });
+			    mapChart.on('click', function (params) {
+			        if (UserList.CountyId == 0 && UserList.CityId == 0) {
+			            $("#citymap").hide();
+                        $("#main3").css("display","inline-block")
+			            LoadRegion("青海省", 29, 0, 0);
+			            GetList(0, 0);
+			        }
+			    });
+			}
+			function GetJsonName(Name)
+			{
+			    var jsonname="";
+			    switch(Name)
+			    {
+			        case "西宁市":
+			            jsonname="XiNing";
+			            break;
+			        case "海东市":
+			            jsonname="HaiDong";
+			            break;
+			        case "海北藏族自治州":
+			            jsonname="HaiBei";
+			            break;
+			        case "黄南藏族自治州":
+			            jsonname="HuangNan";
+			            break;
+			        case "海南藏族自治州":
+			            jsonname="HaiNan";
+			            break;
+			        case "果洛藏族自治州":
+			            jsonname="GuoLuo";
+			            break;
+			        case "玉树藏族自治州":
+			            jsonname="YuShu";
+			            break;
+			        case "海西蒙古族藏族自治州":
+			            jsonname="HaiXi";
+			            break;
+			    }
+			    return jsonname;
+
+			}
+			function OverloadCityMap(jsonName,MapChart, Data,CityName) {
+			    var MaxCount = 0;
+			    var MinCount = 99999999;
+			    $(Data).each(function () {
+			        if (parseInt(this.value) > MaxCount) {
+			            MaxCount = parseInt(this.value);
+			        }
+			        if (parseInt(this.value) < MinCount) {
+			            MinCount = parseInt(this.value);
+			        }
+			    });
+			    MapChart.setOption(option = {
+			        tooltip: {
+			            trigger: 'item',
+			            formatter: '{b}<br/>{c}'
+			        },
+
+			        visualMap: {
+			            min: MinCount,
+			            max: MaxCount,
+			            text: ['High', 'Low'],
+			            realtime: false,
+			            calculable: true,
+			            inRange: {
+			                color: ['lightskyblue', 'yellow', 'orangered']
+			            }
+			        },
+			        series: [
+                        {
+                            name: CityName+'扶贫分布',
+                            type: 'map',
+                            mapType: jsonName, // 自定义扩展图表类型
+                            itemStyle: {
+                                normal: { label: { show: true } },
+                                emphasis: { label: { show: true } }
+                            },
+                            data: Data
+                        }
+			        ]
+			    });
+			}
+			function LoadRegion(PlaceName, ProvinceId, CityId, CountyId) {
+			    $(".Place_name").text(PlaceName);
+			    $(".Place_GoNext").attr("href", "AreaReport.html?ProvinceId=" + ProvinceId + "&CountyId=" + CountyId + "&CityId=" + CityId + "&PlaceName=" + escape(name));
+			    $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result.Result) {
+			            var PovertyCount = 0;
+			            var NotPovertyCount = 0;
+			            $(result.Data).each(function () {
+			                if(this.PovertyStates=="0")
+			                {
+			                    PovertyCount += parseInt(this.ID);
+			                }
+			                else
+			                {
+			                    NotPovertyCount += parseInt(this.ID);
+			                }
+			            });
+			            var SumCount = parseFloat(PovertyCount) + parseFloat(NotPovertyCount);
+			            $(".palce_SumCount").text(SumCount + "人");
+
+			            var PovertyRebate = 0;
+			            var NotPovertyRebate = 0;
+			            if (SumCount > 0) {
+			                PovertyRebate = parseFloat(PovertyCount / SumCount * 100).toFixed(2);
+			                NotPovertyRebate = parseFloat(NotPovertyCount / SumCount * 100).toFixed(2);
+			            }
+			            $(".palce_NotPovertyCount").text(NotPovertyCount + "人");
+			            $(".palce_PovertyCount").text(PovertyCount + "人");
+			            $(".palce_NotPovertyRebate").text(NotPovertyRebate.toString().replace(".00", "") + "%");
+			            $(".palce_PovertyRebate").text(PovertyRebate.toString().replace(".00", "") + "%");
+			            var piedata = [{ value: NotPovertyCount, name: '已复核' }, { value: PovertyCount, name: '未复核' }];
+			            var firstcolor = ['#3b94e1', '#e6e6e6'];
+			            LoadPie(document.getElementById('RegionChart1'), firstcolor, piedata);
+			            $("#RegionChart1Rebate").text(NotPovertyRebate.toString().replace(".00", "") + "%");
+			            $("#RegionChart2Rebate").text(PovertyRebate.toString().replace(".00", "") + "%");
+			            var secondcolor = ['#e6e6e6', '#ff7d29'];
+			            LoadPie(document.getElementById('RegionChart2'), secondcolor, piedata);
+			        }
+			    });
+			    $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId, StudentStatus:1 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result.Result) {
+			            var PovertyCount = 0;
+			            var NotPovertyCount = 0;
+			            $(result.Data).each(function () {
+			                if (this.PovertyStates == "0") {
+			                    PovertyCount += parseInt(this.ID);
+			                }
+			                else {
+			                    NotPovertyCount += parseInt(this.ID);
+			                }
+			            });
+			            var SumCount = parseFloat(PovertyCount) + parseFloat(NotPovertyCount);
+			            $(".palce_InSchoolSumCount").text(SumCount + "人");
+			        }
+			    });
+			    $.post(ServiceUrl + "PovertyArchivesInterface/GetByHouseHandler.ashx", { ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId,Count:1 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result.Result) {
+			            var PovertyCount = 0;
+			            var NotPovertyCount = 0;
+			            if (result.Data.length > 0)
+			            {
+			                $(".palce_HouseSumCount").text(result.Data[0].ID + "户");
+			            }
+			            else
+			            {
+			                $(".palce_HouseSumCount").text("0户");
+			            }
+			        }
+			    });
+			}
+			function LoadPie(dom, color, data) {
+			    var myChart2 = echarts.init(dom);
+			    //	app.title = '环形图';
+
+			    option = {
+			        tooltip: {
+			            show: false,
+			            trigger: 'axis'
+			            //formatter: "{a} <br/>{b}: {c} ({d}%)"
+			        },
+			        legend: {
+			            orient: 'vertical',
+			            x: 'left',
+			        },
+			        color: color,
+			        series: [
+                        {
+                            name: '',
+                            type: 'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: false
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: data
+                        }
+			        ]
+			    };
+			    myChart2.setOption(option);
+			}
+
+			function GetList(CityId, CountyId) {
+			    $("#box").empty();
+              if (CountyId != 0) {
+			        $.post(ServiceUrl + "CountrysideInterface/GetHandler.ashx", { CountyID: CountyId }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result.Result) {
+			                var data = [];
+			                $(result.Data).each(function () {
+			                    data.push({
+			                        name: this.Name,
+			                        CityId: CityId,
+			                        CountyId: CountyId,
+			                        CountrySideId: this.ID
+			                    });
+			                });
+			                loadlistbydata(data);
+			            }
+			        });
+			    }
+			    else if (CountyId == 0 && CityId != 0) {
+			        $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityId }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result.Result) {
+			                var data = [];
+			                $(result.Data).each(function () {
+			                    data.push({
+			                        name: this.Name,
+			                        CityId: CityId,
+			                        CountyId: this.ID,
+			                        CountrySideId: 0
+			                    });
+			                });
+			                loadlistbydata(data);
+			            }
+			        });
+			    }
+			    else {
+			        $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result.Result) {
+			                var data = [];
+			                $(result.Data).each(function () {
+			                    data.push({
+			                        name: this.Name,
+			                        CityId: this.ID,
+			                        CountyId: 0,
+			                        CountrySideId: 0
+			                    });
+			                });
+			                loadlistbydata(data);
+			            }
+			        });
+			    }
+			}
+			function loadlistbydata(data) {
+			    var piecount = 3;
+			    $(data).each(function () {
+			        var name = this.name;
+			        var thiscityid = this.CityId;
+			        var thiscountyid = this.CountyId;
+			        var thiscountrysideid=this.CountrySideId;
+			        $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { ProvinceID: 29, CityID: this.CityId, CountyID: this.CountyId, CountrySideID: this.CountrySideId }, function (res) {
+			            var result = JSON.parse(res);
+			            if (result.Result) {
+			                var povertyCount = 0;
+			                var OutPovertyCount = 0;
+			                $(result.Data).each(function () {
+			                    if (this.PovertyStates == "0") {
+			                        povertyCount += parseInt(this.ID);
+			                    }
+			                    else {
+			                        OutPovertyCount += parseInt(this.ID);
+			                    }
+			                });
+			                var sumcount = parseInt(OutPovertyCount) + parseInt(povertyCount);
+			                var data_con_box = $("<div>").appendTo($("#box")).addClass("cont_box");
+			                var middle = $("<div>").appendTo(data_con_box).addClass("middle");
+			                var RegionName = $("<h1>").appendTo(middle).addClass("title");
+			                $("<text>").appendTo(RegionName).text(name+" | ");
+			                $("<span>").appendTo(RegionName).text("扶贫地区");
+			                var ul = $("<ul>").appendTo(middle).addClass("tit_search");
+			                $("<li>").appendTo(ul);
+			                $("<a>").appendTo($("<li>").appendTo(ul)).text("点击进入").attr("href", "AreaReport.html?CountrySideId=" + thiscountrysideid + "&CountyId=" + thiscountyid + "&CityId=" + thiscityid + "&PlaceName=" + escape(name)).addClass("a_search");
+
+			                var PovertyRebate = 0;
+			                var NotPovertyRebate = 0;
+			                if (sumcount > 0) {
+			                    PovertyRebate = parseFloat(povertyCount / sumcount * 100).toFixed(2);
+			                    NotPovertyRebate = parseFloat(OutPovertyCount / sumcount * 100).toFixed(2);
+			                }
+			                var report_list = $("<div>").appendTo(middle).addClass("report_list");
+			                //已复核饼图
+			                var dl1 = $("<dl>").appendTo(report_list);
+			                var dt1 = $("<dt>").appendTo(dl1);
+			                var pie1 = $("<div>").appendTo(dt1).attr("id", "RegionChart" + piecount).css({"width":"100%","height":"100px"});
+			                var piedata = [{ value: OutPovertyCount, name: '已复核' }, { value: povertyCount, name: '未复核' }];
+			                var firstcolor = ['#3b94e1', '#e6e6e6'];
+			                LoadPie(document.getElementById('RegionChart' + piecount), firstcolor, piedata);
+			                piecount++;
+			                $('<span>').appendTo(dt1).text(NotPovertyRebate.toString().replace(".00", "") + "%");
+			                $("<dd>").appendTo(dl1).text("已复核比例");
+			                //已复核人数
+			                var dl2 = $("<dl>").appendTo(report_list);
+			                var dt2 = $("<dt>").appendTo(dl2).addClass("iconfont").html("&#xe601;");
+			                var dd2 = $("<dd>").appendTo(dl2).addClass("yituopin");
+			                $("<text>").appendTo(dd2).text("已复核人数");
+			                $("<span>").appendTo(dd2).text(OutPovertyCount);
+			                //未复核饼图
+			                var dl3 = $("<dl>").appendTo(report_list);
+			                var dt3 = $("<dt>").appendTo(dl3);
+			                var pie2 = $("<div>").appendTo(dt3).attr("id", "RegionChart" + piecount).css({ "width": "100%", "height": "100px" });
+			                firstcolor = ['#e6e6e6', '#ff7d29'];
+			                LoadPie(document.getElementById('RegionChart' + piecount), firstcolor, piedata);
+			                piecount++;
+			                $('<span>').appendTo(dt3).text(PovertyRebate.toString().replace(".00", "") + "%");
+			                $("<dd>").appendTo(dl3).text("未复核比例");
+			                //未复核人数
+			                var dl4 = $("<dl>").appendTo(report_list);
+			                var dt4 = $("<dt>").appendTo(dl4).addClass("iconfont").html("&#xe601;");
+			                var dd4 = $("<dd>").appendTo(dl4).addClass("weituopin");
+			                $("<text>").appendTo(dd4).text("未复核人数");
+			                $("<span>").appendTo(dd4).text(povertyCount);
+			                //地区总数
+			                var dl5 = $("<dl>").appendTo(report_list);
+			                var dt5 = $("<dt>").appendTo(dl5).addClass("iconfont").html("&#xe605;");
+			                var dd5 = $("<dd>").appendTo(dl5).addClass("yituopin");
+			                $("<text>").appendTo(dd5).text("地区总贫困人数");
+			                $("<span>").appendTo(dd5).text(sumcount);
+			            }
+
+			        });
+			    });
+
+			}
+
+		</script>
+	</body>
+
+</html>

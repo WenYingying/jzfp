@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>精准扶贫</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <style type="text/css">
+        .content {
+            top: 9.1rem;
+            bottom: 3rem;
+        }
+
+        .head > .head_search {
+            right: 0.5rem;
+        }
+
+        .content > ul > li.household:first-child {
+            margin-top: 0;
+        }
+
+        .content li.nodata {
+            background-color: #fff;
+            text-align: center;
+            height: 1.2rem;
+            line-height: 1.2rem;
+            font-size: .5rem;
+            margin-top: .25rem;
+            color: #ccc;
+        }
+
+        .content li.nodata:after{
+            content:"没有更多数据了";
+        }
+
+        .area {
+            width: 100%;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            border-bottom: 1px solid #cccccc;
+            overflow: hidden;
+        }
+
+            .area > a[href="javascript:void(0)"] {
+                width: 23%;
+                height: 100%;
+                color: #333;
+                font-size: 0.6rem;
+                text-indent: .5rem;
+                display: inline-block;
+                border-right: 1px solid #ccc;
+                overflow: hidden;
+                border-right-style: ridge;
+            }
+
+            .area > a {
+                width: 23%;
+                height: 100%;
+                color: #999;
+                font-size: 0.6rem;
+                text-indent: .5rem;
+                display: inline-block;
+                border-right: 1px solid #ccc;
+                overflow: hidden;
+                border-right-style: ridge;
+            }
+
+                .area > a > span {
+                    width: 70%;
+                    max-width: 75%;
+                    display: block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    float: left;
+                }
+
+                .area > a:last-child {
+                    border-right: 0;
+                }
+
+            .area a:after {
+                content: "\e625";
+            }
+
+        .state {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #fcfcfc;
+            border-bottom: 1px solid #cccccc;
+        }
+
+            .state a {
+                width: 20%;
+                height: 1.1rem;
+                background-color: #e6e6e6;
+                border-radius: 3px;
+                font-size: 0.6rem;
+                color: #333333;
+                display: inline-block;
+                text-align: center;
+                line-height: 1.1rem;
+                margin-left: 2.6%;
+                border: 1px solid #ccc;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                vertical-align: top;
+                margin-top: 0.2rem;
+            }
+
+        .list {
+            background-color: #f0f0f0;
+        }
+
+        .area_box {
+            width: 100%;
+            position: fixed;
+            top: 4.4rem;
+            background: rgba(0,0,0,.6);
+            height: 100%;
+            display: none;
+            transition: all linear 3s;
+        }
+
+            .area_box > .box {
+                width: 100%;
+                background-color: #FCFCFC;
+                overflow-y: auto;
+                transition: all linear 3s;
+                max-height: 18.45rem;
+            }
+
+                .area_box > .box a {
+                    width: 100%;
+                    height: 2rem;
+                    border-bottom: 1px solid #cccccc;
+                    color: #333333;
+                    font-size: 0.6rem;
+                    line-height: 2rem;
+                    display: block;
+                }
+
+                    .area_box > .box a > i {
+                        width: 1.75rem;
+                        height: 1.75rem;
+                        display: inline-block;
+                        text-align: center;
+                    }
+
+                    .area_box > .box a > span {
+                        float: right;
+                        margin-right: 0.5rem;
+                    }
+
+        .box > a {
+            text-indent: 1rem;
+        }
+
+            .box > a:before {
+                content: "　";
+            }
+
+            .box > a.active:before {
+                content: "\e604";
+            }
+
+        .active {
+            color: #0075a9 !important;
+        }
+        /*筛选样式*/
+        .screen {
+            background-color: #FCFCFC !important;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            height: 1.3rem !important;
+        }
+
+        .tab {
+            width: 100%;
+            position: fixed;
+            top: 5.9rem;
+            background: rgba(0,0,0,.6);
+            height: 100%;
+            display: none;
+        }
+
+            .tab > div {
+                width: 100%;
+                display: none;
+                background-color: #fcfcfc;
+            }
+
+                .tab > div > a {
+                    border: 1px solid #cccccc;
+                    border-radius: 3px;
+                    width: 3rem;
+                    height: 1.25rem;
+                    font-size: 0.6rem;
+                    color: #333333;
+                    display: inline-block;
+                    text-align: center;
+                    line-height: 1.25rem;
+                    margin: 0.5rem 0.3rem;
+                }
+
+        .color {
+            background-color: #0075a9;
+            color: #fff !important;
+        }
+        .SumCount{
+            width: 100%;
+            height: 1.5rem;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #cccccc;
+            color: #333333;
+            font-size: 0.6rem;
+            line-height: 1.55rem;
+            text-indent: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="head">
+                <h1>精准扶贫</h1>
+                <a href="search/search.html" class="head_search">
+                    <i class="iconfont  search">&#xe600;</i>
+                    <input type="text" name="" id="" value="" placeholder="请输入户主姓名、身份证号" />
+                </a>
+            </li>
+            <li class="area">
+                <a href="javascript:void(0)" class="iconfont" data-role="city">
+                    <span>全省</span>
+                    <input type="hidden" value="0" />
+                </a>
+                <a href="javascript:void(0)" class="iconfont" data-role="county">
+                    <span>全市/州</span>
+                    <input type="hidden" value="0" />
+                </a>
+                <a href="javascript:void(0)" class="iconfont" data-role="countryside">
+                    <span>全县/行委</span>
+                    <input type="hidden" value="0" />
+                </a>
+                <a href="javascript:void(0)" class="iconfont" data-role="village">
+                    <span>全乡/镇</span>
+                    <input type="hidden" value="0" />
+                </a>
+            </li>
+            <li class="state">
+                <a href="javascript:void(0)" data-value="1">复核状态</a>
+                <a href="javascript:void(0)" data-value="2">贫困原因</a>
+                <a href="javascript:void(0)" data-value="3">识别标志</a>
+                <a href="javascript:void(0)" data-value="4">贫困属性</a>
+            </li>
+            <li class="position">
+                所在区域:
+                <label>下营藏族乡 塔春村委</label>
+            </li>
+            <li class="SumCount">
+                共计:
+                <label></label>户
+            </li>
+        </ul>
+    </header>
+    <div class="content">
+        <ul></ul>
+    </div>
+    <footer>
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconfont">&#xe621;</i>
+                    <label>精准扶贫</label>
+                </a>
+            </li>
+            <li>
+                <a href="user/index.html">
+                    <i class="iconfont">&#xe623;</i>
+                    <label>用户管理</label>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <div class="area_box">
+        <div class="box">
+            <a href="javascript:void(0)" class="iconfont" data-val="0">
+                <label>全部</label>
+            </a>
+        </div>
+    </div>
+    <div class="tab">
+        <div class="state_td" data-parent="1">
+            <a class="color">全部</a>
+            <a>未复核</a>
+            <a>已复核</a>
+        </div>
+        <div class="state_td" data-parent="2">
+            <a class="color">全部</a>
+            <a>因病</a>
+            <a>因残</a>
+            <a>因学</a>
+            <a>缺技术</a>
+            <a>缺水</a>
+            <a>缺劳动力</a>
+            <a>其他</a>
+            <a>自身原因</a>
+            <a style="width: 4rem;">交通条件落后</a>
+        </div>
+        <div class="state_td" data-parent="3">
+            <a class="color">全部</a>
+            <a>国家标准</a>
+            <a>省级标准</a>
+        </div>
+        <div class="state_td" data-parent="4">
+            <a class="color">全部</a>
+            <a>低保户</a>
+            <a>低保贫困户</a>
+            <a>一般贫困户</a>
+            <a>一般农民</a>
+        </div>
+    </div>
+   <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/common.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            if ((location.href.indexOf("login.html") == -1) && (localStorage.UserInfo == undefined || localStorage.UserInfo == null)) {
+                location.href = "login.html";
+                return;
+            }
+
+            var data = { "PageNo": 1, "PageSize": 20 }, CanRead = true;
+            var user = JSON.parse(localStorage.UserInfo);
+            if (localStorage.getItem("SearchList") != null && localStorage.getItem("SearchList") != "" && localStorage.getItem("SearchList") != NaN && localStorage.getItem("SearchList") != undefined) {
+                data = JSON.parse(localStorage.getItem("SearchList"));
+            }
+            else
+            {
+                data.ProvinceID = 29;
+                data.ProvinceName = user.ProvinceName;
+                data.CityId = user.CityId;
+                data.CityName = user.CityName;
+                data.CountyId = user.CountyId;
+                data.CountyName = user.CountyName;
+                data.CountrySideId = user.CountrySideId;
+                data.CountrySideName = user.CountrySideName;
+                data.VillageName = user.VillageName;
+                data.VillageId = user.VillageId;
+            }
+            if (data.ProvinceName.length > 0)
+            {
+                $(".area a").removeClass("active");
+                $("[data-role='city']").addClass("active");
+                data.ProvinceID = 29;
+                data.ProvinceName = "青海省";
+
+            }
+            if (data.CityName.length > 0) {
+                $("[data-role='city']>span").text(data.CityName);
+                $("[data-role='city']>input").val(data.CityId);
+                $("[data-role='city']").removeAttr("href");
+                $(".area a").removeClass("active");
+                $("[data-role='county']").addClass("active");
+                //data.VillageId = 0;
+                //data.CountyId = 0;
+                //data.CountrysideId = 0;
+                data.ProvinceID = 0;
+
+
+            }
+            if (data.CountyName.length > 0) {
+                $("[data-role='county']>span").text(data.CountyName);
+                $("[data-role='county']>input").val(data.CountyId);
+                $("[data-role='county']").removeAttr("href");
+                $(".area a").removeClass("active");
+                $("[data-role='countryside']").addClass("active");
+                //data.CityId = 0;
+                //data.VillageId = 0;
+                //data.CountrysideId = 0;
+                //data.ProvinceID = 0;
+
+            }
+            if (data.CountrySideName.length > 0) {
+                $("[data-role='countryside']>span").text(data.CountrySideName);
+                $("[data-role='countryside']>input").val(data.CountrySideId);
+                $("[data-role='countryside']").removeAttr("href");
+                $(".area a").removeClass("active");
+                $("[data-role='village']").addClass("active");
+                //data.CountyId = 0;
+                //data.CityId = 0;
+                //data.VillageId = 0;
+                //data.ProvinceID = 0;
+            }
+            if (data.VillageName.length > 0) {
+                $("[data-role='village']>span").text(data.VillageName);
+                $("[data-role='village']>input").val(data.VillageId);
+                $("[data-role='village']").removeAttr("href");
+                $(".area a").removeClass("active");
+                $("[data-role='village']").addClass("active");
+                //data.CountyId = 0;
+                //data.CityId = 0;
+                //data.VillageId = 0;
+                //data.ProvinceID = 0;
+                //data.CountrysideId = 0;
+            }
+            $(".position>label").text(data.ProvinceName + " " + data.CityName + " " + data.CountyName + " " + data.CountrySideName + " " + data.VillageName);
+            //区域
+            $(".area a").click(function () {
+                var This = this;
+                var currentid = $(this).children("input");
+                $(".area_box").toggle();
+                $(".area_box a:eq(0)").addClass("active");
+                $(".area_box a:gt(0)").remove();
+                $("body").css({ "height": "100%", "overflow-y": "hidden" });
+                switch ($(this).attr("data-role")) {
+                    case "city":
+                        if (user.CityName.length > 0) { $(".area_box").hide(); $(this).removeClass("active"); return false; };
+                        $(this).addClass("active").siblings("a").removeClass("active");
+                        $(".area_box a:eq(0)").off().text("全省").click(function () {
+                            $(this).addClass("active").siblings("a").removeClass("active");
+                            $("[data-role='county']").children("span").text("全市/州");
+                            $("[data-role='county']").children("input").val(0);
+                            $("[data-role='countryside']").children("span").text("全县/行委");
+                            $("[data-role='countryside']").children("input").val(0);
+                            $("[data-role='village']").children("span").text("全乡/镇");
+                            $("[data-role='village']").children("input").val(0);
+                            $(This).children("input").val($(this).attr("data-val"));
+                            $(This).children("span").text($(this).text());
+                            $(".area_box").hide();
+                            $(".position>label").text("青海省");
+                            data.CityName = "";
+                            data.CountrySideName = "";
+                            data.VillageName = "";
+                            data.CountyName = "";
+                            data.VillageId = 0;
+                            data.CityId = 0;
+                            data.CountyId = 0;
+                            data.CountrySideId = 0;
+                            data.ProvinceID = 29;
+                            data.PageNo = 1;
+                            CanRead = true;
+                            GetList();
+                        });
+                        $.post(sysConfig.serviceUrl + "CityInterface/GetHandler.ashx", { "ProvinceID": 29 }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                $(json.Data).each(function () {
+                                    var a = $("<a href='javascript:void(0)'>").appendTo(".area_box>div").addClass("iconfont").attr("data-val", this.ID);
+                                    if (currentid.val() == this.ID) {
+                                        a.addClass("active").siblings().removeClass("active");
+                                    }
+                                    $("<label>").appendTo(a).text(this.Name);
+                                    a.click(function () {
+                                        $(this).addClass("active").siblings("a").removeClass("active");
+                                        if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                            $("[data-role='county']").children("span").text("全市/州");
+                                            $("[data-role='county']").children("input").val(0);
+                                            $("[data-role='countryside']").children("span").text("全县/行委");
+                                            $("[data-role='countryside']").children("input").val(0);
+                                            $("[data-role='village']").children("span").text("全乡/镇");
+                                            $("[data-role='village']").children("input").val(0);
+                                        }
+                                        $(This).children("input").val($(this).attr("data-val"));
+                                        $(This).children("span").text($(this).text());
+                                        $(".area_box").hide();
+                                        $(".position>label").text($(this).text())
+                                        data.CityName = $(this).text();
+                                        data.CountrySideName = "";
+                                        data.VillageName = "";
+                                        data.CountyName = "";
+                                        data.ProvinceId = 29;
+                                        data.VillageId = 0;
+                                        data.CountyId = 0;
+                                        data.CountrySideId = 0;
+                                        data.CityId = $(this).attr("data-val");
+                                        data.PageNo = 1;
+                                        CanRead = true;
+                                        GetList();
+                                    });
+                                });
+                            }
+                        });
+                        break;
+                    case "county":
+                        if (user.CountyName.length > 0) { $(".area_box").hide(); $(this).removeClass("active"); return false; };
+                        $(this).addClass("active").siblings("a").removeClass("active");
+                        var cityid = $("[data-role='city']").children("input").val();
+                        $(".area_box a:eq(0)").off().text("全市/州").click(function () {
+                            $(this).addClass("active").siblings("a").removeClass("active");
+                            $("[data-role='countryside']").children("span").text("全县/行委");
+                            $("[data-role='countryside']").children("input").val(0);
+                            $("[data-role='village']").children("span").text("全乡/镇");
+                            $("[data-role='village']").children("input").val(0);
+                            $(This).children("input").val($(this).attr("data-val"));
+                            $(This).children("span").text($(this).text());
+                            $(".area_box").hide();
+                            $(".position>label").text($("[data-role='city']").children("span").text());
+                            data.CityName = $("[data-role='city']").children("span").text();
+                            data.CountyName = "";
+                            data.CountrySideName = "";
+                            data.VillageName = "";
+                            data.VillageId = 0;
+                            data.CityId = cityid;
+                            data.CountyId = 0;
+                            data.CountrySideId = 0;
+                            data.PageNo = 1;
+                            CanRead = true;
+                            GetList();
+                        });
+                        if (cityid > 0) {
+                            $.post(sysConfig.serviceUrl + "CountyInterface/GetHandler.ashx", { "CityId": cityid }, function (res) {
+                                var json = JSON.parse(res);
+                                if (json.Result) {
+                                    $(json.Data).each(function () {
+                                        var a = $("<a href='javascript:void(0)'>").appendTo(".area_box>div").addClass("iconfont").attr("data-val", this.ID);
+                                        if (currentid.val() == this.ID) {
+                                            a.addClass("active").siblings().removeClass("active");
+                                        }
+                                        $("<label>").appendTo(a).text(this.Name);
+                                        a.click(function () {
+                                            $(this).addClass("active").siblings("a").removeClass("active");
+                                            if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                                $("[data-role='countryside']").children("span").text("全县/行委");
+                                                $("[data-role='countryside']").children("input").val(0);
+                                                $("[data-role='village']").children("span").text("全乡/镇");
+                                                $("[data-role='village']").children("input").val(0);
+                                            }
+                                            $(This).children("input").val($(this).attr("data-val"));
+                                            $(This).children("span").text($(this).text());
+                                            $(".area_box").hide();
+                                            $(".position>label").text($("[data-role='city']").children("span").text() + " " + $(this).text());
+                                            data.CountyName = $(this).text();
+                                            data.CountrySideName = "";
+                                            data.VillageName = "";
+                                            data.CityId = cityid;
+                                            data.VillageId = 0;
+                                            data.CountrySideId = 0;
+                                            data.CountyId = $(this).attr("data-val");
+                                            data.PageNo = 1;
+                                            CanRead = true;
+                                            GetList();
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                        break;
+                    case "countryside":
+                        if (user.CountrySideName.length > 0) { $(".area_box").hide(); $(this).removeClass("active"); return false; };
+                        $(this).addClass("active").siblings("a").removeClass("active");
+                        var countyid = $("[data-role='county']").children("input").val();
+                        $(".area_box a:eq(0)").off().text("全县/行委").click(function () {
+                            $(this).addClass("active").siblings("a").removeClass("active");
+                            $("[data-role='village']").children("span").text("全乡/镇");
+                            $("[data-role='village']").children("input").val(0);
+                            $(This).children("input").val($(this).attr("data-val"));
+                            $(This).children("span").text($(this).text());
+                            $(".area_box").hide();
+                            $(".position>label").text($("[data-role='city']").children("span").text() + " " + $("[data-role='county']").children("span").text());
+                            data.VillageId = 0;
+                            data.CountrySideName = "";
+                            data.VillageName = "";
+                            data.CountyId = countyid;
+                            data.CountrySideId = 0;
+                            data.PageNo = 1;
+                            CanRead = true;
+                            GetList();
+                        });
+                        if (countyid > 0) {
+                            $.post(sysConfig.serviceUrl + "CountrysideInterface/GetHandler.ashx", { "CountyId": countyid }, function (res) {
+                                var json = JSON.parse(res);
+                                if (json.Result) {
+                                    $(json.Data).each(function () {
+                                        var a = $("<a href='javascript:void(0)'>").appendTo(".area_box>div").addClass("iconfont").attr("data-val", this.ID);
+                                        if (currentid.val() == this.ID) {
+                                            a.addClass("active").siblings().removeClass("active");
+                                        }
+                                        $("<label>").appendTo(a).text(this.Name);
+                                        a.click(function () {
+                                            $(this).addClass("active").siblings("a").removeClass("active");
+                                            if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                                $("[data-role='village']").children("span").text("全乡/镇");
+                                                $("[data-role='village']").children("input").val(0);
+                                            }
+                                            $(This).children("input").val($(this).attr("data-val"));
+                                            $(This).children("span").text($(this).text());
+                                            $(".area_box").hide();
+                                            $(".position>label").text($("[data-role='city']").children("span").text() + " " + $("[data-role='county']").children("span").text() + " " + $(this).text());
+                                            data.CountrySideName = $(this).text();
+                                            data.VillageName = "";
+                                            data.CountyId = countyid;
+                                            data.VillageId = 0;
+                                            data.CountrySideId = $(this).attr("data-val");
+                                            data.PageNo = 1;
+                                            CanRead = true;
+                                            GetList();
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                        break;
+                    case "village":
+                        var countysideid = $("[data-role='countryside']").children("input").val();
+                        $(this).addClass("active").siblings("a").removeClass("active");
+                        $(".area_box a:eq(0)").text("全乡/镇").off().click(function () {
+                            $(this).addClass("active").siblings("a").removeClass("active");
+                            $(This).children("input").val($(this).attr("data-val"));
+                            $(This).children("span").text($(this).text());
+                            $(".area_box").hide();
+                            $(".position>label").text($("[data-role='city']").children("span").text() + " " + $("[data-role='county']").children("span").text() + " " + $("[data-role='countryside']").children("span").text());
+                            data.VillageId = 0;
+                            data.VillageName = "";
+                            data.CountrySideId = countysideid;
+                            data.PageNo = 1;
+                            CanRead = true;
+                            GetList();
+                        });
+                        if (countysideid > 0) {
+                            $.post(sysConfig.serviceUrl + "VillageInterface/GetHandler.ashx", { "CountrysideId": countysideid }, function (res) {
+                                var json = JSON.parse(res);
+                                if (json.Result) {
+                                    $(json.Data).each(function () {
+                                        var a = $("<a href='javascript:void(0)'>").appendTo(".area_box>div").addClass("iconfont").attr("data-val", this.ID);
+                                        if (currentid.val() == this.ID) {
+                                            a.addClass("active").siblings().removeClass("active");
+                                        }
+                                        $("<label>").appendTo(a).text(this.Name);
+                                        a.click(function () {
+                                            $(this).addClass("active").siblings("a").removeClass("active");
+                                            if ($(this).attr("data-val") != $(This).children("input").val()) {
+                                                $("[data-role='village']").children("span").text("全乡/镇");
+                                                $("[data-role='village']").children("input").val(0);
+                                            }
+                                            $(This).children("input").val($(this).attr("data-val"));
+                                            $(This).children("span").text($(this).text());
+                                            $(".area_box").hide();
+                                            $(".position>label").text($("[data-role='city']").children("span").text() + " " + $("[data-role='county']").children("span").text() + " " + $("[data-role='countryside']").children("span").text() + " " + $(this).text());
+                                            data.VillageName = $(this).text();
+                                            data.CountrySideId = countysideid;
+                                            data.VillageId = $(this).attr("data-val");
+                                            data.PageNo = 1;
+                                            CanRead = true;
+                                            GetList();
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                        break;
+                }
+                $(".tab").hide();
+                $(".state a").removeClass("screen");
+            });
+
+            $(".state a").click(function () {
+                if ($("[data-parent='" + $(this).attr("data-value") + "']").css("display") != "none") {
+                    $(".tab").hide();
+                    $("[data-parent='" + $(this).attr("data-value") + "']").hide();
+                    $(".state>a").removeClass("screen");
+                    return;
+                }
+                $(".tab").show();
+                $(".area_box").hide();
+                $("[data-parent='" + $(this).attr("data-value") + "']").show().siblings().hide();
+                $(this).addClass("screen").siblings("a").removeClass("screen");
+            });
+
+            $(".state_td>a").click(function () {
+                $(this).addClass("color").siblings("a").removeClass("color");
+                $(".tab").hide();
+                $(".state>a").removeClass("screen");
+                $(this).parent().hide();
+                if ($(this).text() != "全部")
+                    $(".state>a[data-value='" + $(this).parent().attr("data-parent") + "']").text($(this).text());
+                else {
+                    var t = "";
+                    switch ($(this).parent().attr("data-parent")) {
+                        case "1":
+                            t = "复核状态";
+                            break;
+                        case "2":
+                            t = "贫困原因";
+                            break;
+                        case "3":
+                            t = "识别标准";
+                            break;
+                        case "4":
+                            t = "贫困属性";
+                            break;
+                    }
+                    $(".state a[data-value='" + $(this).parent().attr("data-parent") + "']").text(t);
+                }
+                switch ($(this).parent().attr("data-parent")) {
+                    case "1":
+                        data.PovertyStates = $(this).text() == "已复核" ? 1 : $(this).text() == "未复核" ? 0 : "";
+                        break;
+                    case "2":
+                        data.PovertyReason = $(this).text() == "全部" ? "" : $(this).text();
+                        break;
+                    case "3":
+                        data.DiscerningStandards = $(this).text() == "全部" ? "" : $(this).text();
+                        break;
+                    case "4":
+                        data.PovertyProperties = $(this).text() == "全部" ? "" : $(this).text();
+                        break;
+                }
+                CanRead = true;
+                data.PageNo = 1;
+                GetList();
+            });
+
+            $("footer>ul>li").click(function () {
+                $(this).addClass("active").siblings("li").removeClass("active");
+            });
+
+            $(".content").scroll(function () {
+                if ($(".content").scrollTop() >= $(".content")[0].scrollHeight - $(this).height()) {
+                    data.PageNo = data.PageNo + 1;
+                    GetList();
+                }
+            });
+            GetList();
+
+            function GetList() {
+                window.localStorage.setItem("SearchList", JSON.stringify(data));
+                if (!CanRead) {
+                    if ($(".content li.nodata").length == 0)
+                        $("<li>").addClass("nodata").appendTo(".content>ul");
+                    return;
+                }
+                CanRead = false;
+                loading();
+                $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/PagerByHouseHandler.ashx", data, function (res) {
+                    var json = JSON.parse(res);
+                    closeloading();
+                    if (json.Result) {
+                        $(".SumCount>label").text(json.RecordCount);
+                        CanRead = !((data.PageNo + 1) > json.PageCount);
+                        if (data.PageNo == 1) {
+                            $(".content>ul").empty();
+                            $(".content").scrollTop(0);
+                        }
+                        $(json.Data).each(function () {
+                            var li = $("<li>").appendTo(".content>ul").addClass("household");
+                            var a = $("<a>").appendTo(li).prop("href", "poverty/poverty_file.html?houseid=" + this.ID);
+                            var ul = $("<ul>").appendTo($("<div>").appendTo(a));
+                            li = $("<li>").appendTo(ul).addClass("name").text("户主姓名 " + this.Name);
+                            $("<i>").appendTo(li).addClass("iconfont").html("&#xe610;");
+                            li = $("<li>").appendTo(ul).addClass("name_info");
+                            var div = $("<div>").appendTo(li);
+                            if (this.PovertyStates == 0) {
+                                div.text("未复核").addClass("not_porverty");
+                            } else {
+                                div.text("已复核").addClass("yes_porverty");
+                            }
+                            div = $("<div>").appendTo(li).addClass("name_number");
+                            var sul = $("<ul>").appendTo(div);
+                            $("<li>").appendTo(sul).text("家庭人数 " + this.FamilySize + "人");
+                            $("<li>").appendTo(sul).text("在读人数 " + this.InSchoolCount + "人");
+                            $("<li>").appendTo(sul).text("识别标准 " + this.DiscerningStandards);
+                            $("<li>").appendTo(sul).text("贫困属性 " + this.PovertyProperties);
+                            $("<li>").appendTo(sul).addClass("cause").text("贫困原因 " + this.PovertyReason);
+
+                            li = $("<li>").appendTo(ul).addClass("card").text("身份证号 ");
+                            $("<label>").appendTo(li).text(this.IdCardNo);
+                            li = $("<li>").appendTo(ul).addClass("card").text("家庭地址 ");
+                            $("<label>").appendTo(li).text(this.CountrySideName + " " + this.VillageName);
+                        });
+                        if (json.Data.length == 0 && $(".content li.nodata").length == 0)
+                        {
+                            $("<li>").addClass("nodata").appendTo(".content>ul");
+                        }
+                        return;
+                    }
+                    alert(json.Message);
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

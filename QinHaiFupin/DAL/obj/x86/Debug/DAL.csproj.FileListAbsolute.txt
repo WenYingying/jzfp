@@ -1,0 +1,9 @@
+E:\work\扶贫项目\QinHaiFupin\DAL\bin\x86\Debug\DAL.dll
+E:\work\扶贫项目\QinHaiFupin\DAL\bin\x86\Debug\DAL.pdb
+E:\work\扶贫项目\QinHaiFupin\DAL\bin\x86\Debug\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\DAL\bin\x86\Debug\Model.dll
+E:\work\扶贫项目\QinHaiFupin\DAL\bin\x86\Debug\AbstractFactory.pdb
+E:\work\扶贫项目\QinHaiFupin\DAL\bin\x86\Debug\Model.pdb
+E:\work\扶贫项目\QinHaiFupin\DAL\obj\x86\Debug\DAL.csprojResolveAssemblyReference.cache
+E:\work\扶贫项目\QinHaiFupin\DAL\obj\x86\Debug\DAL.dll
+E:\work\扶贫项目\QinHaiFupin\DAL\obj\x86\Debug\DAL.pdb

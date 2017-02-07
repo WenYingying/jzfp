@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>政策管理</title>
+		<meta id="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.policy>h3>a{
+				width: 96px;
+			    height: 30px;
+			    line-height: 30px;
+			    color: #fff;
+			    float: right;
+			    background-color: #7198ba;
+			    display: block;
+			    text-align: center;
+			    border-radius: 3px;
+			    font-size: 16px;
+			    position: absolute;
+			    top: 40px;
+			    right: 2%;
+			}
+			.policy_right .cont_middle h3>a{
+                width: 96px;
+                height: 30px;
+                line-height: 30px;
+                color: #fff;
+                float: right;
+                background-color: #7198ba;
+                display: block;
+                text-align: center;
+                border-radius: 3px;
+                margin-top: 18px;
+                font-size: 16px;
+            }
+		</style>
+	</head>
+	<body>
+		
+			<div class="content">
+				
+				<div class="cont_user" style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;overflow: hidden;">
+					
+					
+					<div>
+						<div class="policy">
+							<h3>
+								青海省各学段现行资助政策
+								<a href="javascript:void(0)" onclick="goedit()">添加政策</a>
+							</h3>
+							<div class="policy_left">
+								<h3>教育阶段实施</h3>
+								<ul>
+									<li class="policy_left_active"><a href="javascript:void(0)">学前教育</a></li>
+									<li><a href="javascript:void(0)">小学</a></li>
+									<li><a href="javascript:void(0)">初中</a></li>
+									<li><a href="javascript:void(0)">特教学生</a></li>
+									<li><a href="javascript:void(0)">高中</a></li>
+                                    <li><a href="javascript:void(0)">中职教育</a></li>
+                                    <li><a href="javascript:void(0)">高职教育</a></li>
+                                    <li><a href="javascript:void(0)">专科</a></li>
+                                    <li><a href="javascript:void(0)">本科</a></li>
+                                    <li><a href="javascript:void(0)">硕士</a></li>
+                                    <li><a href="javascript:void(0)">博士</a></li>
+								</ul>
+							</div>
+							<div class="policy_right">
+								<div class="cont_middle">
+									<h3>
+										学前教育资助政策
+										<a href="javascript:void(0)">查询</a>
+									</h3>
+									<div class="cont_middle_right" style="top: 28px; right: 82px;">
+										<ul>
+											<li>
+												<span>地区政策信息查询</span>
+											</li>
+											<li>
+												<select id="dlCity">
+												</select>
+											</li>
+											<li>
+												<select id="dlCity">
+												</select>
+											</li>
+										</ul>
+								
+									</div>
+                                    <div id="PolicyList">
+                                    </div>
+									
+									
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+	
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+		<script>
+            $(parent.document).find(".policy_nav").find("a:eq(0)").siblings("a").removeClass("policy_nav_active");
+            $(parent.document).find(".policy_nav").find("a:eq(0)").addClass("policy_nav_active");
+//		二级导航
+			$(".small_nav div ul li a").click(function() {
+				$(".small_nav div ul li a").removeClass("small_nav_active");
+				$(this).addClass("small_nav_active");
+		
+			});
+//			左边导航
+			$(".policy_left ul li ").click(function() {
+				$(".policy_left ul li").removeClass("policy_left_active");
+				$(this).addClass("policy_left_active");
+				GetList();
+			});
+			$(function () {
+			    GetCityList(UserList.CityId);
+			    if (UserList.CityId!= 0)
+			    {
+			        $("#dlCity").attr("disabled", "disabled");
+			    }
+			    $("#dlCity").change(function () {
+			        GetList();
+			    });
+			});
+			function GetCityList(SelectID) {
+			    $("#dlCity").html("");
+			    $("<option>").appendTo($("#dlCity")).val("").text("全部");
+			    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlCity").val(SelectID);
+			                }
+			                GetList();
+			            }
+			        }
+			    });
+			}
+
+			function GetList()
+			{
+			    var CityID = $("#dlCity").val();
+			    var EduLevels = $(".policy_left_active a").html();
+			    $("#PolicyList").html("");
+			    $.post(ServiceUrl + "PolicyInterface/GetHandler.ashx", { EduLevels: EduLevels, CityID: CityID }, function (data) {
+			        var result = JSON.parse(data);
+			        if(result!=null)
+			        {
+			            if(result.Result)
+			            {
+			                $(result.Data).each(function () {
+			                    var policy_box = $("<div>").appendTo($("#PolicyList")).addClass("policy_box");
+			                    $("<h3>").appendTo(policy_box).text("【"+this.CityName+"】"+this.Name);
+			                    $("<p>").appendTo(policy_box).text(this.Detail);
+			                });
+			            }
+			        }
+			    });
+			}
+			function goedit()
+			{
+			    var CityID = $("#dlCity").val();
+			    var EduLevels = $(".policy_left_active a").html();
+			    window.location.href = "edit_cont.html?CityID=" + CityID + "&EduLevels=" + escape(EduLevels);
+			}
+		</script>
+	</body>
+</html>

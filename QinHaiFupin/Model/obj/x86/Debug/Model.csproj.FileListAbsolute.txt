@@ -1,0 +1,5 @@
+E:\work\扶贫项目\QinHaiFupin\Model\bin\x86\Debug\Model.dll
+E:\work\扶贫项目\QinHaiFupin\Model\bin\x86\Debug\Model.pdb
+E:\work\扶贫项目\QinHaiFupin\Model\obj\x86\Debug\Model.dll
+E:\work\扶贫项目\QinHaiFupin\Model\obj\x86\Debug\Model.pdb
+E:\work\扶贫项目\QinHaiFupin\Model\obj\x86\Debug\Model.csprojResolveAssemblyReference.cache

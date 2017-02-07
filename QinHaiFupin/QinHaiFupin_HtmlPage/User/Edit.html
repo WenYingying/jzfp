@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>修改密码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no" , name="viewport">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style type="text/css">
+        .Anmelden li {
+            width: 100%;
+        }
+
+            .Anmelden li > span {
+                width: 9.5%;
+                color: #aaa;
+            }
+
+            .Anmelden li > div {
+                display: inline-block;
+                color: #4F4F4F;
+            }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div class="cont_box">
+            <div class="middle">
+                <h1 class="title">修改密码</h1>
+                <ul class="Anmelden">
+                    <li>
+                        <span>登陆账号:</span>
+                        <div id="LoginName"></div>
+                    </li>
+                    <li>
+                        <span>手机号码:</span>
+                        <input type="tel" name="" id="Phone" value="" placeholder="请输入手机号码"  onblur="CheckPhone()" />
+                        <b id="CheckPhoneStr" class="red"></b>
+                    </li>
+                    <li>
+                        <span>真实姓名:</span>
+                        <input type="text" name="" id="Name" value="" placeholder="请输入真实姓名" />
+                    </li>
+                    <li>
+                        <span>用户权限:</span>
+                        <div id="Quanxian"></div>
+                    </li>
+                    <li>
+                        <span>当前地区:</span>
+                        <div id="Place"></div>
+                    </li>
+                </ul>
+                <div class="btn">
+                    <a href="javascript:void(0)" onclick="Change()">确认</a>
+                    <a href="javascript:void(0)" onclick="window.history.go(-1)">取消</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-1.12.1.min.js"></script>
+    <script src="../js/Common.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script>
+        var CheckLogin = 0;
+        var checkphone = "";
+            $(function () {
+                var id = getUrlParam("id");
+                $.post(ServiceUrl + "UserInterface/GetHandler.ashx", { ID: id }, function (res) {
+                    var json = JSON.parse(res);
+                    if(json.Result)
+                    {
+                        if(json.Data.length>0)
+                        {
+                            $("#LoginName").text(json.Data[0].LoginName);
+                            $("#Phone").val(json.Data[0].Phone);
+                            checkphone = json.Data[0].Phone;
+                            $("#Name").val(json.Data[0].Name);
+                            var Region = (json.Data[0].ProvinceName == null ? "" : json.Data[0].ProvinceName) + " " + (json.Data[0].CityName == null ? "" : json.Data[0].CityName) + " " + (json.Data[0].CountyName == null ? "" : json.Data[0].CountyName) + " " + (json.Data[0].CountrySideName == null ? "" : json.Data[0].CountrySideName);
+                            $("#Place").text(Region);
+                            if (json.Data[0].CountrySideId != 0) {
+                                $("#Quanxian").text("乡级用户");
+                            }
+                            else if (json.Data[0].CountrySideId == 0 && json.Data[0].CountId != 0) {
+                                $("#Quanxian").text("县级用户");
+                            }
+                            else if (json.Data[0].CountId == 0 && json.Data[0].CityId != 0) {
+                                $("#Quanxian").text("市级用户");
+                            }
+                            else {
+                                $("#Quanxian").text("省级用户");
+                            }
+                        }
+                    }
+                });
+            })
+            function CheckPhone() {
+                var Phone = $("#Phone").val();
+                if (checkphone == Phone)
+                {
+                    return;
+                }
+                if (!Phone.match(/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(14[0-9]{1}))+\d{8})$/)) {
+                    CheckLogin = 1;
+                    $("#CheckPhoneStr").html("* 手机号码格式不正确");
+                    $("#CheckPhoneStr").show();
+                    return;
+                }
+                else {
+                    CheckLogin = 0;
+                    $("#CheckPhoneStr").hide();
+                }
+                $.post(ServiceUrl + "UserInterface/GetHandler.ashx", { Phone: Phone }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            if (result.Data.length > 0) {
+                                CheckLogin = 1;
+                                $("#CheckPhoneStr").html("* 手机号码已存在");
+                                $("#CheckPhoneStr").show();
+                            }
+                            else {
+                                CheckLogin = 0;
+                                $("#CheckPhoneStr").hide();
+                            }
+                        }
+                        else {
+                            CheckLogin = 0;
+                            $("#CheckPhoneStr").hide();
+                        }
+                    }
+                    else {
+                        CheckLogin = 0;
+                        $("#CheckPhoneStr").hide();
+                    }
+                });
+            }
+			function Change()
+            {
+			    if (CheckLogin == 1) {
+			        return;
+			    }
+			    var Phone = $("#Phone").val();
+			    var Name = $("#Name").val();
+			    if (Phone.length == 0)
+			    {
+			        alert("请输入手机号");
+			        return;
+			    }
+			    if (Name.length == 0) {
+			        alert("请输入真实姓名");
+			        return;
+			    }
+			    $.post(ServiceUrl + "UserInterface/EditHandler.ashx", { ID: getUrlParam("id"), Phone: Phone, Name: Name }, function (data) {
+			        var result = JSON.parse(data);
+			        if(result!=null)
+			        {
+			            if(result.Result)
+			            {
+			                alert("修改成功");
+			                window.history.go(-1);
+			            }
+			            else
+			            {
+			                alert("修改失败");
+			            }
+			        }
+			        else {
+			            alert("修改失败");
+			        }
+			    });
+			}
+    </script>
+</body>
+</html>

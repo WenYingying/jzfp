@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>政策管理_编辑内容</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	</head>
+	<body>
+			<div class="content">
+				<div class="cont_user" style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;overflow: hidden;">
+					
+					<div>
+						<div class="policy">
+							<h3>青海省各学段现行资助政策</h3>
+							<div class="policy_left">
+								<h3>教育阶段实施</h3>
+                                <ul id="EduLevelList">
+                                    <li><a href="javascript:void(0)">学前教育</a></li>
+                                    <li><a href="javascript:void(0)">义务教育</a></li>
+                                    <li><a href="javascript:void(0)">普通高中</a></li>
+                                    <li><a href="javascript:void(0)">职业教育</a></li>
+                                    <li><a href="javascript:void(0)">普通高等教育</a></li>
+                                </ul>
+
+							</div>
+							<div class="policy_right">
+								<div class="cont_middle">
+									<h3 id="PolicyTitle"></h3>
+									<ul>
+										<li>
+											<span style="text-align: right;">政策标题:</span>
+											<input type="text" name="" id="Name" value="" placeholder="请输入标题" />
+										</li>
+										<li>
+											<span style="text-align: right;">政策内容:</span>
+											<textarea id="Detail" placeholder="请输入内容"></textarea>
+										</li>
+									</ul>
+									<div class="btn" style="margin-left: 72px;">
+										<a href="javascript:void(0)" onclick="Add()">确定</a>
+										<a href="javascript:void(0)" onclick="window.history.go(-1)">取消</a>
+										
+									</div>
+									
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+		<script>
+//		二级导航
+			$(".small_nav div ul li a").click(function() {
+				$(".small_nav div ul li a").removeClass("small_nav_active");
+				$(this).addClass("small_nav_active");
+		
+			});
+			var ID=null;
+			$(function () {
+			    ID = getUrlParam("ID");
+			    if (UserList.CityId != 0) {
+			        $("#dlCity").attr("disabled", "disabled");
+			    }
+			    if (ID != null)
+			    {
+			        $("#PolicyTitle").text("政策编辑/编辑内容");
+			        $.post(ServiceUrl + "PolicyInterface/GetHandler.ashx", { ID: ID }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result != null) {
+			                if (result.Result) {
+			                    if (result.Data.length > 0)
+			                    {
+			                        $("#Name").val(result.Data[0].Name);
+			                        $("#Detail").val(result.Data[0].Detail);
+			                        GetCityList(result.Data[0].CityID);
+			                        $("#dlCity").attr("disabled", "disabled");
+			                        $("#EduLevelList").find("li").each(function () {
+			                            if ($(this).find("a").html() == result.Data[0].EduLevels) {
+			                                $(this).addClass("policy_left_active");
+			                            }
+			                        });
+			                    }
+			                }
+			            }
+			        });
+			    }
+			    else
+			    {
+			        //左边导航
+			        $(".policy_left ul li ").click(function () {
+			            $(".policy_left ul li").removeClass("policy_left_active");
+			            $(this).addClass("policy_left_active");
+
+			        });
+			        $("#EduLevelList").find("li").eq(0).addClass("policy_left_active");
+			        $("#PolicyTitle").text("添加政策");
+			        GetCityList(UserList.CityId);
+			    }
+			});
+			function GetCityList(SelectID) {
+			    $("#dlCity").html("");
+			    $("<option>").appendTo($("#dlCity")).val("").text("全部");
+			    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlCity").val(SelectID);
+			                }
+			            }
+			        }
+			    });
+			}
+
+			function Add()
+			{
+			    var Name = $("#Name").val();
+			    var Detail = $("#Detail").val();
+			    var EduLevels = $(".policy_left_active a").html();
+			    var CityID = $("#dlCity").val();
+			    if (CityID == "")
+			    {
+			        alert("请选择地区");
+			        return;
+			    }
+			    if(ID!=null)
+			    {
+			        $.post(ServiceUrl + "PolicyInterface/EditHandler.ashx", { ID: ID, Name: Name, Detail: Detail }, function (data) {
+			            var result = JSON.parse(data);
+			            if(result!=null)
+			            {
+			                if (result.Result)
+			                {
+			                    alert("修改成功");
+			                    window.history.go(-1);
+			                }
+			                else
+			                {
+                                alert("修改失败")
+			                }
+			            }
+			            else {
+			                alert("修改失败")
+			            }
+			        });
+			    }
+			    else
+			    {
+			        $.post(ServiceUrl + "PolicyInterface/PostHandler.ashx", { Name: Name, Detail: Detail, EduLevels: EduLevels, CityID: CityID }, function (data) {
+			            var result = JSON.parse(data);
+			            if(result!=null)
+			            {
+			                if (result.Result)
+			                {
+			                    alert("添加成功");
+			                    window.location.href = "index.html";
+			                }
+			                else
+			                {
+			                    alert("添加失败")
+			                }
+			            }
+			            else {
+			                alert("添加失败")
+			            }
+			        });
+			    }
+			}
+
+		</script>
+	</body>
+</html>

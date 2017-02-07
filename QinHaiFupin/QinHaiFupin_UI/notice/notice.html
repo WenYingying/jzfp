@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>公告</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+      
+	</head>
+	<body>
+		
+			<div class="content" >
+				
+				<div class="cont_user" style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;">
+					
+					
+					<div >
+						<div class="cont_middle">
+							<h3>公告</h3>
+							
+							<div class="cont_middle_right">
+								<ul>
+									<li>
+										<a style="width: 100px;border-radius: 5px;"  href="add_notice.html">发布公告</a>
+									</li>
+									<li>
+										<span>筛选信息</span>
+									</li>
+									<li>
+										<select id="dlCity">
+										</select>
+									</li>
+									<li>
+										<select id="dlCounty">
+										</select>
+									</li>
+								</ul>
+								
+								
+							</div>
+							<div class="notice_box">
+								<ul id="noticelist">
+								</ul>
+							</div>
+							<div class="clear">
+								<div class="tcdPageCode"></div>
+							</div>
+								
+						</div>
+						
+						
+						
+					</div>
+					
+					
+					
+				</div>
+			</div>
+
+        <script src="../js/jquery-1.12.1.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.page.js" ></script>
+        <script src="../js/Common.js"></script>
+		<script>
+            $(parent.document).find(".policy_nav").find("a").removeClass("policy_nav_active");
+            $(parent.document).find(".policy_nav").find("a:eq(2)").addClass("policy_nav_active");
+				$(function () {
+				    var CityId = UserList.CityId;
+				    if (CityId != 0 && UserList.CountyId == 0)
+				    {
+				        $("#dlCity").attr("disabled", "disabled");
+				    }
+				    if (UserList.CountyId != 0) {
+				        $("#dlCity").attr("disabled", "disabled");
+				        $("#dlCounty").attr("disabled", "disabled");
+				    }
+				    GetCityList(CityId);
+				    $("#dlCity").change(function () {
+				        GetCountyList($(this).val());
+				        PageCheck = true;
+				        GetList(1);
+				    });
+				    $("#dlCounty").change(function () {
+				        PageCheck = true;
+				        GetList(1);
+				    });
+				});
+				function GetCityList(SelectID) {
+				    $("#dlCity").html("");
+				    $("<option>").appendTo($("#dlCity")).val("").text("全部");
+				    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+				        var result = JSON.parse(data);
+				        if (result != null) {
+				            if (result.Result) {
+				                $(result.Data).each(function () {
+				                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+				                });
+				                if (SelectID != 0) {
+				                    $("#dlCity").val(SelectID);
+				                }
+				                GetCountyList(SelectID);
+				                GetList(1);
+				            }
+				        }
+				    });
+				}
+				function GetCountyList(CityID) {
+				    $("#dlCounty").html("");
+				    $("<option>").appendTo($("#dlCounty")).val("").text("全部");
+				    if (CityID == ""||CityID==0)
+				    {
+				        return;
+				    }
+				    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityID }, function (data) {
+				        var result = JSON.parse(data);
+				        if (result != null) {
+				            if (result.Result) {
+				                $(result.Data).each(function () {
+				                    $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+				                });
+				                if(UserList.CountyId!=0)
+				                {
+				                    $("#dlCounty").val(UserList.CountyId);
+				                }
+				            }
+				        }
+				    });
+				}
+
+				var pagesize = 15;
+				var PageCheck = true;
+				function GetList(Pageno) {
+				    var CityId = $("#dlCity").val();
+				    var CountyId = $("#dlCounty").val();
+				    $.post(ServiceUrl + "NoticeInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, ProvinceID: 29, CityId: CityId, CountyId: CountyId }, function (data) {
+				        var result = JSON.parse(data);
+				        if (result != null) {
+				            if (result.Result) {
+				                if (PageCheck) {
+				                    PageCheck = false;
+				                    $(".tcdPageCode").createPage({
+				                        pageCount: result.PageCount,
+				                        current: 1,
+				                        backFn: function (p) {
+				                            GetList(p);
+				                        }
+				                    });
+				                }
+				                var list = $("#noticelist");
+				                list.html("");
+				                $(result.Data).each(function () {
+				                    var thisul = $("<ul>").appendTo(list);
+				                    var thisli = $("<li>").appendTo(thisul);
+				                    var thisdl = $("<dl>").appendTo(thisli);
+				                    var thisdt = $("<dt>").appendTo(thisdl);
+				                    var thisa = $("<a>").appendTo(thisdt).attr("href","javascript:void(0)");
+				                    var RegionName="";
+				                    if (this.CountyName != "" && this.CountyName != null && this.CountyName != undefined)
+				                    {
+				                        RegionName=this.CountyName;
+				                    }
+				                    else if ((this.CountyName == "" || this.CountyName == null || this.CountyName == undefined) && this.CityName != "" && this.CityName != null && this.CityName != undefined)
+				                    {  
+				                        RegionName=this.CityName;
+				                    }
+				                   else
+				                   {
+				                       RegionName="青海省"
+				                   }
+				                    $("<span>").appendTo(thisa).text("【" + RegionName + "】");
+				                    $("<text>").appendTo(thisa).text(this.Name);
+				                    var PostTime = "";
+				                    if (this.PostTime != null && this.PostTime != undefined && this.PostTime != "") {
+				                        PostTime = new Date(this.PostTime).getFullYear() + "-" + checklength(new Date(this.PostTime).getMonth() + 1) + "-" + checklength(new Date(this.PostTime).getDate());
+				                    }
+				                    $("<lable style='float: right;'>").appendTo(thisa).text(PostTime);
+				                    var ID = this.ID;
+				                    thisa.click(function () {
+				                        window.location.href = "notice_info.html?ID=" + ID;
+				                    });
+				                    if(UserList.ProvinceId == this.ProvinceID && UserList.CityId == this.CityID && UserList.CountyId == this.CountyID)
+				                    {
+				                        var deletea = $("<a>").appendTo(thisdt).click(function () {
+				                            if (confirm("确认删除吗？")) {
+				                                $.post(ServiceUrl + "NoticeInterface/DeleteHandler.ashx", { ID: ID }, function (data1) {
+				                                    var result1 = JSON.parse(data1);
+				                                    if (result1 != null) {
+				                                        if (result.Result) {
+				                                            alert("删除成功");
+				                                            thisli.remove();
+				                                        }
+				                                        else {
+				                                            alert("删除失败");
+				                                        }
+				                                    }
+				                                    else {
+				                                        alert("删除失败");
+				                                    }
+				                                });
+				                            }
+				                        }).addClass("remove").attr("href", "javascript:void(0)");
+				                    }
+				                    var thisdd = $("<dd>").appendTo(thisdl);
+				                    if(this.Detail!=""&&this.Detail!=null&&this.Detail!=undefined)
+				                    {
+
+				                        var regexp = /<("[^"]*"|'[^']*'|[^'">])*>/gi;
+				                        var detail = unescape(this.Detail);
+				                        var detail = this.Detail.toString().replace(regexp, "");
+				                        if(detail.length>200)
+				                        {
+				                            detail=detail.substring(0,200)+"...";
+				                        }
+				                        thisdd.html(detail);
+				                    }
+				                });
+				            }
+				        }
+
+				    });
+				}
+		</script>
+	</body>
+</html>

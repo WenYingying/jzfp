@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>政策管理_编辑</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.policy_right .cont_middle h3>a{
+                width: 96px;
+                height: 30px;
+                line-height: 30px;
+                color: #fff;
+                float: right;
+                background-color: #7198ba;
+                display: block;
+                text-align: center;
+                border-radius: 3px;
+                margin-top: 18px;
+            }
+		</style>
+	</head>
+	<body>
+
+			<div class="content">
+				<div class="cont_user" style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;overflow: hidden;">
+				
+					<div>
+						<div class="policy">
+							<h3>青海省各学段现行资助政策</h3>
+							<div class="policy_left">
+								<h3>教育阶段实施</h3>
+                                <ul id="EduLevelList">
+                                    <li><a href="javascript:void(0)">学前教育</a></li>
+                                    <li><a href="javascript:void(0)">义务教育</a></li>
+                                    <li><a href="javascript:void(0)">普通高中</a></li>
+                                    <li><a href="javascript:void(0)">职业教育</a></li>
+                                    <li><a href="javascript:void(0)">普通高等教育</a></li>
+                                </ul>
+							</div>
+							<div class="policy_right">
+								<div class="cont_middle">
+									<h3>政策编辑
+										<a  href="edit_cont.html">添加</a>
+									</h3>
+                                    
+									<ul>
+										<li>
+											<span style="width: 15%;text-align: right;">地区政策信息查询:</span>
+                                            <select id="dlCity"></select>
+										</li>
+                                        
+</ul>
+									<div class="policy_list">
+										<!--<ul>
+											<li>政策标题</li>
+											<li>政策内容</li>
+											<li>操作</li>
+										</ul>
+										<ul>
+											<li>免学费（保教费）、教科书费</li>
+											<li>免学费（保教费）、教科书费</li>
+											<li>
+												<a href="edit_cont.html">修改</a>
+												<a class="delete" href="javascript:void(0)">删除</a>
+											</li>
+										</ul>
+										<ul>
+											<li>免学费（保教费）、教科书费</li>
+											<li>免学费（保教费）、教科书费</li>
+											<li>
+												<a href="edit_cont.html">修改</a>
+												<a class="delete" href="javascript:void(0)">删除</a>
+											</li>
+										</ul>
+										<ul>
+											<li>免学费（保教费）、教科书费</li>
+											<li>免学费（保教费）、教科书费</li>
+											<li>
+												<a href="edit_cont.html">修改</a>
+												<a class="delete" href="javascript:void(0)">删除</a>
+											</li>
+										</ul>-->
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+		<script>
+//		二级导航
+			$(".small_nav div ul li a").click(function() {
+				$(".small_nav div ul li a").removeClass("small_nav_active");
+				$(this).addClass("small_nav_active");
+		
+			});
+//			左边导航
+			$(".policy_left ul li ").click(function() {
+				$(".policy_left ul li").removeClass("policy_left_active");
+				$(this).addClass("policy_left_active");
+				GetList();
+			});
+			$(function () {
+			    var BeforeEduLevels = unescape
+                    (getUrlParam("EduLevels"));
+			    $("#EduLevelList").find("li").each(function () {
+			        if ($(this).find("a").html() == BeforeEduLevels)
+			        {
+			            $(this).addClass("policy_left_active");
+			        }
+			    });
+			    $("#dlCity").change(function () { GetList(); });
+			    if (UserList.CityId != 0) {
+			        $("#dlCity").attr("disabled", "disabled");
+			    }
+			    var BeforeCityID = getUrlParam("CityID");
+			    GetCityList(BeforeCityID);
+			});
+			function GetCityList(SelectID) {
+			    $("#dlCity").html("");
+			    $("<option>").appendTo($("#dlCity")).val("").text("全部");
+			    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlCity").val(SelectID);
+			                }
+			                GetList();
+			            }
+			        }
+			    });
+			}
+
+			function GetList() {
+			    var CityID = $("#dlCity").val();
+			    var EduLevels = $(".policy_left_active a").html() == undefined ? "" : $(".policy_left_active a").html();
+			    $(".policy_list").html("");
+			    var titleul = $("<ul>").appendTo($(".policy_list"));
+			    $("<li style='width:15%'>").appendTo(titleul).text("地区");
+			    $("<li style='width:23%'>").appendTo(titleul).text("政策标题");
+			    $("<li style='width:23%'>").appendTo(titleul).text("政策内容");
+			    $("<li style='width:10%'>").appendTo(titleul).text("状态");
+			    $("<li style='width:18%'>").appendTo(titleul).text("操作");
+			    $.post(ServiceUrl + "PolicyInterface/GetHandler.ashx", { EduLevels: EduLevels, CityID: CityID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    var listul = $("<ul>").appendTo($(".policy_list"));
+			                    $("<li style='width:15%'>").appendTo(listul).text(this.CityName);
+			                    var name = this.name;
+			                    if (name.length > 10)
+			                    {
+			                        name = name.substring(0, 10) + "...";
+			                    }
+			                    $("<li style='width:23%'>").appendTo(listul).text(name);
+			                    if (this.Detail.length > 15)
+			                    {
+			                        $("<li style='width:23%'>").appendTo(listul).text(this.Detail.substring(0, 15) + "...");
+			                    }
+			                    else
+			                    {
+			                        $("<li style='width:23%'>").appendTo(listul).text(this.Detail);
+			                    }
+			                    if(this.IsEnable=="True")
+			                    {
+			                        $("<li style='width:10%'>").appendTo(listul).text("启用");
+			                    }
+			                    else
+			                    {
+			                        $("<li style='width:10%'>").appendTo(listul).text("停用");
+			                    }
+			                    var editli = $("<li style='width:18%'>").appendTo(listul);
+			                    var ID=this.ID;
+			                    var IsEnable=this.IsEnable;
+			                    $("<a>").appendTo(editli).click(function () {
+			                        window.location.href="edit_cont.html?ID="+ID;
+												
+			                    }).text("修改");
+			                    var updatea = $("<a>").appendTo(editli).addClass("delete").click(function () {
+			                       var updateenable;
+			                       if(IsEnable=="True")
+			                       {
+			                           updateenable="False";
+			                       }
+			                       else
+			                       {
+			                           updateenable="True";
+			                       }
+			                       if (confirm("确认修改吗"))
+			                       {
+			                           $.post(ServiceUrl + "PolicyInterface/UpdateStateHandler.ashx", { ID: ID, IsEnable: updateenable }, function (data) {
+			                               var result = JSON.parse(data);
+			                               if (result != null) {
+			                                   if (result.Result) {
+			                                       GetList();
+			                                   }
+			                               }
+			                           });
+			                       }
+
+			                    });
+			                    if(IsEnable=='True')
+			                    {
+			                        updatea.text("停用");
+			                    }
+			                    else
+			                    {
+			                        updatea.text("启用");
+			                    }
+			                });
+			            }
+			        }
+			    });
+			}
+		</script>
+	</body>
+</html>

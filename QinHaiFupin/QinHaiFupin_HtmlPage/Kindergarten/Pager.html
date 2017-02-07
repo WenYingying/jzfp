@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>幼儿园</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no" , name="viewport">
+	    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	    <style type="text/css">
+	    	.kinderNumber>h2{
+	    		display: inline-block;
+			    width: 48%;
+			    text-align: center;
+			    margin: 1rem 0;
+	    		color: #4f4f4f;
+	    		font-size: 0.8rem;
+	    	}
+	    	.kinderNumber>h2>span{
+	    		display: block;
+	    		font-size: 1rem;
+	    		margin-top: 1.25rem;
+	    	}
+	    	.kinderNumber>h2:nth-of-type(1){
+	    		border-right: 1px solid #ccc;
+	    	}
+	    	.export>.iconfont{
+	    		font-size: 1rem;
+			    margin-top: rem;
+			    display: inline-block;
+			    width: 1rem;
+			    vertical-align: middle;
+			    margin-right: 0.2rem;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(1){
+	    		width: 6%;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(2){
+	    		width: 25%;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(3){
+	    		width: 25%;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(4){
+	    		width: 12%;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(5){
+	    		width: 12%;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(6){
+	    		width: 9%;
+	    	}
+	    	.cont_list>ul>li div:nth-of-type(7){
+	    		width: 7%;
+	    	}
+	    	.cont_list>ul>li>div>a.kin_edit{
+	    		font-size: 1rem;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="cont_box">
+				<div class="middle" style="padding-bottom: 0">
+					<h1 class="title" style="margin-top: 0;" id="areaplace">西宁市城中区</h1>
+					<ul class="tit_search" style="line-height: 3rem;top: 0;">
+						<li>
+							<span>市/州:</span>
+							<select id="dlCity">
+                                <option value="0">全部</option>
+							</select>
+						</li>
+						<li>
+							<span>县:</span>
+							<select id="dlCounty">
+                                <option value="0">全部</option>
+							</select>
+						</li>
+						<li>
+							<span>乡/街/镇:</span>
+							<select id="dlCountryside">
+                                <option value="0">全部</option>
+							</select>
+						</li>
+						<li>
+							<span>村/居委会:</span>
+							<select id="dlVillage">
+                                <option value="0">全部</option>
+							</select>
+						</li>
+						<li>
+							<a class="a_search areasearch" href="javascript:void(0)">查询</a>
+						</li>
+					</ul>
+					<div class="kinderNumber">
+						<h2>
+							当前地区幼儿园总数量<span>452,342</span>
+						</h2>
+						<h2>
+							当前地区标准化幼儿园数量<span>232,232</span>
+						</h2>
+					</div>
+				</div>
+			</div>
+			<div class="cont_box">
+				<div class="middle">
+					<h1 class="title">幼儿园管理</h1>
+					<ul class="tit_search">
+						<li>
+							<a href="javascript:void(0)" class="export"><i class="iconfont">&#xe616;</i>添加学校</a>
+						</li>
+						<li>
+							<input type="text" name="" id="SearchText" value="" placeholder="幼儿园名称"/>
+						</li>
+						<li>
+							<a class="a_search" href="javascript:void(0)">查询</a>
+						</li>
+					</ul>
+					<div class="cont_list" data-role="schoollist">
+						<ul>
+							<li>
+								<div>序列</div>
+								<div>幼儿园名称</div>
+								<div>所属区域</div>
+								<div>标准化</div>
+								<div>建校时间</div>
+								<div>在校人数</div>
+								<div>操作</div>
+							</li>
+						</ul>
+						<div class="clear">
+                            <div class="tcdPageCode"></div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-1.12.1.min.js" ></script>
+        <script src="../js/Common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                $(parent.document).find("#school_Add").click(function () {
+                    add();
+                });
+				$('.export').click(function(){
+	                $(parent.document).find(".add_school").css("display", "block");
+				});
+				if (UserList.CountyId != 0) {
+				    $("#dlCity").empty();
+				    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+				    $("#dlCounty").empty();
+				    $("<option>").appendTo($("#dlCounty")).val(UserList.CountyId).text(UserList.CountyName);
+				    GetCountrySideList($("#dlCountryside"), UserList.CountyId, 0,"全部");
+				    $("#dlCountryside").change(function () {
+				        GetVillageList($("#dlVillage"), $(this).val(),0);
+				    });
+				    $(parent.document).find("#school_dlCity").empty();
+				    $("<option>").appendTo($(parent.document).find("#school_dlCity")).val(UserList.CityId).text(UserList.CityName);
+				    $(parent.document).find("#school_dlCounty").empty();
+				    $("<option>").appendTo($(parent.document).find("#school_dlCounty")).val(UserList.CountyId).text(UserList.CountyName);
+				    GetCountrySideList($(parent.document).find("#school_dlCountrySide"), UserList.CountyId, 0,"请选择乡/镇/街道");
+				    $(parent.document).find("#school_dlCountrySide").change(function () {
+				        GetVillageList($(parent.document).find("#school_dlVillage"), $(this).val(), 0);
+				    });
+
+				}
+				else if (UserList.CountyId == 0 && UserList.CityId != 0) {
+				    $("#dlCity").empty();
+				    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+				    GetCountyList($("#dlCounty"), UserList.CityId, 0,"全部");
+				    $("#dlCounty").change(function () {
+				        $("#dlVillage").empty();
+				        $("<option>").appendTo($("#dlVillage")).val(0).text("全部");
+				        GetCountrySideList($("#dlCountryside"), $(this).val(),0,"全部");
+				    });
+				    $("#dlCountryside").change(function () {
+				        GetVillageList($("#dlVillage"), $(this).val(), 0,"全部");
+				    });
+				    $(parent.document).find("#school_dlCity").empty();
+				    $("<option>").appendTo($(parent.document).find("#school_dlCity")).val(UserList.CityId).text(UserList.CityName);
+				    GetCountyList($(parent.document).find("#school_dlCounty"), UserList.CityId, 0, "请选择县/区");
+				    $(parent.document).find("#school_dlCounty").change(function () {
+				        $(parent.document).find("#school_dlVillage").empty();
+				        $("<option>").appendTo($(parent.document).find("#school_dlVillage")).val(0).text("请选择村/居委会");
+				        GetCountrySideList($(parent.document).find("#school_dlCountrySide"), $(this).val(), 0, "请选择乡/镇/街道");
+				    });
+				    $("#dlCountryside").change(function () {
+				        GetVillageList($("#dlVillage"), $(this).val(), 0,"请选择村/居委会");
+				    });
+
+				}
+				else {
+				    GetCityList($("#dlCity"),"全部");
+				    $("#dlCity").change(function () {
+				        $("#dlCountryside").empty();
+				        $("<option>").appendTo($("#dlCountryside")).val(0).text("全部");
+				        $("#dlVillage").empty();
+				        $("<option>").appendTo($("#dlVillage")).val(0).text("全部");
+				        GetCountyList($("#dlCounty"), $(this).val(),0,"全部");
+				    });
+				    $("#dlCounty").change(function () {
+				        $("#dlVillage").empty();
+				        $("<option>").appendTo($("#dlVillage")).val(0).text("全部");
+				        GetCountrySideList($("#dlCountryside"), $(this).val(), 0,"全部");
+				    });
+				    $("#dlCountryside").change(function () {
+				        GetVillageList($("#dlVillage"), $(this).val(), 0,"全部");
+				    });
+				}
+				GetList(1);
+
+			});
+	
+			function GetCityList(doc,firstname) {
+			    doc.empty();
+			    $("<option>").appendTo(doc).val(0).text(firstname);
+			    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo(doc).val(this.ID).text(this.Name);
+			                });
+			            }
+			        }
+			    });
+			  
+			}
+			function GetCountyList(doc,CityID,SelectID,firstname) {
+			    doc.empty();
+			    $("<option>").appendTo(doc).val(0).text(firstname);
+			    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo(doc).val(this.ID).text(this.Name);
+			                });
+			                doc.val(SelectID);
+			            }
+			        }
+			    });
+			  
+			}
+			function GetCountrySideList(doc, CountyID, SelectID,firstname) {
+			    doc.empty();
+			    $("<option>").appendTo(doc).val(0).text(firstname);
+			    $.post(ServiceUrl + "CountrysideInterface/GetHandler.ashx", { CountyID: CountyID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo(doc).val(this.ID).text(this.Name);
+			                });
+			                doc.val(SelectID);
+			            }
+			        }
+			    });
+
+			}
+			function GetVillageList(doc, CountrySideID, SelectID,firstname) {
+			    doc.empty();
+			    $("<option>").appendTo(doc).val(0).text(firstname);
+			    $.post(ServiceUrl + "VillageInterface/GetHandler.ashx", { CountrySideID: CountrySideID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo(doc).val(this.ID).text(this.Name);
+			                });
+			                doc.val(SelectID);
+			            }
+			        }
+			    });
+			}
+			var pagesize = 15;
+			var PageCheck = true;
+			var pagecount = 0;
+			function GetList(Pageno) {
+			    var CityId = $("#dlCity").val();
+			    var CountyId = $("#dlCounty").val();
+			    var CountrysideId = $("#dlCountryside").val();
+			    var VillageId = $("#dlVillage").val();
+			    var ProvinceId = 29;
+			    if (VillageId != 0)
+			    {
+			        CountrysideId = 0;
+			        CountyId = 0;
+			        CityId = 0;
+			        ProvinceId = 0;
+			    }
+			    else if (VillageId == 0 && CountrysideId != 0)
+			    {
+			        CountyId = 0;
+			        CityId = 0;
+			        ProvinceId = 0;
+			    }
+			    else if (CountrysideId == 0 && CountyId!=0)
+			    {
+			        CityId = 0;
+			        ProvinceId = 0;
+			    }
+			    else if (CountyId == 0 && CityId!=0) {
+			        ProvinceId = 0;
+			    }
+			    $(".schoolli").remove();
+			    $.post(ServiceUrl + "SchoolInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, ProvinceId: 29, CityId: CityId, CountyId: CountyId, CountrysideId: CountrysideId, VillageId: VillageId }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                if (PageCheck) {
+			                    PageCheck = false;
+			                    $(".clear").empty();
+			                    $("<div>").appendTo($(".clear")).addClass("tcdPageCode").createPage({
+			                        pageCount: result.PageCount,
+			                        current: 1,
+			                        backFn: function (p) {
+			                            GetList(p);
+			                        }
+			                    });
+			                }
+			                $(result.Data).each(function () {
+			                    pagecount++;
+			                    var li = $("<li>").appendTo($("div[data-role='schoollist']")).addClass("schoolli");
+			                    $("<div>").appendTo(li).text(pagecount);
+			                    $("<div>").appendTo(li).text(this.Name);
+			                    var region = "";
+			                    if (this.VillageId != 0)
+			                    {
+			                        region = this.CountrySideName + this.VillageName;
+			                    }
+			                    else if (this.VillageId == 0 && this.CountrysideId != 0)
+			                    {
+			                        region = this.CountyName + this.CountrySideName;
+			                    }
+			                    else if (this.CountrysideId == 0 && this.CountyId != 0) {
+			                        region = this.CityName + this.CountyName;
+			                    }
+			                    else if (this.CountyId == 0 && this.CityId != 0) {
+			                        region = "青海省" + this.CityName;
+			                    }
+			                    else
+			                    {
+			                        region = "青海省";
+			                    }
+			                    $("<div>").appendTo(li).text(region);
+			                    if (this.StuEnrollment > 20) {
+			                        $("<div>").appendTo(li).text("是");
+			                    }
+			                    else {
+			                        $("<div>").appendTo(li).text("否");
+			                    }
+			                    var SetupTime = "";
+			                    if (this.SetupTime != null && this.SetupTime != undefined && this.SetupTime != "") {
+			                        PostTime = new Date(this.SetupTime).getFullYear() + "-" + checklength(new Date(this.SetupTime).getMonth() + 1) + "-" + checklength(new Date(this.SetupTime).getDate());
+			                    }
+			                    $("<div>").appendTo(li).text(SetupTime);
+			                    $("<div>").appendTo(li).text(this.StuEnrollment + "人");
+			                    var editdiv = $("<a>").appendTo($("<div>").appendTo(li)).prop("href", "javascript:void(0)").addClass("iconfont kin_edit").html("&#xe60f;").click(function () {
+
+			                    });
+			                });
+			            }
+			        }
+
+			    });
+			}
+			function add()
+			{
+			    var ID = $(parent.document).find("#school_Id").val();
+			    var Name = $(parent.document).find("#school_Name").val();
+			    var Detail = $(parent.document).find("#school_Detail").val();
+			    var SchoolNature = $(parent.document).find("#school_SchoolNature").val();
+			    var EduLevels = "学前教育";
+			    var ProvinceId = 29;
+			    var CityId = $(parent.document).find("#school_dlCity").val();
+			    var CountyId = $(parent.document).find("#school_dlCounty").val();
+			    var CountrysideId = $(parent.document).find("#school_dlCountrySide").val();
+			    var VillageId = $(parent.document).find("#school_dlVillage").val();
+			    var Address = $(parent.document).find("#school_Address").val();
+			    var ClassSize = $(parent.document).find("#school_ClassSize").val();
+			    var StuEnrollment = $(parent.document).find("#school_StuEnrollment").val();
+			    var TchEnrollment = $(parent.document).find("#school_TchEnrollment").val();
+			    var SetupTime = $(parent.document).find("#school_SetupTime").val();
+			    if(Name=="")
+			    {
+			        alert("请输入学校名称");
+			        return;
+			    }
+			    if(StuEnrollment==""||StuEnrollment<1)
+			    {
+			        alert("请输入在校学生人数");
+			        return;
+			    }
+			    if(ID=="")
+			    {
+			        $.post(ServiceUrl + "SchoolInterface/PostHandler.ashx", { UserId:UserList.ID,Name: Name, Detail: escape(Detail), SchoolNature: SchoolNature, EduLevels: EduLevels, ProvinceId: ProvinceId, CityId: CityId, CountrysideId: CountrysideId, VillageId: VillageId, Address: Address, ClassSize: ClassSize, StuEnrollment: StuEnrollment, TchEnrollment: TchEnrollment, SetupTime: SetupTime }, function (res) {
+			            var json = JSON.parse(res);
+			            if(json.Result)
+			            {
+			                alert("添加成功");
+			                $(parent.document).find(".school_close").hide();
+			                $(parent.document).find(".add_school input").val("");
+			                $(parent.document).find(".add_school select").val("");
+			                $(parent.document).find(".add_school textarea").val("");
+			                PageCheck = true;
+			                GetList(1);
+			            }
+			        });
+			    }
+			    else
+			    {
+			        $.post(ServiceUrl + "SchoolInterface/EditHandler.ashx", { ID: ID, UserId: UserList.ID, Name: Name, Detail: escape(Detail), SchoolNature: SchoolNature, EduLevels: EduLevels, ProvinceId: ProvinceId, CityId: CityId, CountrysideId: CountrysideId, VillageId: VillageId, Address: Address, ClassSize: ClassSize, StuEnrollment: StuEnrollment, TchEnrollment: TchEnrollment, SetupTime: SetupTime }, function (res) {
+			            var json = JSON.parse(res);
+			            if (json.Result) {
+			                alert("修改成功");
+			                $(parent.document).find(".school_close").hide();
+			                $(parent.document).find(".add_school input").val("");
+			                $(parent.document).find(".add_school select").val("");
+			                $(parent.document).find(".add_school textarea").val("");
+			                PageCheck = true;
+			                GetList(1);
+			            }
+			        });
+			    }
+			}
+		</script>
+	</body>
+</html>

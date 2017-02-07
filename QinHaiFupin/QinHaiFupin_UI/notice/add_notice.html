@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>发布公告</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.page.js"></script>
+        <script src="../js/xheditor-1.2.2.min.js"></script>
+        <script src="../js/xheditor_lang/zh-cn.js"></script>
+        <script>
+            $(pageInit);
+            function pageInit() {
+                $.extend(XHEDITOR.settings, { shortcuts: {} });
+                $('#Detail').xheditor({ upLinkUrl: "!UpLoad.html", upLinkExt: "zip,rar,txt", upImgUrl: "!UpLoad.html", upImgExt: "jpg,jpeg,gif,png", upFlashUrl: "!UpLoad.html", upFlashExt: "swf", upMediaUrl: "!UpLoad.html", upMediaExt: "wmv,avi,wma,mp3,mid" });
+
+            }
+        </script>
+	</head>
+	<body>
+			<div class="content">
+				<div class="cont_user" style="    margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;">
+					
+					<div style="background-color: #fff">
+						<div class="cont_middle">
+							<h3>发布公告</h3>
+								<ul class="b_poverty">
+									<!--<li>
+										<span>发布地区:</span>
+										<select style="width: 100px;margin-right: 2% ;" id="dlCity">
+										</select>
+										<select style="width: 100px;" id="dlCounty">
+										</select>
+									</li>-->
+									<li>
+										<span>公告标题:</span>
+										<input type="text" name="" id="Name" value="" placeholder="请输入公告标题" style="width: 208px;" />
+									</li>
+									<li>
+										<span>内容:</span>
+										<textarea id="Detail" style="width:600px;height:300px;"></textarea>
+									</li>
+								</ul>
+								<div class="btn">
+									<a href="javascript:void(0)" onclick="Add()">确认</a>
+									<a href="javascript:void(0)" onclick="window.history.go(-1)">取消</a>
+								</div>
+						</div>
+						
+						
+						
+					</div>
+					
+					
+					
+				</div>
+			</div>
+        <script src="../js/Common.js"></script>
+		<script>
+            $(function () {
+                var CityId = UserList.CityId;
+                var ProvinceId = UserList.ProvinceId;
+                var CountyID = UserList.CountyId;
+            });
+			
+            function Add()
+            {
+                var ProvinceID = UserList.ProvinceId;
+                var CityId = UserList.CityId;
+                var CountyID = UserList.CountyId;
+                if (CountyID != 0)
+                {
+                    CityId = 0;
+                    ProvinceID = 0;
+                }
+                if (CountyID == 0 && CityId != 0)
+                {
+                    CountyID = 0;
+                    ProvinceID = 0;
+                }
+                else
+                {
+                    CityId = 0;
+                    CountyID = 0;
+                }
+                var Name = $("#Name").val();
+                var Detail =$("#Detail").val().trim();
+                if(Name=="")
+                {
+                    alert("请输入标题");
+                    return;
+                }
+                if (Name == "") {
+                    alert("请输入内容");
+                    return;
+                }
+                Detail =escape($("#Detail").val().trim());
+                $.post(ServiceUrl + "NoticeInterface/PostHandler.ashx", { Name: Name, Detail: Detail, ProvinceID: ProvinceID, CityID: CityId, CountyID: CountyID }, function (data) {
+                    var result = JSON.parse(data);
+                    if(result!=null)
+                    {
+                        if(result.Result)
+                        {
+                            alert("添加成功");
+                            window.location.href = "notice.html";
+                        }
+                        else
+                        {
+                            alert("添加失败");
+                        }
+                    }
+                    else {
+                        alert("添加失败");
+                    }
+                });
+            }
+		</script>
+	</body>
+</html>

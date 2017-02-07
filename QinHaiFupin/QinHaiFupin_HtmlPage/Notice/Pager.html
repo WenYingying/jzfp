@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no" , name="viewport">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style type="text/css">
+        .empty {
+            color: #b3b3b3;
+            font-weight: 100;
+        }
+
+        .policy_box {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 1rem;
+            position: relative;
+            padding: 1rem;
+            margin: 0;
+        }
+		.policy_box>a:nth-of-type(1){
+			display:block;
+			width:80%;
+			overflow:hidden;
+			white-space:nowrap;
+			text-overflow:ellipsis;
+		}
+        .empty > i {
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        .policy_box .tit_search {
+            top: 1rem;
+        }
+
+        .policy_box:hover {
+            background-color: #FAFAFA;
+        }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div class="cont_box">
+            <div class="middle">
+                <h1 class="title">公告</h1>
+                <ul class="tit_search">
+                    <li>
+                        <a class="a_search" href="Post.html">发布公告</a>
+                    </li>
+                    <li>
+                        筛选信息
+                    </li>
+                    <li>
+                        <select id="dlCity"></select>
+                    </li>
+                    <li>
+                        <select id="dlCounty"></select>
+                    </li>
+                    <li>
+                        <a class="a_search searchlist" href="javascript:void(0)">搜索</a>
+                    </li>
+                </ul>
+                <div id="noticelist">
+                </div>
+                <div class="clear">
+                    <div class="tcdPageCode"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.page.js"></script>
+    <script src="../js/Common.js"></script>
+    <script>
+            $(function () {
+                if (UserList.CountyId != 0) {
+                    $("#dlCity").empty();
+                    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+                    $("#dlCounty").empty();
+                    $("<option>").appendTo($("#dlCounty")).val(UserList.CountyId).text(UserList.CountyName);
+                }
+                else if (UserList.CountyId == 0 && UserList.CityId != 0) {
+                    $("#dlCity").empty();
+                    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+                    GetCountyList(UserList.CityId);
+                }
+                else {
+                    GetCityList();
+                    $("#dlCity").change(function () {
+                        GetCountyList($(this).val());
+                    });
+                }
+                GetList(1);
+                $(".searchlist").click(function () {
+                    PageCheck = true;
+                    GetList(1);
+                });
+				});
+				function GetCityList() {
+				    $("#dlCity").empty();
+				    $("<option>").appendTo($("#dlCity")).val("0").text("全部");
+				    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+				        var result = JSON.parse(data);
+				        if (result != null) {
+				            if (result.Result) {
+				                $(result.Data).each(function () {
+				                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+				                });
+				            }
+				        }
+				    });
+				}
+				function GetCountyList(CityID) {
+				    $("#dlCounty").empty();
+				    $("<option>").appendTo($("#dlCounty")).val("0").text("全部");
+				    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityID }, function (data) {
+				        var result = JSON.parse(data);
+				        if (result != null) {
+				            if (result.Result) {
+				                $(result.Data).each(function () {
+				                    $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+				                });
+				            }
+				        }
+				    });
+				}
+
+				var pagesize = 15;
+				var PageCheck = true;
+				function GetList(Pageno) {
+				    var CityId = $("#dlCity").val();
+				    var CountyId = $("#dlCounty").val();
+				    $.post(ServiceUrl + "NoticeInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, ProvinceID: 29, CityId: CityId, CountyId: CountyId }, function (data) {
+				        var result = JSON.parse(data);
+				        if (result != null) {
+				            if (result.Result) {
+				                if (PageCheck) {
+				                    PageCheck = false;
+				                    $(".clear").empty();
+				                    $("<div>").appendTo($(".clear")).addClass("tcdPageCode").createPage({
+				                        pageCount: result.PageCount,
+				                        current: 1,
+				                        backFn: function (p) {
+				                            GetList(p);
+				                        }
+				                    });
+				                }
+				                var list = $("#noticelist");
+				                list.empty();
+				                $(result.Data).each(function () {
+				                    var thisdiv = $("<div>").appendTo(list).addClass("policy_box");
+				                    var ID = this.ID;
+
+				                    var RegionName="";
+				                    if (this.CountyName != "" && this.CountyName != null && this.CountyName != undefined)
+				                    {
+				                        RegionName=this.CountyName;
+				                    }
+				                    else if ((this.CountyName == "" || this.CountyName == null || this.CountyName == undefined) && this.CityName != "" && this.CityName != null && this.CityName != undefined)
+				                    {
+				                        RegionName=this.CityName;
+				                    }
+				                   else
+				                   {
+				                       RegionName="青海省"
+				                    }
+				                    var title = $("<a>").appendTo(thisdiv).prop("href", "Detail.html?ID=" + ID).text("【" + RegionName + "】" + this.Name);
+				                    var ul=$("<ul>").appendTo(thisdiv).addClass("tit_search");
+				                    var PostTime = "";
+				                    if (this.PostTime != null && this.PostTime != undefined && this.PostTime != "") {
+				                        PostTime = new Date(this.PostTime).getFullYear() + "-" + checklength(new Date(this.PostTime).getMonth() + 1) + "-" + checklength(new Date(this.PostTime).getDate());
+				                    }
+				                    if (UserList.ID==this.UserId) {
+				                        var deletea = $("<a>").appendTo($("<li>").appendTo(ul)).click(function () {
+				                            if (confirm("确认删除吗？")) {
+				                                $.post(ServiceUrl + "NoticeInterface/DeleteHandler.ashx", { ID: ID }, function (data1) {
+				                                    var result1 = JSON.parse(data1);
+				                                    if (result1 != null) {
+				                                        if (result.Result) {
+				                                            alert("删除成功");
+				                                            thisdiv.remove();
+				                                        }
+				                                        else {
+				                                            alert("删除失败");
+				                                        }
+				                                    }
+				                                    else {
+				                                        alert("删除失败");
+				                                    }
+				                                });
+				                            }
+				                        }).addClass("empty").attr("href", "javascript:void(0)");
+				                        $("<i>").appendTo(deletea).addClass("iconfont").html("&#xe60c;");
+				                    }
+				                    $("<b>").appendTo($("<li>").appendTo(ul)).text(PostTime);
+
+				                    var thisdd = $("<p>").appendTo(thisdiv);
+				                    if(this.Detail!=""&&this.Detail!=null&&this.Detail!=undefined)
+				                    {
+
+				                        var regexp = /<("[^"]*"|'[^']*'|[^'">])*>/gi;
+				                        var detail = unescape(this.Detail);
+				                        var detail = this.Detail.toString().replace(regexp, "").replace(/&nbsp;/g, " ");
+				                        if(detail.length>200)
+				                        {
+				                            detail=detail.substring(0,200)+"...";
+				                        }
+				                        thisdd.html(detail);
+				                    }
+				                });
+				            }
+				        }
+
+				    });
+				}
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.btn > .btn-login{
+				background-color: #ff0000;
+			}
+			.alert{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<h2>个人信息</h2>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li class="household_info">
+					<div>
+						<ul>
+                            <li data-val="loginname">
+                                <i class="iconfont icon">&#xe607;</i>
+                                <label class="left">登录名</label>
+                                <span class="right"></span>
+                            </li>
+							<li data-val="name">
+								<i class="iconfont icon">&#xe607;</i>
+								<label class="left">真实姓名</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="phone">
+								<i class="iconfont icon">&#xe609;</i>
+								<label class="left">手机号码</label>
+		                        <span class="right"></span>
+							</li>
+							<li data-val="quanxian">
+								<i class="iconfont icon">&#xe603;</i>
+								<label class="left">用户级别</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="area">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">所属地区</label>
+								<span class="right"></span>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="btn">
+                <a class="btn-login" href="javascript:void(0)">退出登录</a>
+            </div>
+		</div>
+		<div class="alert">
+			<div>
+				<ul>
+					<li class="alert_tit">
+						<h1>提示</h1>
+					</li>
+					<li>是否退出登录？</li>
+					
+				</ul>
+				<div class="cause_btn">
+					<a href="javascript:void(0)" class="cancel">取消</a>
+					<a href="javascript:void(0)" class="active add">确定</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+        <script src="../js/common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                IsLogin();
+                var user = JSON.parse(localStorage.UserInfo);
+                $("[data-val='name']>span").text(user.Name);
+                $("[data-val='loginname']>span").text(user.LoginName);
+                $("[data-val='phone']>span").text(user.Phone);
+
+       
+                if (user.CountrySideId != 0) {
+                    $("[data-val='quanxian']>span").text("乡级用户");
+                }
+                else if (user.CountrySideId == 0 && user.CountyId != 0) {
+                    $("[data-val='quanxian']>span").text("县级用户");
+                }
+                else if (user.CountyId == 0 && user.CityId != 0) {
+                    $("[data-val='quanxian']>span").text("市级用户");
+                }
+                else {
+                    $("[data-val='quanxian']>span").text("省级用户");
+                }
+                var Region = (user.ProvinceName == null ? "" : user.ProvinceName) + " " + (user.CityName == null ? "" : user.CityName) + " " + (user.CountyName == null ? "" : user.CountyName) + " " + (user.CountrySideName == null ? "" : user.CountrySideName);
+                $("[data-val='area']>span").text(Region);
+				$(".btn>.btn-login").click(function(){
+					$(".alert").show();
+				});
+				$(".cancel").click(function () {
+				    $(this).parents(".alert").hide();
+				});
+				$(".add").click(function () {
+				    localStorage.removeItem("UserInfo");
+				    location.href = "../login.html";
+				});
+			});
+		</script>
+	</body>
+</html>

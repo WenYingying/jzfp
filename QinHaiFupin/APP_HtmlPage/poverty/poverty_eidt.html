@@ -1,0 +1,1245 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>扶贫</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style type="text/css">
+        .detection{
+            width: 15%;
+            height: 1.5rem;
+            display: inline-block;
+            line-height: 1.5rem;
+            text-align: center;
+            background-color: #0075A9;
+            color: #fff;
+            font-size: 0.7rem;
+        }
+        .content .right{
+            color: #999999;
+            width: 58%;
+        }
+        .content li a.iconfont{
+            color: #999999;
+            font-size: 0.8rem;
+        }
+        .content li.remark{
+            height: auto;
+        }
+        .remark>textarea{
+            height: 4rem;
+            max-height: 4rem;
+            width: 63%;
+            max-width: 65%;
+            border: 1px solid #ccc;
+            margin-top: 0.5rem;
+            display: inline-block;
+            outline: none;
+            border-radius: 3px;
+            margin-left:1rem;
+            font-size: 0.7rem;
+            color: #333;
+        }
+        .active a{
+            color: #0075A9 !important;
+        }
+        .policy_alert li{
+            color: #0075a9;
+            font-size: 0.7rem;
+            font-weight: 800;
+            width: 94.5%;
+            border-bottom: 1px solid #cccccc;
+            margin-top: 0.6rem;
+            margin-left: 5%;
+            padding-bottom: 0.6rem;
+        }
+        .policy_alert li:last-child{
+            border-bottom: 0;
+        }
+        .policy_alert>div>ul>li>div{
+            color: #333333;
+            font-size: 0.6rem;
+            margin-top: 0.35rem;
+            line-height: 1.5rem;
+        }
+        .policy_alert input[type="checkbox"]{
+            width: 0.75rem;
+            height: 0.75rem;
+            display: inline-block;
+        }
+        .policy_alert input[type="tel"]{
+            margin-left: 0.95rem;
+            width: 85%;
+            height: 1.25rem;
+            font-size: 0.6rem;
+            color: #333;
+            text-indent: 0.5rem;
+            line-height: 1.25rem;
+        }
+        .active{
+            color: #0075a9 !important;
+        }
+        .content .left{
+            width: 24%;
+        }
+        .close{
+            margin-right: 0.4rem;
+        }
+        .hide{
+            width: 72%;
+            display: none;
+
+        }
+        .listcontent{
+            width:100%;
+            display:inline-block;
+            font-size:0.7rem;
+            line-height: 1.5rem;
+            border-bottom:1px solid #cccccc;
+        }
+        .listcontent>input{
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="head">
+                <a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)">&#xe60f;</a>
+                <h2>扶贫</h2>
+            </li>
+        </ul>
+    </header>
+    <div class="content">
+        <ul>
+            <li class="position">
+                成员信息
+            </li>
+            <li class="household_info">
+                <div>
+                    <ul>
+                        <li class="inputtext" data-val="idcardno">
+                            <label class="left">证件号码</label>
+                            <a class="iconfont box">
+                                <span class="right"></span>
+                                &#xe610;
+                            </a>
+                            <div class="hide">
+                                <input type="search" name="" id="" value="" class="ipt_right" placeholder="输入身份证号">
+                                <a class="iconfont affirm">&#xe604;</a>
+                                <a class="iconfont close">&#xe608;</a>
+                            </div>
+                        </li>
+                        <li class="inputtext" data-val="name">
+                            <label class="left">姓　　名</label>
+                            <a class="iconfont box">
+                                <span class="right"></span>
+                                &#xe610;
+                            </a>
+                            <div class="hide">
+                                <input type="search" name="" id="" value="" class="ipt_right" placeholder="输入姓名">
+                                <a class="iconfont affirm">&#xe604;</a>
+                                <a class="iconfont close">&#xe608;</a>
+                            </div>
+                        </li>
+                        <li class="changalert" data-val="nation">
+                            <label class="left">民　　族</label>
+                            <span class="right"></span>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="changalert" data-val="gender">
+                            <label class="left">性　　别</label>
+                            <span class="right"></span>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="inputtext" data-val="birthday">
+                            <label class="left">出生日期</label>
+                            <a class="iconfont box">
+                                <span class="right"></span>
+                                &#xe610;
+                            </a>
+                            <div class="hide">
+                                <input type="date" name="" id="" value="" class="ipt_right" placeholder="选择出生日期">
+                                <a class="iconfont affirm">&#xe604;</a>
+                                <a class="iconfont close">&#xe608;</a>
+                            </div>
+                        </li>
+                        <li class="changalert" data-val="householderrelation">
+                            <label class="left">户主关系</label>
+                            <span class="right"></span>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="position">
+                教育信息
+            </li>
+            <li class="household_info studentmessage" style="border-bottom: 1px solid #cccccc;">
+                <div>
+                    <ul>
+                        <li data-val="povertystate">
+                            <label class="left">是否复核</label>
+                            <span class="right"></span>
+                        </li>
+                        <li class="lhshide" data-val="edulevels">
+                            <label class="left">教育阶段</label>
+                            <span class="right">请选择教育阶段</span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li data-val="dropoutschool">
+                            <label class="left">文化程度</label>
+                            <span class="right"></span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li data-val="outpreschoolreason" style="display:none">
+                            <label class="left">未入学原因</label>
+                            <span class="right">请选择未入学原因</span>
+                            <input value="0" hidden />
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li data-val="returnschool" style="display:none">
+                            <label class="left">劝返情况</label>
+                            <span class="right"></span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li data-val="islhs">
+                            <label class="left">培训需求</label>
+                            <span class="right">请选择有无培训需求</span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li data-val="lhsworkid">
+                            <label class="left">需　　求</label>
+                            <span class="right">请选择行业类别</span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li data-val="lhsworkid1">
+                            <span class="right" style="margin-left: 32%;">请选择工作</span>
+                            <input value="0" hidden />
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="lhshide" data-val="isprovincestudy">
+                            <label class="left">省内外就读</label>
+                            <span class="right">请选择是否在省内外就读</span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="lhshide" data-val="studentstatus">
+                            <label class="left">年  级</label>
+                            <span class="right">请选择年级</span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="lhshide" data-val="schoolname">
+                            <label class="left">学校名称</label>
+                            <input type="search" name="" class="ipt_right" placeholder="请输入学校名称" />
+                        </li>
+                        <li class="lhshide" data-val="schoolnature">
+                            <label class="left">学校性质</label>
+                            <span class="right">请选择学校性质</span>
+                            <input value="" hidden>
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="lhshide" data-val="studentno">
+                            <label class="left">学　　号</label>
+                            <input type="search" name="" class="ipt_right" placeholder="请输入学生学号" />
+                        </li>
+                        <li class="policy lhshide multi-line " data-val="policy">
+                            <label class="left">帮扶政策</label>
+                            <span class="right">请选择帮扶政策</span>
+                            <input value="" hidden />
+                            <a class="iconfont">&#xe610;</a>
+                        </li>
+                        <li class="remark" data-val="remark">
+                            <label class="left">备　　注</label>
+                            <textarea placeholder="请输入其他备注"></textarea>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <div class="btn" data-val="addstudent">
+            <a class="btn-login" href="javascript:void(0)">保存信息</a>
+        </div>
+    </div>
+    <div class="cause_alert" data-parent="nation">
+        <div>
+            <h1 class="cause_tit">
+                选择民族
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)">汉族</a></li>
+                <li><a href="javascript:void(0)">蒙古族</a></li>
+                <li><a href="javascript:void(0)">彝族</a></li>
+                <li><a href="javascript:void(0)">侗族</a></li>
+                <li><a href="javascript:void(0)">哈萨克族</a></li>
+                <li><a href="javascript:void(0)">畲族</a></li>
+                <li><a href="javascript:void(0)">纳西族</a></li>
+                <li><a href="javascript:void(0)">仫佬族</a></li>
+                <li><a href="javascript:void(0)">仡佬族</a></li>
+                <li><a href="javascript:void(0)">保安族</a></li>
+                <li><a href="javascript:void(0)">鄂伦春族</a></li>
+                <li><a href="javascript:void(0)">回族</a></li>
+                <li><a href="javascript:void(0)">壮族</a></li>
+                <li><a href="javascript:void(0)">瑶族</a></li>
+                <li><a href="javascript:void(0)">傣族</a></li>
+                <li><a href="javascript:void(0)">高山族</a></li>
+                <li><a href="javascript:void(0)">景颇族</a></li>
+                <li><a href="javascript:void(0)">羌族</a></li>
+                <li><a href="javascript:void(0)">乌孜别克族</a></li>
+                <li><a href="javascript:void(0)">裕固族</a></li>
+                <li><a href="javascript:void(0)">藏族</a></li>
+                <li><a href="javascript:void(0)">布依族</a></li>
+                <li><a href="javascript:void(0)">白族</a></li>
+                <li><a href="javascript:void(0)">黎族</a></li>
+                <li><a href="javascript:void(0)">拉祜族</a></li>
+                <li><a href="javascript:void(0)">柯尔克孜族</a></li>
+                <li><a href="javascript:void(0)">布朗族</a></li>
+                <li><a href="javascript:void(0)">阿昌族</a></li>
+                <li><a href="javascript:void(0)">俄罗斯族</a></li>
+                <li><a href="javascript:void(0)">京族</a></li>
+                <li><a href="javascript:void(0)">门巴族</a></li>
+                <li><a href="javascript:void(0)">维吾尔族</a></li>
+                <li><a href="javascript:void(0)">朝鲜族</a></li>
+                <li><a href="javascript:void(0)">土家族</a></li>
+                <li><a href="javascript:void(0)">傈僳族</a></li>
+                <li><a href="javascript:void(0)">水族</a></li>
+                <li><a href="javascript:void(0)">土族</a></li>
+                <li><a href="javascript:void(0)">撒拉族</a></li>
+                <li><a href="javascript:void(0)">普米族</a></li>
+                <li><a href="javascript:void(0)">鄂温克族</a></li>
+                <li><a href="javascript:void(0)">塔塔尔族</a></li>
+                <li><a href="javascript:void(0)">珞巴族</a></li>
+                <li><a href="javascript:void(0)">苗族</a></li>
+                <li><a href="javascript:void(0)">满族</a></li>
+                <li><a href="javascript:void(0)">哈尼族</a></li>
+                <li><a href="javascript:void(0)">佤族</a></li>
+                <li><a href="javascript:void(0)">东乡族</a></li>
+                <li><a href="javascript:void(0)">达斡尔族</a></li>
+                <li><a href="javascript:void(0)">毛南族</a></li>
+                <li><a href="javascript:void(0)">塔吉克族</a></li>
+                <li><a href="javascript:void(0)">德昂族</a></li>
+                <li><a href="javascript:void(0)">独龙族</a></li>
+                <li><a href="javascript:void(0)">基诺族</a></li>
+            </ul>
+            <div class="cause_btn">
+                <a href="javascript:void(0)" class="cancel">取消</a>
+                <a href="javascript:void(0)" class="active add">确定</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="cause_alert" data-parent="gender">
+        <div>
+            <h1 class="cause_tit">
+                选择性别
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)">男</a></li>
+                <li><a href="javascript:void(0)">女</a></li>
+            </ul>
+            <div class="cause_btn">
+                <a href="javascript:void(0)" class="cancel">取消</a>
+                <a href="javascript:void(0)" class="active add">确定</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="cause_alert" data-parent="householderrelation">
+        <div>
+            <h1 class="cause_tit">
+                选择户主关系
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)">之子</a></li>
+                <li><a href="javascript:void(0)">之女</a></li>
+                <li><a href="javascript:void(0)">之孙子</a></li>
+                <li><a href="javascript:void(0)">之孙女</a></li>
+                <li><a href="javascript:void(0)">之外孙女</a></li>
+                <li><a href="javascript:void(0)">之外孙子</a></li>
+                <li><a href="javascript:void(0)">配偶</a></li>
+                <li><a href="javascript:void(0)">之儿媳</a></li>
+                <li><a href="javascript:void(0)">之父</a></li>
+                <li><a href="javascript:void(0)">之母</a></li>
+                <li><a href="javascript:void(0)">之公公</a></li>
+                <li><a href="javascript:void(0)">之女婿</a></li>
+                <li><a href="javascript:void(0)">之婆婆</a></li>
+                <li><a href="javascript:void(0)">之祖父</a></li>
+                <li><a href="javascript:void(0)">之祖母</a></li>
+                <li><a href="javascript:void(0)">之外祖父</a></li>
+                <li><a href="javascript:void(0)">之外祖母</a></li>
+                <li><a href="javascript:void(0)">之岳父</a></li>
+                <li><a href="javascript:void(0)">之岳母</a></li>
+                <li><a href="javascript:void(0)">之岳母</a></li>
+                <li><a href="javascript:void(0)">之兄妹</a></li>
+                <li><a href="javascript:void(0)">其他</a></li>
+            </ul>
+            <div class="cause_btn">
+                <a href="javascript:void(0)" class="cancel">取消</a>
+                <a href="javascript:void(0)" class="active add">确定</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="dropoutschool">
+        <div>
+            <h1 class="cause_tit">
+                选择文化程度
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="">请选择</a></li>
+                <li><a href="javascript:void(0)" data-role="文盲或半文盲">文盲或半文盲</a></li>
+                <li><a href="javascript:void(0)" data-role="学龄前儿童">学龄前儿童</a></li>
+                <li><a href="javascript:void(0)" data-role="小学">小学</a></li>
+                <li><a href="javascript:void(0)" data-role="初中">初中</a></li>
+                <li><a href="javascript:void(0)" data-role="高中">高中</a></li>
+                <li><a href="javascript:void(0)" data-role="大专及以上">大专及以上</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="returnschool">
+        <div>
+            <h1 class="cause_tit">
+                选择劝返情况
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="True">已返校</a></li>
+                <li><a href="javascript:void(0)" data-role="False">未返校</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="islhs">
+        <div>
+            <h1 class="cause_tit">
+                选择有无培训需求
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="True">是</a></li>
+                <li><a href="javascript:void(0)" data-role="False">否</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="lhsworkid">
+        <div>
+            <h1 class="cause_tit">
+                选择行业类别
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+
+                <li><a href="javascript:void(0)">轻工类</a></li>
+                <li><a href="javascript:void(0)">机械操作</a></li>
+                <li><a href="javascript:void(0)">机械加工、维修</a></li>
+                <li><a href="javascript:void(0)">矿产类</a></li>
+                <li><a href="javascript:void(0)">创业培训</a></li>
+                <li><a href="javascript:void(0)">"技能+创业"培训</a></li>
+                <li><a href="javascript:void(0)">其他</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="lhsworkid1">
+        <div>
+            <h1 class="cause_tit">
+                选择工作
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul></ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="isprovincestudy">
+        <div>
+            <h1 class="cause_tit">
+                选择省内外就读
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="True">省内</a></li>
+                <li><a href="javascript:void(0)" data-role="False">省外</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="edulevels">
+        <div>
+            <h1 class="cause_tit">
+                选择教育阶段
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="非学龄段">非学龄段</a></li>
+                <li><a href="javascript:void(0)" data-role="适龄未入学或辍学">适龄未入学或辍学</a></li>
+                <li><a href="javascript:void(0)" data-role="学前教育">学前教育</a></li>
+                <li><a href="javascript:void(0)" data-role="小学">小学</a></li>
+                <li><a href="javascript:void(0)" data-role="初中">初中</a></li>
+                <li><a href="javascript:void(0)" data-role="特教学生">特教学生</a></li>
+                <li><a href="javascript:void(0)" data-role="高中">高中</a></li>
+                <li><a href="javascript:void(0)" data-role="中职教育">中职教育</a></li>
+                <li><a href="javascript:void(0)" data-role="高职教育">高职教育</a></li>
+                <li><a href="javascript:void(0)" data-role="预科">预科</a></li>
+                <li><a href="javascript:void(0)" data-role="专科">专科</a></li>
+                <li><a href="javascript:void(0)" data-role="本科">本科</a></li>
+                <li><a href="javascript:void(0)" data-role="硕士">硕士</a></li>
+                <li><a href="javascript:void(0)" data-role="博士">博士</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="studentstatus">
+        <div>
+            <h1 class="cause_tit">
+                选择年级
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="学前班">学前班</a></li>
+                <li><a href="javascript:void(0)" data-role="小">小</a></li>
+                <li><a href="javascript:void(0)" data-role="中">中</a></li>
+                <li><a href="javascript:void(0)" data-role="大">大</a></li>
+                <li><a href="javascript:void(0)" data-role="一年级">一年级</a></li>
+                <li><a href="javascript:void(0)" data-role="二年级">二年级</a></li>
+                <li><a href="javascript:void(0)" data-role="三年级">三年级</a></li>
+                <li><a href="javascript:void(0)" data-role="四年级">四年级</a></li>
+                <li><a href="javascript:void(0)" data-role="五年级">五年级</a></li>
+                <li><a href="javascript:void(0)" data-role="六年级">六年级</a></li>
+                <li><a href="javascript:void(0)" data-role="七年级">七年级</a></li>
+                <li><a href="javascript:void(0)" data-role="八年级">八年级</a></li>
+                <li><a href="javascript:void(0)" data-role="九年级">九年级</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cause_alert2" data-parent="schoolnature">
+        <div>
+            <h1 class="cause_tit">
+                选择学校性质
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul>
+                <li><a href="javascript:void(0)" data-role="True">公办</a></li>
+                <li><a href="javascript:void(0)" data-role="False">民办</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="policy_alert" data-parent="policy">
+        <div>
+            <h1 class="policy_tit">
+                扶贫政策
+            </h1>
+            <div class="listcontent">
+                <input type="radio" name="checkpolicy" placeholder="享受政策" checked="checked" />享受政策
+                <input type="radio" name="checkpolicy" placeholder="不享受政策" value="0" />不享受政策
+            </div>
+            <ul>
+                <li>
+                    <div>
+                        <input type="checkbox" checked="checked" name="" id="" value="" />
+                        无帮扶政策
+                    </div>
+                </li>
+            </ul>
+            <div class="cause_btn">
+                <a href="javascript:void(0)" class="cancel">取消</a>
+                <a href="javascript:void(0)" class="active add">确定</a>
+            </div>
+        </div>
+    </div>
+    <div class="cause_alert2" data-parent="outpreschoolreason">
+        <div>
+            <h1 class="cause_tit">
+                <label>选择未入学原因</label>
+                <a href="javascript:void(0)" class="iconfont close">&#xe608;</a>
+            </h1>
+            <ul></ul>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            IsLogin();
+            var peopleid = GetQueryString("id");
+            var user = JSON.parse(localStorage.UserInfo);
+            var CheckData = null;
+            $(".cause_alert li").on('click', function () {
+                $(this).addClass("active").siblings("li").removeClass("active");
+                return false;
+            });
+            $(".policy").click(function () {
+                $(".policy_alert").show();
+            });
+            $(".cause_btn a").click(function () {
+                $(this).addClass("active").siblings("a").removeClass("active");
+            });
+            //切换输入框
+            $(".inputtext .box").click(function () {
+                $(this).hide();
+                $(this).siblings(".hide").children("input").val($(this).children("span").text());
+                $(this).siblings(".hide").css("display", "inline-block");
+            });
+            //输入框关闭
+            $(".inputtext .close").click(function () {
+                $(this).parent("div").hide();
+                $(this).parent("div").siblings(".box").show();
+            });
+            //单独保存打开弹框
+            $(".changalert").click(function () {
+                if ($(this).attr("data-val") == "householderrelation" && $(this).children("span").text() == "本人或户主") {
+                    alert("本人或户主不能修改");
+                    return false;
+                }
+                var currentval = $(this).children("span").text();
+                $("[data-parent='" + $(this).attr("data-val") + "']").show();
+                $("[data-parent='" + $(this).attr("data-val") + "']>div>ul>li").removeClass("active");
+
+                if (currentval != "") {
+                    $("[data-parent='" + $(this).attr("data-val") + "']>div>ul>li").each(function () {
+                        if ($(this).children("a").text() == currentval) {
+                            $(this).addClass("active");
+                        }
+                    });
+                }
+            });
+            //单独保存弹框关闭
+            $(".cause_alert .close").click(function () {
+                $(this).parents(".cause_alert").hide();
+            });
+            $(".cause_alert2 .close").click(function () {
+                $(this).parents(".cause_alert2").hide();
+            });
+            //单独保存弹框取消
+            $(".cause_alert .cancel").click(function () {
+                $(this).parents(".cause_alert").hide();
+            });
+            //帮扶政策弹框取消
+            $(".policy_alert .cancel").click(function () {
+                $(this).parents(".policy_alert").hide();
+            });
+            //获取数据
+            $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/GetHandler.ashx", { ID: peopleid }, function (res) {
+                var json = JSON.parse(res);
+                if (json.Result) {
+                    if (json.Data.length > 0) {
+                        CheckData = json.Data[0];
+                        $("[data-val='idcardno']>a>span").text(json.Data[0].IdCardNo);
+                        $("[data-val='idcardno']>div>input").val(json.Data[0].IdCardNo);
+                        $("[data-val='name']>a>span").text(json.Data[0].Name);
+                        $("[data-val='name']>div>input").val(json.Data[0].Name);
+                        $("[data-val='nation']>span").text(json.Data[0].Nation);
+                        $("[data-val='gender']>span").text(json.Data[0].Gender == "True" ? "男" : "女");
+                        var Birthday = "";
+                        if (json.Data[0].IdCardNo.length > 15) {
+                            Birthday = json.Data[0].IdCardNo.substr(6, 4) + "-" + json.Data[0].IdCardNo.substr(10, 2) + "-" + json.Data[0].IdCardNo.substr(12, 2);
+                        }
+                        $("[data-val='birthday']>a>span").text(Birthday);
+                        $("[data-val='birthday']>div>input").val(Birthday);
+                        $("[data-val='householderrelation']>span").text(json.Data[0].HouseholderRelation);
+                        $("[data-val='povertystate']>span").text(json.Data[0].PovertyStates == "1" ? "已复核" : "未复核");
+                        $("[data-val='dropoutschool']>span").text(json.Data[0].DropoutSchool == "" ? "请选择" : json.Data[0].DropoutSchool);
+                        $("[data-val='dropoutschool']>input").val(json.Data[0].DropoutSchool);
+                        if (json.Data[0].DropoutSchool != "") {
+                            $("[data-val='returnschool']").show();
+                        }
+                        $("[data-val='ReturnSchool']>span").text(json.Data[0].DropoutSchool == "" ? "无需劝返" : (json.Data[0].ReturnSchool == "True" ? "已返校" : "未返校"));
+                        $("[data-val='ReturnSchool']>input").val(json.Data[0].DropoutSchool);
+                        if (json.Data[0].studentArchivesID == 0 && (new Date().getFullYear() - new Date(json.Data[0].BirthDay).getFullYear() < 60)) {
+                            $("[data-val='islhs']>span").text("是");
+                            $("[data-val='islhs']>input").val("True");
+                            if (json.Data[0].DropoutSchool == "") {
+                                $("[data-val='returnschool']").hide();
+                            }
+                        }
+                        else {
+                            $("[data-val='islhs']>span").text(json.Data[0].IsLHS == "True" ? "是" : "否");
+                            $("[data-val='islhs']>input").val(json.Data[0].IsLHS);
+                            if (json.Data[0].IsLHS == "True" && json.Data[0].DropoutSchool == "") {
+
+                                $.post(sysConfig.serviceUrl + "WorkInterface/GetHandler.ashx", { ID: json.Data[0].LHSWorkId }, function (res) {
+                                    var json = JSON.parse(res);
+                                    if (json.Result) {
+                                        if (json.Data.length > 0) {
+                                            $("[data-val='lhsworkid']>span").text(json.Data[0].Type);
+                                            $("[data-val='lhsworkid1']>span").text(json.Data[0].Name);
+                                            $("[data-val='lhsworkid1']>input").val(json.Data[0].ID);
+                                        }
+                                    }
+
+                                });
+                            }
+                            else {
+                                $("[data-val='lhsworkid']").hide();
+                                $("[data-val='lhsworkid1']").hide();
+                            }
+                        }
+                        $("[data-val='isprovincestudy']>span").text(json.Data[0].IsProvinceStudy == "True" ? "省内" : "省外");
+                        $("[data-val='isprovincestudy']>input").val(json.Data[0].IsProvinceStudy);
+                        $("[data-val='edulevels']>span").text(json.Data[0].EduLevels);
+                        $("[data-val='edulevels']>input").val(json.Data[0].EduLevels);
+                        if (json.Data[0].EduLevels == "适龄未入学或辍学") {
+                            $(".lhshide").hide();
+                            $("[data-val='islhs']").show();
+                            $("[data-val='edulevels']").show();
+                            $("[data-val='outpreschoolreason']").show();
+                            $("[data-val='dropoutschool']").show();
+                        }
+                        $("[data-val='studentstatus']>span").text(json.Data[0].StudentStatus);
+                        $("[data-val='studentstatus']>input").val(json.Data[0].StudentStatus);
+                        $("[data-val='schoolname']>input").val(json.Data[0].SchoolName);
+                        $("[data-val='schoolnature']>span").text(json.Data[0].SchoolNature == "True" ? "公办" : "民办");
+                        $("[data-val='schoolnature']>input").val(json.Data[0].SchoolNature);
+                        $("[data-val='studentno']>input").val(json.Data[0].StudentNo);
+                        $("[data-val='policy']>input").val(json.Data[0].PolicyID);
+                        if (json.Data[0].PolicyID != "") {
+                            var policylist = "";
+                            $(json.Data[0].PolicyID.split(",")).each(function () {
+                                var policyid = this.toString();
+                                $.post(sysConfig.serviceUrl + "PolicyInterface/GetHandler.ashx", { ID: policyid }, function (res1) {
+                                    var json1 = JSON.parse(res1);
+                                    if (json1.Result) {
+                                        if (json1.Data.length > 0) {
+                                            policylist += json1.Data[0].Name + "(补助金额：" + json1.Data[0].Amount + "元）,";
+                                            $("[data-val='policy']>span").text(policylist);
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                        $("[data-val='outpreschoolreason']>input").val(json.Data[0].OutpreschoolReason);
+                        if (json.Data[0].OutpreschoolReason != "") {
+                            $.post(sysConfig.serviceUrl + "OutPreschoolReasonInterface/GetHandler.ashx", { ID: json.Data[0].OutpreschoolReason }, function (res2) {
+                                var json2 = JSON.parse(res2);
+                                if (json2.Result) {
+                                    if (json2.Data.length > 0) {
+                                        $("[data-val='outpreschoolreason']>span").text(json2.Data[0].Name);
+                                    }
+                                }
+                            });
+                        }
+                        $("[data-val='remark']>textarea").val(json.Data[0].Remark);
+                    }
+                }
+            });
+            //输入框单独保存
+            $(".inputtext .affirm").click(function () {
+                var changetext = $(this).siblings("input").val();
+                if (changetext == "") {
+                    alert("请输入内容");
+                    return false;
+                }
+                var This = $(this);
+                switch ($(this).parents("li").attr("data-val")) {
+                    case "name":
+                        $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateNameHandler.ashx", { ID: peopleid, Name: changetext }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                alert(json.Message);
+                                This.parent("div").hide();
+                                This.parent("div").siblings(".box").show().children("span").text(changetext);
+                            }
+                            else {
+                                alert("修改失败");
+                            }
+                        });
+                        break;
+                    case "idcardno":
+                        $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateIdCardNoHandler.ashx", { ID: peopleid, IdCardNo: changetext }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                alert(json.Message);
+                                This.parent("div").hide();
+                                This.parent("div").siblings(".box").show().children("span").text(changetext);
+                            }
+                            else {
+                                alert("修改失败");
+                            }
+                        });
+                        break;
+                    case "birthday":
+                        $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateBirthDayHandler.ashx", { ID: peopleid, BirthDay: changetext }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                alert(json.Message);
+                                This.parent("div").hide();
+                                This.parent("div").siblings(".box").show().children("span").text(changetext);
+                            }
+                            else {
+                                alert("修改失败");
+                            }
+                        });
+                        break;
+                }
+
+            });
+            //弹框保存
+            $(".cause_alert .add").click(function () {
+                var changtext = $(this).parent("div").siblings("ul").children(".active").children("a").text();
+                var This = $(this);
+                switch ($(this).parents(".cause_alert").attr("data-parent")) {
+                    case "nation":
+                        $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateNationHandler.ashx", { ID: peopleid, Nation: changtext }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                alert(json.Message);
+                                This.parents(".cause_alert").hide();
+                                $("[data-val='nation']>span").text(changtext);
+                            }
+                            else {
+                                alert("修改失败");
+                            }
+                        });
+                        break;
+                    case "gender":
+                        var gender = changtext == "男" ? "True" : "False";
+                        $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateGenderHandler.ashx", { ID: peopleid, Gender: gender }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                alert(json.Message);
+                                This.parents(".cause_alert").hide();
+                                $("[data-val='gender']>span").text(changtext);
+                            }
+                            else {
+                                alert("修改失败");
+                            }
+                        });
+                        break;
+                    case "householderrelation":
+                        $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateHouseholderRelationHandler.ashx", { ID: peopleid, HouseholderRelation: changtext }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                alert(json.Message);
+                                This.parents(".cause_alert").hide();
+                                $("[data-val='householderrelation']>span").text(changtext);
+                            }
+                            else {
+                                alert("修改失败");
+                            }
+                        });
+                        break;
+                }
+            });
+            //弹框选择
+            $(".studentmessage li").click(function () {
+                if ($(this).attr("data-val") == "schoolname" || $(this).attr("data-val") == "studentno" || $(this).attr("data-val") == "remark") {
+                    return false;
+                }
+                var This = $(this);
+                switch ($(this).attr("data-val")) {
+                    case "lhsworkid1":
+                        var type = $("[data-val='lhsworkid']>span").text();
+                        $("[data-parent='lhsworkid1'] ul").empty();
+                        $.post(sysConfig.serviceUrl + "WorkInterface/GetHandler.ashx", { Type: type }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                $(json.Data).each(function () {
+                                    var li = $("<li>").appendTo($("[data-parent='lhsworkid1'] ul"));
+                                    $("<a>").appendTo(li).attr("data-role", this.ID).text(this.Name);
+                                    if (This.children("input").val() == this.ID) {
+                                        li.addClass("active").siblings().removeClass("active");
+                                    }
+                                });
+                                LiClick();
+                            }
+                        });
+                        break;
+                    case "policy":
+                        $("[data-parent='policy'] ul").empty();
+                        var proviceli = $("<li>").appendTo($("[data-parent='policy'] ul")).text("省级政策");
+                        var cityli = $("<li>").appendTo($("[data-parent='policy'] ul")).text("市级政策");
+                        var countyli = $("<li>").appendTo($("[data-parent='policy'] ul")).text("县级政策");
+                        var Edulevels = $("[data-val='edulevels']>span").text();
+                        if (Edulevels == "小学" || Edulevels == "初中") {
+                            Edulevels = "义务教育";
+                        }
+                        else if (Edulevels == "中职教育" || Edulevels == "高职教育") {
+                            Edulevels = "职业教育"
+                        }
+                        else if (Edulevels == "专科" || Edulevels == "本科" || Edulevels == "硕士" || Edulevels == "博士") {
+                            Edulevels = "普通高等教育"
+                        }
+                        if (This.children("input").val() == "0") {
+                            $("[data-parent='policy'] ul").hide();
+
+                        }
+                        else {
+                            $("[data-parent='policy'] ul").show();
+                        }
+                        $.post(sysConfig.serviceUrl + "PolicyInterface/GetHandler.ashx", { ProvinceID: 29, EduLevels: Edulevels, CityID: CheckData.CityID, CountyID: CheckData.CountyID }, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                var peoplepolicy = This.children("input").val();
+                                $(json.Data).each(function () {
+                                    var div = $("<div>");
+                                    var check = $("<input>").appendTo(div).prop("type", "checkbox").val(this.ID).attr("data-role", this.Name + "(" + this.Amount + "元）");
+                                    $("<label>").appendTo(div).text(this.Name + "(" + this.Amount + "元）");
+                                    var id = this.ID;
+                                    $(peoplepolicy.split(",")).each(function () {
+                                        if (this.toString() == id) {
+                                            check.prop("checked", "checked");
+                                        }
+                                    });
+                                    if (this.Grade == 3) {
+                                        div.appendTo(countyli);
+                                    }
+                                    else if (this.Grade == 2) {
+                                        div.appendTo(cityli);
+                                    }
+                                    else {
+                                        div.appendTo(proviceli);
+                                    }
+                                });
+                            }
+                        });
+                        break;
+                    case "outpreschoolreason":
+                        $("[data-parent='outpreschoolreason'] ul").empty();
+                        if ($("[data-parent='outpreschoolreason'] ul li").length > 1) {
+                            $("[data-parent='outpreschoolreason'] ul li").each(function () {
+                                if (This.children("input").val() == $(this).children("a").attr("data-role")) {
+                                    $(this).addClass("active").siblings().removeClass("active");
+                                }
+                            });
+                            return false;
+                        }
+                        $.post(sysConfig.serviceUrl + "OutPreschoolReasonInterface/GetHandler.ashx", {}, function (res) {
+                            var json = JSON.parse(res);
+                            if (json.Result) {
+                                $(json.Data).each(function () {
+                                    var li = $("<li>").appendTo($("[data-parent='outpreschoolreason'] ul"));
+                                    $("<a>").appendTo(li).attr("data-role", this.ID).text(this.Name);
+                                    if (This.children("input").val() == this.ID) {
+                                        li.addClass("active").siblings().removeClass("active");
+                                    }
+                                });
+                                LiClick();
+                            }
+                        });
+                        break;
+                    default:
+                        $("[data-parent='" + $(this).attr("data-val") + "'] ul li").each(function () {
+                            if (This.children("span").text() == $(this).children("a").text()) {
+                                $(this).addClass("active").siblings().removeClass("active");
+                            }
+                        });
+                        break;
+                }
+                $("[data-parent='" + $(this).attr("data-val") + "']").show();
+            });
+            //政策切换
+            $("input[name='checkpolicy']").click(function () {
+                if ($(this).val() == "0") {
+                    $("[data-parent='policy']>div>ul").hide();
+                }
+                else {
+                    $("[data-parent='policy']>div>ul").show();
+                }
+            });
+            //添加政策
+            $(".policy_alert .add").click(function () {
+                var policytext = "";
+                var policylist = "";
+                var checkpolicy = $("input[name='checkpolicy']:checked").val();
+                if (checkpolicy == "0") {
+                    policytext = "不享受政策";
+                    policylist = 0;
+                }
+                else {
+                    $(this).parents(".policy_alert").children("div").children("ul").find("div").each(function () {
+                        if ($(this).children("input[type='checkbox']").is(":checked")) {
+                            var id = $(this).children("input[type='checkbox']:checked").val();
+                            var name = $(this).children("input[type='checkbox']:checked").attr("data-role");
+
+                            policytext += name + ",";
+                            policylist += id + ",";
+
+                        }
+                    });
+                    if (policytext.length > 1) {
+                        policytext.substring(0, policytext.length - 1);
+                        policylist.substring(0, policylist.length - 1);
+                    }
+                    else {
+                        alert("请选择政策");
+                        return;
+                    }
+                }
+                $("[data-val='policy']>span").text(policytext);
+                $("[data-val='policy']>input").val(policylist);
+                $(this).parents(".policy_alert").hide();
+            });
+            LiClick();
+            $("[data-val='addstudent']").click(function () {
+                //差异内容
+                var PovertyChange = "";
+                //文化程度
+                var DropoutSchool = $("[data-val='dropoutschool']>input").val();
+                PovertyChange += CheckPovertyChange("DropoutSchool", DropoutSchool, CheckData.DropoutSchool);
+                //劝返情况
+                var ReturnSchool = $("[data-val='returnschool']>input").val();
+                PovertyChange += CheckPovertyChange("ReturnSchool", ReturnSchool, CheckData.DropoutSchool);
+                //两后生
+                var IsLHS = $("[data-val='islhs']>input").val();
+                PovertyChange += CheckPovertyChange("IsLHS", IsLHS, CheckData.IsLHS);
+                //两后生工作
+                var LHSWorkId = $("[data-val='lhsworkid1']>input").val();
+                PovertyChange += CheckPovertyChange("LHSWorkId", LHSWorkId, CheckData.LHSWorkId);
+                //省内外就读
+                var IsProvinceStudy = $("[data-val='isprovincestudy']>input").val();
+                PovertyChange += CheckPovertyChange("IsProvinceStudy", IsProvinceStudy, CheckData.IsProvinceStudy);
+                //教育阶段
+                var EduLevels = $("[data-val='edulevels']>input").val();
+                PovertyChange += CheckPovertyChange("EduLevels", CheckData.EduLevels);
+                //年级
+                var StudentStatus = $("[data-val='studentstatus']>input").val();
+                PovertyChange += CheckPovertyChange("StudentStatus", StudentStatus, CheckData.StudentStatus);
+                //学校名称
+                var SchoolName = $("[data-val='schoolname']>input").val();
+                PovertyChange += CheckPovertyChange("SchoolName", SchoolName, CheckData.SchoolName);
+                //学校性质
+                var SchoolNature = $("[data-val='schoolnature']>input").val();
+                PovertyChange += CheckPovertyChange("SchoolNature", SchoolNature, CheckData.SchoolNature);
+                //学号
+                var StudentNo = $("[data-val='studentno']>input").val();
+                PovertyChange += CheckPovertyChange("StudentNo", StudentNo, CheckData.StudentNo);
+                //帮扶政策
+                var Policylist = "";
+                if ($("[data-val='policy']>input").val() != "" && $("[data-val='policy']>input").val() != null & $("[data-val='policy']>input").val() != undefined) {
+                    Policylist = $("[data-val='policy']>input").val();
+                }
+                //未入学原因
+                var OutpreschoolReason = $("[data-val='outpreschoolreason']>input").val();
+                PovertyChange += CheckPovertyChange("StudentNo", OutpreschoolReason, CheckData.OutpreschoolReason);
+                //备注
+                var Remark = $("[data-val='remark']>textarea").val();
+                PovertyChange += CheckPovertyChange("Remark", CheckData.Remark);
+                if (IsLHS == "True") {
+                    StudentNo = "";
+                    SchoolName = "";
+                    StudentStatus = "非在校生";
+                    Policylist = "";
+                    OutpreschoolReason = "";
+                }
+                else {
+                    LHSWorkId = "";
+                }
+                if (EduLevels != "适龄未入学或辍学") {
+                    OutpreschoolReason == "";
+                }
+                else {
+                    if (OutpreschoolReason == "") {
+                        alert("请选择未入学原因");
+                        return;
+                    }
+                    else {
+                        StudentNo = "";
+                        SchoolName = "";
+                        StudentStatus = "";
+                        Policylist = "";
+                    }
+                }
+                //if (DropoutSchool != "" && ReturnSchool == "True") {
+                //    StudentNo = "";
+                //    SchoolName = "";
+                //    Policylist = "";
+                //    OutpreschoolReason = "";
+                //    IsLHS == "False";
+                //    LHSWorkId = "";
+                //}
+                //if (DropoutSchool != "" && ReturnSchool == "") {
+                //    alert("请为辍学学生选择劝反情况");
+                //    return;
+                //}
+                if (EduLevels == "适龄未入学或辍学" && OutpreschoolReason == "") {
+                    alert("请为辍学学生选择辍学原因");
+                    return;
+                }
+                if ((IsLHS == "False" || IsLHS == "") && EduLevels == "") {
+                    alert("请选择教育阶段");
+                    return;
+                }
+                if (EduLevels == "适龄未入学或辍学" && ReturnSchool == "True" && SchoolName == "") {
+                    alert("请输入学校名称");
+                    return;
+
+                }
+                if (EduLevels != "适龄未入学或辍学"&&EduLevels != "非学龄段" && StudentStatus != "非在校生" && SchoolName == "") {
+                    alert("请输入学校名称");
+                    return;
+                }
+                if (IsLHS == "True" && LHSWorkId == 0) {
+                    alert("两后生问题解决必须选择培训选项");
+                    return;
+                }
+                if (StudentStatus != "非在校生" && EduLevels != "适龄未入学或辍学" && EduLevels != "非学龄段" && Policylist.length == 0) {
+                    alert("请选择帮扶政策");
+                    return;
+                }
+                $.post(sysConfig.serviceUrl + "StudentArchivesInterface/PostHandler.ashx", {
+                    UserID: user.ID,
+                    PovertyArchivesID: CheckData.ID,
+                    SchoolName: SchoolName,
+                    EduLevels: EduLevels,
+                    StudentStatus: StudentStatus,
+                    IsLHS: IsLHS,
+                    PolicyID: Policylist,
+                    LHSWorkId: LHSWorkId,
+                    ReturnSchool: ReturnSchool,
+                    DropoutSchool: DropoutSchool,
+                    OutpreschoolReason: OutpreschoolReason,
+                    IsProvinceStudy: IsProvinceStudy,
+                    SchoolNature: SchoolNature,
+                    Remark: Remark
+                }, function (data1) {
+                    var result1 = JSON.parse(data1);
+                    if (result1 != null) {
+                        if (result1.Result) {
+                            var studentArchiverID = result1.Message;
+                            $.post(sysConfig.serviceUrl + "StudentArchivesChangeLogInterface/PostHandler.ashx", {
+                                StudentArchivesId: studentArchiverID,
+                                UserId: user.ID,
+                                ChangeText: escape(PovertyChange)
+                            }, function (data2) {
+                                var result2 = JSON.parse(data2);
+                                if (result2 != null) {
+                                    if (result2.Result) {
+                                        alert("修改成功");
+                                        setTimeout(function () { window.history.go(-2) }, 1000);
+                                    }
+                                    else {
+                                        alert("修改失败");
+                                    }
+                                }
+                                else {
+                                    alert("修改失败");
+                                }
+                            });
+                        }
+                        else {
+                            alert("修改失败");
+                        }
+                    }
+                    else {
+                        alert("修改失败");
+                    }
+                });
+            });
+        });
+        function checklength(str) {
+            if (str.toString().length < 2) {
+                return "0" + str;
+            }
+            else {
+                return str;
+            }
+        }
+        function LiClick() {
+            $(".cause_alert2 li").unbind("click");
+            $(".cause_alert2 li").click(function () {
+                $(this).parents(".cause_alert2").hide();
+                $("[data-val='" + $(this).parents(".cause_alert2").attr("data-parent") + "']>span").text($(this).children("a").text());
+                $("[data-val='" + $(this).parents(".cause_alert2").attr("data-parent") + "']>input").val($(this).children("a").attr("data-role"));
+                switch ($(this).parents(".cause_alert2").attr("data-parent")) {
+                    case "islhs":
+                        if ($(this).children("a").attr("data-role") == "True") {
+                            $("[data-val='lhsworkid']").show();
+                            $("[data-val='lhsworkid1']").show();
+                        }
+                        else {
+                            $("[data-val='lhsworkid']").hide();
+                            $("[data-val='lhsworkid1']").hide();
+                        }
+                        break;
+                    case "lhsworkid":
+                        $("[data-val='lhsworkid1']>span").text("请选择工作");
+                        $("[data-val='lhsworkid1']>input").val(0);
+                        break;
+                        //case "dropoutschool":
+                        //    if ($(this).children("a").attr("data-role") != "")
+                        //    {
+                        //        $("[data-val='outpreschoolreason']").show();
+                        //        $("[data-val='returnschool']").show();
+                        //        $("[data-val='returnschool']>span").text("未返校");
+                        //        $("[data-val='islhs']>input").val("False");
+                        //    }
+                        //    else
+                        //    {
+                        //        $("[data-val='outpreschoolreason']").hide();
+                        //        $("[data-val='returnschool']").hide();
+                        //        $("[data-val='islhs']>span").text("否");
+                        //        $("[data-val='islhs']>input").val("False");
+                        //    }
+                        //    break;
+                    case "returnschool":
+                        $("[data-val='lhsworkid']").hide();
+                        $("[data-val='lhsworkid1']").hide();
+                        $("[data-val='islhs']>span").text("否");
+                        $("[data-val='islhs']>input").val("False");
+                        break;
+                    case "edulevels":
+                        if ($(this).children("a").text() == "适龄未入学或辍学") {
+                            $("[data-val='outpreschoolreason']>label").text("未入学原因");
+                            $("[data-val='outpreschoolreason']>span").text("请选择未入学原因");
+                            $("[data-parent='outpreschoolreason']>div>h1>label").text("请选择未入学原因");
+                            $(".lhshide").hide();
+                            $("[data-val='islhs']").show();
+                            $("[data-val='islhs']>span").text("否");
+                            $("[data-val='islhs']>input").val("False");
+
+                            $("[data-val='edulevels']").show();
+                            $("[data-val='outpreschoolreason']").show();
+
+                            $("[data-val='returnschool']").show();
+                            $("[data-val='returnschool']>span").text("未返校");
+                            $("[data-val='islhs']>input").val("False");
+
+                        } else if ($(this).children("a").text() == "非学龄段") {
+                            $(".lhshide").hide();
+                            $("[data-val='edulevels']").show();
+                            $("[data-val='outpreschoolreason']").hide();
+                            $("[data-val='returnschool']").hide();
+                            $("[data-val='islhs']").show();
+                            $("[data-val='islhs']>span").text("否");
+                            $("[data-val='islhs']>input").val("False");
+                        }
+                        else {
+                            $(".lhshide").show();
+                            $("[data-val='islhs']").hide();
+                            $("[data-val='outpreschoolreason']").hide();
+                            $("[data-val='dropoutschool']").show();
+                            $("[data-val='returnschool']").hide();
+                            $("[data-val='islhs']>span").text("否");
+                            $("[data-val='islhs']>input").val("False");
+                        }
+                        break;
+                }
+            });
+        }
+        function CheckPovertyChange(name, after, before) {
+            if (after != before) {
+                return "<" + name + ">" + after + "</" + name + ">";
+            }
+            else {
+                return "";
+            }
+        }
+    </script>
+</body>
+</html>

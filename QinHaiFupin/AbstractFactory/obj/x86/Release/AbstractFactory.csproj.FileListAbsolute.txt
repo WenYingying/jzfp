@@ -1,0 +1,4 @@
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\bin\x86\Release\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\bin\x86\Release\AbstractFactory.pdb
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\x86\Release\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\x86\Release\AbstractFactory.pdb

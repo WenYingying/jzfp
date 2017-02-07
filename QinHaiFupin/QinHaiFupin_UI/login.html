@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>登陆页面</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="swiper/css/swiper.min.css"/>
+        <script src="js/jquery-1.12.1.min.js"></script>
+        <script src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="swiper/js/swiper.min.js"></script>
+        <script src="js/Common.js"></script>
+	</head>
+	<body>
+		<div class="login">
+			<div class="container">
+				<!--登陆 start-->
+				<div class="content">
+					<div class="cont_box">
+						<h3></h3>
+						<div class="cont_box_login">
+							<div>
+								<h3>青海省精准扶贫大数据平台</h3>
+								<div class="login_num">
+									<input type="text" placeholder="账号/手机号" value="" id="LoginName" />
+								</div>
+								<div class="login_pwd">
+									<input type="password" placeholder="请输入密码" value="" id="PassWord"/>
+								</div>
+								<span>
+									<input name="rememberme" type="checkbox" checked="checked" id="remberUser"> 记住账号
+								</span>
+								<a  class="btn-login" href="javascript:void(0)" onclick="CheckLogin()">登录</a>
+							</div>
+						</div>
+						<div class="copyright">
+							<h3>
+								技术支持:青海城市云计算大数据技术有限公司
+							</h3>
+							<h3>版权所有:青海省教育厅</h3>
+						</div>
+					</div>
+				</div>
+				<!--登陆 end-->
+				<!--轮播 start-->
+				<div class="login_back">
+					<div class="swiper-container">
+					    <div class="swiper-wrapper">
+					        <div class="swiper-slide"><img src="img/login/banner1.jpg"/> </div>
+					        <div class="swiper-slide"><img src="img/login/banner2.jpg"/></div>
+					        <div class="swiper-slide"><img src="img/login/banner3.jpg"/></div>
+					    </div>
+					</div>
+				</div>
+				<!--轮播 end-->
+				
+			</div>
+		</div>
+		<script>
+            $(document).ready(function () {
+                if ($.cookie("qh_remberUser") == "true") {
+                    $("#remberUser").attr("checked", true);
+                    $("#LoginName").val($.cookie("qh_userName"));
+                    $("#PassWord").val($.cookie("qh_passWord"));
+                }
+            });
+//		        轮播 start
+		  	var mySwiper = new Swiper ('.swiper-container', {
+		   	 	direction: 'horizontal',
+		    	loop: true,
+		    	autoplay : 3000,
+				autoplayDisableOnInteraction : false,
+		    
+		    })        
+		  	function CheckLogin()
+		  	{
+		  	    var LoginName = $("#LoginName").val();
+		  	    var PassWord = $("#PassWord").val();
+		  	    var RemberUser = $("#remberUser").prop('checked') ? true : false;
+		  	    if (LoginName == "")
+		  	    {
+		  	        alert("请输入账号/手机号");
+		  	        return;
+		  	    }
+		  	    if (PassWord == "") {
+		  	        alert("请输入密码");
+		  	        return;
+		  	    }
+		  	    $.post(ServiceUrl + "UserInterface/GetHandler.ashx", { LoginName: LoginName, PassWord: PassWord }, function (data) {
+		  	        var result = JSON.parse(data);
+		  	        if(result!=null)
+		  	        {
+		  	            if(result.Result)
+		  	            {
+		  	                if (RemberUser) {
+		  	                    $.cookie("qh_remberUser", "true", { expires: 7 }); // 存储一个带7天期限的 cookie
+		  	                    $.cookie("qh_userName", LoginName, { expires: 7 }); // 存储一个带7天期限的 cookie
+		  	                    $.cookie("qh_passWord", PassWord, { expires: 7 }); // 存储一个带7天期限的 cookie
+		  	                }
+		  	                else {
+		  	                    $.cookie("qh_remberUser", "false", { expires: -1 });        // 删除 cookie
+		  	                    $.cookie("qh_userName", '', { expires: -1 });
+		  	                    $.cookie("qh_passWord", '', { expires: -1 });
+		  	                }
+		  	                
+		  	                if(result.Data.length>0)
+		  	                {
+		  	                    $.post(ServiceUrl + "UserInterface/UpdateTimePlaceHandler.ashx", { ID: result.Data[0].ID }, function (data1) {
+		  	                        var result1 = JSON.parse(data1);
+		  	                        if(result1!=null)
+		  	                        {
+		  	                            if (result1.Result) {
+		  	                                result.Data[0].LastLoginIp = result1.LastLoginIp;
+		  	                                result.Data[0].LastLoginTime = result1.LastLoginTime;
+		  	                                localStorage.setItem('qhfp_user', JSON.stringify(result.Data[0]));
+		  	                                window.location.href = "index.html";
+		  	                            }
+		  	                            else {
+		  	                                alert("用户名或密码错误");
+		  	                            }
+		  	                        }
+		  	                        else {
+		  	                            alert("用户名或密码错误");
+		  	                        }
+		  	                    });
+
+		  	                }
+		  	                else {
+		  	                    alert("用户名或密码错误");
+		  	                }
+		  	            }
+		  	            else {
+		  	                alert("用户名或密码错误");
+		  	            }
+		  	        }
+		  	        else {
+		  	            alert("用户名或密码错误");
+		  	        }
+		  	    });
+
+		  	}
+		</script>
+	</body>
+</html>

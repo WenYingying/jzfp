@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>贫困档案</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.position>a{
+				float: right;
+				color: #0075a9;
+				font-size: 0.6rem;
+				margin-right: 0.75rem;
+			}
+			.content .right{
+				width: 55%;
+			}
+			.household_info>div>ul>li{
+				width: 90%;
+				margin: 0 auto;
+				height: 1.875rem;
+				border-bottom: 1px solid #cccccc;
+				line-height: 1.875rem;
+			}
+			.household_info>div>ul>li:last-child{
+				border-bottom: 0;
+			}
+			.content > ul > li.household{
+				margin-top: 0;
+			}
+			.name_info{
+				margin: 0.3rem 0.75rem;
+			}
+			
+			.household_info>div>ul>li>a.iconfont{
+				color: #999;
+                margin-left: 1rem;
+                font-size: 0.7rem;
+                width: 60%;
+                display: inline-block;
+                max-width: 73%;
+                vertical-align: top;
+			}
+            	.hide{
+				width: 68%;
+    			display: none
+    			
+			}
+            .listcontent{
+                height: 2rem;
+                line-height: 2rem;
+                font-size: 0.8rem;
+            }   
+            .listcontent>input{
+                margin:0 0.5rem;
+            }   
+            .endstatetime{
+                width:96.2%;
+               line-height:2rem;
+               font-size: 0.7rem;
+               margin-left: 0.5rem;
+               margin-bottom:0.8rem;
+            }
+            .endstatetime>input[type="date"]{
+                height: 1.5rem;
+                line-height: 1.5rem;
+                border: 1px solid #ccc;
+                border-radius: 0;
+                text-indent: 0.5rem;
+                width: 50%;
+                margin-left: 0.5rem;
+            }
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<h2>贫困档案</h2>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li class="position">
+					户主信息
+				</li>
+				<li class="household_info">
+					<div>
+						<ul>
+							<li data-role="list-Name">
+								<i class="iconfont icon">&#xe607;</i>
+								<label class="left">户主姓名</label>
+								<span class="right"></span>
+							</li>
+							<li data-role="list-IdCardNo">
+								<i class="iconfont icon">&#xe60e;</i>
+								<label class="left">身份证号</label>
+								<span class="right"></span>
+							</li>
+							<li data-role="list-FamilySize">
+								<i class="iconfont icon">&#xe605;</i>
+								<label class="left">家庭人数</label>
+								<a class="iconfont box">
+                                    <span class="right" style="width:100%;margin-left: 0rem;max-width: 86%;" ></span>
+                                    &#xe610;
+                                </a>
+                                <div class="hide">
+                                    <input type="search" name="" id="" value="" class="ipt_right" placeholder="请输入家庭人数" />
+                                    <a class="iconfont affirm" data-role="familysize">&#xe604;</a>
+                                    <a class="iconfont close">&#xe608;</a>
+                                </div>
+							</li>
+							<li data-role="list-Phone">
+								<i class="iconfont icon">&#xe609;</i>
+								<label class="left">手机号码</label>
+                                <a class="iconfont box">
+                                    <span class="right" style="width:100%;margin-left: 0rem;max-width: 86%;"></span>
+                                    &#xe610;
+                                </a>
+                                <div class="hide">
+                                    <input type="search" name="" id="" value="" class="ipt_right" placeholder="请输入手机号码" />
+                                    <a class="iconfont affirm" data-role="phone">&#xe604;</a>
+                                    <a class="iconfont close">&#xe608;</a>
+                                </div>
+							</li>
+							<li data-role="list-inschoolcount">
+								<i class="iconfont icon">&#xe60a;</i>
+								<label class="left">在读人数</label>
+								<span class="right"></span>
+							</li>
+                            <li data-role="list-state">
+                                <i class="iconfont icon">&#xe62a;</i>
+                                <label class="left">复核状态</label>
+                                <a class="iconfont box">
+                                    <span class="right" style="width:100%;margin-left: 0rem;max-width: 86%;"></span>
+                                    &#xe610;
+                                    <input type="text" name="checkstate" hidden value="True" />
+                                    <input type="text" name="statetime" hidden value="2016-09-08" />
+                                </a>
+                        
+                            </li>
+						</ul>
+					</div>
+				</li>
+				<li class="position addpeople" style="border-top: 1px solid #ccc;">
+					成员信息
+					<a href="">添加成员</a>
+				</li>
+           		<li class="position poverty">
+					贫困信息
+					<!--<a href="amend_poverty.html">修改贫困信息</a>-->
+				</li>
+				<li class="household_info">
+					<div>
+						<ul>
+							<li  data-role="list-PovertyReason">
+								<i class="iconfont icon">&#xe62a;</i>
+								<label class="left">贫困原因</label>
+								<span class="right">缺技术
+								</span>
+							</li>
+							<li data-role="list-PovertyProperties">
+								<i class="iconfont icon">&#xe60c;</i>
+								<label class="left">贫困属性</label>
+								<span class="right">一般贫困户</span>
+							</li>
+							<li data-role="list-DiscerningStandards">
+								<i class="iconfont icon">&#xe601;</i>
+								<label class="left">识别标准</label>
+								<span class="right">国家标准</span>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="position address" style="border-top: 1px solid #ccc;">
+					地址信息
+					<a href="amend_area.html">修改地址</a>
+				</li>
+				<li class="household_info">
+					<div>
+						<ul>
+							<li  data-role="list-CityName">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">市/州</label>
+								<span class="right"></span>
+							</li>
+							<li data-role="list-CountyName">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">县/区</label>
+								<span class="right"></span>
+							</li>
+							<li data-role="list-CountrySideName">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">乡/镇</label>
+								<span class="right"></span>
+							</li>
+							<li data-role="list-VillageName">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">村/居委会</label>
+								<span class="right"></span>
+							</li>
+							<li class="multi-line" data-role="list-Address">
+								<i class="iconfont icon">&#xe606;</i>
+								<label class="left">详细地址</label>
+								<span class="right"></span>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+        <div class="state_alert" data-parent="list-state">
+            <div>
+                <h1 class="policy_tit">
+                    复核状态
+                </h1>
+                <div class="listcontent">
+                    <input type="radio" name="checkpolicy" placeholder="待复核" value="False" />待复核
+                    <input type="radio" name="checkpolicy" placeholder="已复核" value="True"  />已复核
+                </div>
+                <div class="endstatetime">
+                    脱贫时间<input type="date" placeholder="请选择脱贫时间" />
+                </div>
+                <div class="cause_btn">
+                    <a href="javascript:void(0)" class="cancel">取消</a>
+                    <a href="javascript:void(0)" class="active add">确定</a>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                IsLogin();
+                loading();
+                var householdid = GetQueryString("houseid");
+                var user = JSON.parse(localStorage.UserInfo);
+
+                $(".household_info a.box").click(function () {
+                    if ($(this).parent("li").attr("data-role") == "list-state")
+                    {
+                        $("[data-parent='list-state']").show();
+                        $("[data-parent='list-state']>div>.listcontent>input[value='" + $(this).children("input[name='checkstate']").val() + "']").prop("checked", 'checked');
+                        if ($(this).children("input[name='checkstate']").val() == "False")
+                        {
+                            $("[data-parent='list-state'] .endstatetime").hide();
+                        }
+                        else
+                        {
+                            $("[data-parent='list-state']>div>.endstatetime>input").val($(this).children("input[name='statetime']").val());
+                            $("[data-parent='list-state'] .endstatetime").show();
+                        }
+                    }
+                    else
+                    {
+                        $(this).hide();
+                        $(this).siblings(".hide").css("display", "inline-block");
+                    }
+                });
+                if (user.CountyId == 0 || new Date(user.InputEndTime) < new Date()) {
+                    $(".household_info a.box").unbind("click");
+                    $(".position>a").hide();
+
+                }
+                //扶贫状态取消
+                $(".cancel").click(function () {
+                    $(this).parents(".state_alert").hide();
+                });
+                //扶贫状态切换
+                $("[data-parent='list-state']>div>.listcontent>input").click(function () {
+                    if($(this).val()=="True")
+                    {
+                        $(this).parent("div").siblings(".endstatetime").show();
+                    }
+                    else
+                    {
+                        $(this).parent("div").siblings(".endstatetime").hide();
+                    }
+                });
+                //扶贫状态确定
+                $("[data-parent='list-state'] .add").click(function () {
+                    var state = $(this).parent("div").siblings(".listcontent").children("input:checked").val();
+                    var time = "";
+                    var AddThis = $(this);
+                    if(state=="True")
+                    {
+                        time=$(this).parent("div").siblings(".endstatetime").children("input").val();
+                        $("[ data-role='list-state']>a>span").text("已复核（"+time+")");
+                    }
+                    else
+                    {
+                        $("[ data-role='list-state']>a>span").text("待复核");
+                    }
+                    $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateStateByHolderHandler.ashx", { HouseholderId: householdid, State: state, OffPovertyTime: time }, function (res) {
+                        var json = JSON.parse(res);
+                        if (json.Result) {
+                            $("[data-role='list-state'] input[name='checkstate']").val(state);
+                            $("[data-role='list-state'] input[name='statetime']").val(time);
+                            AddThis.parents(".state_alert").hide();
+                            alert(json.Message);
+                        }
+                        else {
+                            alert("修改失败");
+                        }
+                    });
+
+                });
+                $(".addpeople>a").prop("href", "add.html?houseid=" + householdid);
+                $(".household_info .close").click(function () {
+                    $(this).parent("div").hide();
+                    $(this).parent("div").siblings("a.box").css("display", "inline-block");
+                });
+                //单项保存手机号和家庭人数
+                $(".hide a.affirm").click(function () {
+                    var text = $(this).siblings("input").val();
+                    if (text == "")
+                    {
+                        alert("请输入内容");
+                        return false;
+                    }
+                    var affirm = $(this);
+                    switch ($(this).attr("data-role")) {
+                        case "familysize":
+                            $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateFamilySizeByHolderHandler.ashx", { HouseholderId: householdid, FamilySize: text }, function (res) {
+                                var json = JSON.parse(res);
+                                if(json.Result)
+                                {
+                                    alert(json.Message);
+                                    affirm.parent("div").hide();
+                                    affirm.parent("div").siblings("a.box").css("display", "inline-block");
+                                    affirm.parent("div").siblings("a.box span").text(text);
+                                }
+                                else {
+                                    alert("修改失败");
+                                }
+                            });
+                            break;
+                        case "phone":
+                            $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdatePhoneByHolderHandler.ashx", { HouseholderId: householdid, Phone: text }, function (res) {
+                                var json = JSON.parse(res);
+                                if (json.Result) {
+                                    alert(json.Message);
+                                    affirm.parent("div").hide();
+                                    affirm.parent("div").siblings("a.box").css("display", "inline-block");
+                                    affirm.parent("div").siblings("a.box span").text(text);
+                                }
+                                else {
+                                    alert("修改失败");
+                                }
+                            });
+                            break;
+                    }
+                });
+                //加载数据
+
+                $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/GetHandler.ashx", { HouseholderId: householdid }, function (res) {
+                    var json = JSON.parse(res);
+                    closeloading();
+                    if (json.Result) {
+                        var inschoolcount = 0;
+                        $(json.Data).each(function () {
+                            if (this.HouseholderRelation == "本人或户主") {
+                                $(".addpeople>a").prop("href", "add.html?houseid=" + householdid + "&name=" + escape(this.Name));
+                                $("[data-role='list-Name']>span").text(this.Name);
+                                $("[data-role='list-IdCardNo']>span").text(this.IdCardNo);
+                                $("[data-role='list-FamilySize']>a>span").text(this.FamilySize);
+                                $("[data-role='list-FamilySize']>div>input").val(this.FamilySize);
+                                $("[data-role='list-Phone']>a>span").text(this.Phone);
+                                $("[data-role='list-Phone']>div>input").val(this.Phone);
+                                $("[data-role='list-state']>a>input[name='checkstate']").val(this.State);
+                                if (this.OffPovertyTime != "") {
+                                    $("[data-role='list-state']>a>input[name='statetime']").val(new Date(this.OffPovertyTime).getFullYear() + "-" + checklength(new Date(this.OffPovertyTime).getMonth() + 1) + "-" + checklength(new Date(this.OffPovertyTime).getDate()));
+                                }
+
+                                if(this.State=="False")
+                                {
+                                    $("[data-role='list-state']>a>span").text("待复核");
+
+                                }
+                                else
+                                {
+                                    var OffPovertyTime = "";
+                                    if(this.OffPovertyTime!="")
+                                    {
+                                        OffPovertyTime = new Date(this.OffPovertyTime).getFullYear() + "-" + checklength(new Date(this.OffPovertyTime).getMonth() + 1) + "-" + checklength(new Date(this.OffPovertyTime).getDate());
+                                    }
+                                    $("[data-role='list-state']>a>span").text("已复核（" + OffPovertyTime + ")");
+                                }
+                                $("[data-role='list-PovertyReason']>span").text(this.PovertyReason);
+                                $("[data-role='list-PovertyProperties']>span").text(this.PovertyProperties);
+                                $("[data-role='list-DiscerningStandards']>span").text(this.DiscerningStandards);
+                                $("[data-role='list-CityName']>span").text(this.CityName);
+                                $("[data-role='list-CountyName']>span").text(this.CountyName);
+                                $("[data-role='list-CountrySideName']>span").text(this.CountrySideName);
+                                $("[data-role='list-VillageName']>span").text(this.VillageName);
+                                $("[data-role='list-Address']>span").text(this.Address);
+                                //$(".poverty a").prop("href", "amend_poverty.html?houseid=" + householdid + "&povertyreason=" + escape(this.PovertyReason) + "&povertyproperties=" + escape(this.PovertyProperties) + "&discerningstandards=" + escape(this.DiscerningStandards) + "&name=" + escape(this.Name));
+                                $(".address a").prop("href", "amend_area.html?houseid=" + householdid + "&cityid=" + this.CityID + "&countyid=" + this.CountyID + "&countrysideid=" + this.CountrySideID + "&villageid=" + this.VillageId + "&address=" + escape(this.Address) + "&cityname=" + escape(this.CityName) + "&countyname=" + escape(this.CountyName) + "&countrysidename=" + escape(this.CountrySideName) + "&villagename=" + escape(this.VillageName) + "&name=" + escape(this.Name));
+                            }
+                            if (this.StudentStatus != "" && this.StudentStatus != "非在校生") {
+                                inschoolcount++;
+                            }
+                            var li = $("<li>").insertBefore(".poverty").addClass("household");
+                            var a = $("<a>").appendTo(li).prop("href", "personnel_info.html?id=" + this.ID);
+                            var ul = $("<ul>").appendTo($("<div>").appendTo(a));
+                            li = $("<li>").appendTo(ul).addClass("name").text(this.HouseholderRelation+" ");
+                            $("<lable>").appendTo(li).text(this.Name);
+                            $("<i>").appendTo(li).addClass("iconfont").html("&#xe610;");
+                            li = $("<li>").appendTo(ul).addClass("name_info");
+                            var div = $("<div>").appendTo(li);
+                            if (this.PovertyStates == 0) {
+                                div.text("未复核").addClass("not_porverty");
+                            } else {
+                                div.text("已复核").addClass("yes_porverty");
+                            }
+                            div = $("<div>").appendTo(li).addClass("name_number");
+                            ul = $("<ul>").appendTo(div);
+                            $("<li>").appendTo(ul).text("年龄 " + (new Date().getFullYear()- parseInt(this.IdCardNo.substr(6, 4)))+"岁");
+                            var Birthday = "";
+                            if (this.IdCardNo.length > 15) {
+                                Birthday = this.IdCardNo.substr(6, 4) + "-" + this.IdCardNo.substr(10, 2) + "-" + this.IdCardNo.substr(12, 2);
+                            }
+                            $("<li>").appendTo(ul).text("出生日期 " + Birthday);
+                            $("<li>").appendTo(ul).text("培训需求 " + (this.IsLHS == "True" ? "有" : "无"));
+                            $("<li>").appendTo(ul).text("文化程度 " + (this.DropoutSchool == "" ? "" : this.DropoutSchool));
+                            $("<li>").appendTo(ul).text("教育阶段 " + this.EduLevels);
+                            $("<li>").appendTo(ul).text("年级 " + this.StudentStatus);
+                        });
+                        $("[data-role='list-inschoolcount']>span").text(inschoolcount);
+                    }
+                });
+            });
+            function checklength(str) {
+                if (str.toString().length < 2) {
+                    return "0" + str;
+                }
+                else {
+                    return str;
+                }
+            }
+        </script>
+	</body>
+</html>

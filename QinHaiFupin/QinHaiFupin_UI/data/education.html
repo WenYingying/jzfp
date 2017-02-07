@@ -1,0 +1,783 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>教育指数</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style>
+			.cont_user>div:nth-of-type(4){
+				background-color: #f5f5f5;
+				box-shadow:none;
+			}
+            .data_right .cont_middle .data_right_info .progress div{
+                width:100%;
+                display:inline-block;
+            }
+            .progress ul li{
+                 width: 33%;
+                float:left;
+            }
+            .progress ul li select{
+                width: 100px !important;
+            }
+           .btn {
+               width:96px !important;
+                height: 30px !important;
+                margin-top: 0px !important;
+                position: absolute;
+                left: 106px;
+                top: 188px;
+            }
+		</style>
+	</head>
+	<body>
+		
+			<div class="content" style="background-color:#f5f5f5;">
+				
+				<div class="cont_user">
+					
+					<div class="area_box" style="height:522px;" >
+									
+						<div class="area_left">
+							<div id="area" style="width: 630px;height:450px;"></div>
+						</div>
+						<div class="data_right">
+							<div class="cont_middle" style="margin-bottom:0">
+								<h3>教育扶贫指数
+									<!--<a href="javascript:void(0)">精准扶贫</a>-->
+                                    <a href="../Poverty/poverty_list.html" class="Place_GoNext">精准扶贫</a>
+								</h3>
+								<div class="data_right_info">
+									<ul style="height: 35px;line-height:35px;">
+										<li style="width: 100% !important;">
+											
+											<span style="color: #7199b3;"  id="PlaceName"></span>
+											<b>目前未扶贫总人数为</b>
+											<span style="color: #7199b3;" id="SumCount"></span>
+										</li>
+										
+									</ul>
+									<div class="progress" style="margin-top:6px;">
+										<div>
+											<ul>
+                                                <li>
+                                                    <span>市</span>
+                                                    <select id="dlCity"></select>
+                                                </li>
+                                                <li>
+                                                    <span>县</span>
+                                                    <select id="dlCounty"></select>
+                                                </li>
+                                                <li>
+                                                    <span>乡</span>
+                                                    <select id="dlCountrySide"></select>
+                                                </li>
+                                                <li>
+                                                    <span>村</span>
+                                                    <select id="dlVillage"></select>
+                                                </li>
+											</ul>
+											<div class="btn" >
+												<a href="javascript:void(0)"  class="SearchAll">查询</a>
+											</div>
+										</div>
+										<div>
+											<div id="bar" style="width: 100%;height:300px;"></div>
+										</div>
+									</div>
+									
+									
+								</div>
+							</div>
+						</div>	
+					</div>
+					<div class="area_box" >
+						<div class="area_left">
+							<div id="area3" style="width: 630px;height:380px;"></div>
+						</div>
+						<div class="data_right"> 
+							<div class="cont_middle" style="margin-bottom:0px">
+								<h3>当前地区教育阶段扶贫统计</h3>
+								<div class="data_right_info">
+									<ul id="ul_tr">
+										<li>
+											<span>当前地区总贫困人数</span>
+											<label>1000000000</label>
+										</li>
+										<li>
+											<span>无需求比例:</span>
+											<label>59.9%</label>
+										</li>
+										<li>
+											<span>有需求比例:</span>
+											<label class="data_right_info_color" >40.1%</label>
+										</li>
+										<li>
+											<span>无需求比例:</span>
+											<label>59.9%</label>
+										</li>
+										<li>
+											<span>有需求比例:</span>
+											<label class="data_right_info_color">40.1%</label>
+										</li>
+									</ul>
+									<div class="progress">
+										<div class="city_list" style="padding-bottom:0;    margin-top: 7px;">
+											<ul>
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a class="city_list_active" href="javascript:void(0)">不限</a>
+												</li> 
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a href="javascript:void(0)">学前教育</a>
+												</li>
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a href="javascript:void(0)">小学</a>
+												</li>
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a href="javascript:void(0)">初中</a>
+												</li>
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a href="javascript:void(0)">特教学生</a>
+												</li>
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a href="javascript:void(0)">高中</a>
+												</li>
+												<li style="width: 42%;margin-top: 0;margin-bottom:0;">
+													<a href="javascript:void(0)">中职教育</a>
+												</li>
+                                                <li style="width: 42%;margin-top: 0;margin-bottom:0;">
+                                                    <a href="javascript:void(0)">高职教育</a>
+                                                </li>
+                                                <li style="width: 42%;margin-top: 0;margin-bottom:0;">
+                                                    <a href="javascript:void(0)">专科</a>
+                                                </li>
+                                                <li style="width: 42%;margin-top: 0;margin-bottom:0;">
+                                                    <a href="javascript:void(0)">本科</a>
+                                                </li>
+                                                <li style="width: 42%;margin-top: 0;margin-bottom:0;">
+                                                    <a href="javascript:void(0)">硕士</a>
+                                                </li>
+                                                <li style="width: 42%;margin-top: 0;margin-bottom:0;">
+                                                    <a href="javascript:void(0)">博士</a>
+                                                </li>
+											</ul>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+                    <div class="area_box" style="height:auto">
+                        <div class="cont_middle">
+                            <h3>贫困档案</h3>
+                            <div class="cont_middle_right" style="width: 47%;">
+                                <ul>
+                                    <li>
+                                        <span>筛选信息</span>
+                                    </li>
+                                    <li>
+                                        <select id="dlPovertyState">
+                                            <option value="">全部</option>
+                                            <option value="0">有需求</option>
+                                            <option value="1">无需求</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <input type="text" placeholder="输入姓名/手机号/证件号" />
+                                        <a class="SearchList">
+                                            <img src="../img/search.png" />
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                            <div class="cont_list">
+                            </div>
+                            <div class="clear">
+                                <div class="tcdPageCode"></div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    </div>
+			</div>
+        <div class="PovertyMessage"></div>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+		<script type="text/javascript" src="../js/echarts.js" ></script>
+		<script type="text/javascript" src="../js/jquery.page.js" ></script>
+		<!--<script type="text/javascript" src="../js/progress.js" ></script>-->
+		<!--<script type="text/javascript" src="../js/area.js" ></script>-->
+		<!--<script type="text/javascript" src="../js/map.js" ></script>-->
+        <script src="../js/Common.js"></script>
+		<script type="text/javascript">
+            $(parent.document).find(".small_nav").find("a").removeClass("small_nav_active");
+            $(parent.document).find(".small_nav").find("a:eq(2)").addClass("small_nav_active");
+            var CityId = 0;
+            var ProvinceId = 0;
+            var CountyId = 0;
+            var CountrySideId = 0;
+            var VillageId = 0;
+			$(function(){
+//			    教育阶段
+			    $('.city_list ul li a').click(function() {
+					$(".city_list ul li a").removeClass("city_list_active");
+					$(this).addClass("city_list_active");
+					GetMonth();
+					PageCheck = true;
+					GetList(1);
+				});
+		CityId = getUrlParam("CityId") == null ? UserList.CityId : getUrlParam("CityId");
+		ProvinceId = getUrlParam("ProvinceId") == null ? UserList.ProvinceId : getUrlParam("ProvinceId");
+		CountyId = getUrlParam("CountyId") == null ? UserList.CountyId : getUrlParam("CountyId");
+		CountrySideId = getUrlParam("CountrySideId") == null ? UserList.CountrySideId : getUrlParam("CountrySideId");
+		VillageId = getUrlParam("VillageId") == null ? UserList.VillageId : getUrlParam("VillageId");
+		GetCityList(CityId);
+			    //县/区
+		GetCountyList(CityId, CountyId);
+
+			    //乡/镇
+		GetCountrySideList(CountyId, CountrySideId);
+		GetVillageList(CountrySideId, VillageId);
+		GetPovertyByEdu();
+		GetMonth();
+		GetList(1);
+		if (UserList.CountyId != 0) {
+		    $("#dlCity").attr("disabled", "disabled");
+		    $("#dlCounty").attr("disabled", "disabled");
+		}
+		else
+		{
+		    $(".Place_GoNext").hide();
+		}
+		if (UserList.CountyId == 0 && UserList.CityId != 0) {
+		    $("#dlCity").attr("disabled", "disabled");
+		}
+			    //市县乡村联动
+		$("#dlCity").change(function () {
+		    var thisCityID = $(this).val();
+		    GetCountyList(thisCityID, 0);
+		    CityId = thisCityID;
+		    CountyId = 0;
+		    CountrySideId = 0;
+		    VillageId = 0;
+		});
+		$("#dlCounty").change(function () {
+		    var thisCountyID = $(this).val();
+		    GetCountrySideList(thisCountyID, 0);
+		    CountyId = thisCountyID;
+		    CountrySideId = 0;
+		    VillageId = 0;
+		});
+		$("#dlCountrySide").change(function () {
+		    CountrySideId = $(this).val();
+		    VillageId = 0;
+		    GetVillageList(CountrySideId, 0);
+		});
+		//$("#dlVillage").change(function () {
+		//    $("#PlaceName").text($(this).children("option:selected").text());
+		//});
+
+		$(".SearchAll").click(function () {
+		    GetPovertyByEdu();
+		    GetMonth();
+		    PageCheck = true;
+		    GetList(1);
+		});
+		$(".SearchList").click(function () {
+		    PageCheck = true;
+		    GetList(1);
+		});
+			})
+
+			function GetCityList(SelectID) {
+			    $("#dlCity").html("");
+			    $("<option>").appendTo($("#dlCity")).val(0).text("全部");
+			    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlCity").val(SelectID);
+			                }
+
+			            }
+			        }
+			    });
+			}
+			function GetCountyList(CityID, SelectID) {
+			    $("#dlCounty").html("");
+			    $("<option>").appendTo($("#dlCounty")).val(0).text("全部");
+			    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlCounty").val(SelectID);
+			                }
+			            }
+			        }
+			    });
+			}
+			function GetCountrySideList(CountyID, SelectID) {
+			    $("#dlCountrySide").html("");
+			    $("<option>").appendTo($("#dlCountrySide")).val(0).text("全部");
+			    $.post(ServiceUrl + "CountrysideInterface/GetHandler.ashx", { CountyID: CountyID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlCountrySide")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlCountrySide").val(SelectID);
+			                }
+			            }
+			        }
+			    });
+			}
+			function GetVillageList(CountrySideID, SelectID) {
+			    $("#dlVillage").empty();
+			    $("<option>").appendTo($("#dlVillage")).val(0).text("全部");
+			    $.post(ServiceUrl + "VillageInterface/GetHandler.ashx", { CountrySideID: CountrySideID }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    $("<option>").appendTo($("#dlVillage")).val(this.ID).text(this.Name);
+			                });
+			                if (SelectID != 0) {
+			                    $("#dlVillage").val(SelectID);
+			                }
+
+			            }
+			        }
+			    });
+			}
+
+			function GetPovertyByEdu() {
+			    var EduLevel = ["学前教育", "小学", "初中", "特教学生", "高中", "高职教育", "中职教育", "大专", "本科", "硕士", "博士", "其他"];
+			    $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { Tag: "EduLevels", ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId, CountrySideID: CountrySideId, VillageId: VillageId }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                var PovertyList = [];
+			                var NotPovertyList = [];
+			                var SumCount = 0;
+			                for (var i = 0; i < EduLevel.length - 1; i++) {
+			                    var Povertycount = 0;
+			                    var NotPovertycount = 0;
+			                    $(result.Data).each(function () {
+			                        if (this.EduLevels == EduLevel[i] && this.PovertyStates == "0") {
+			                            SumCount += parseInt(this.ID);
+			                            Povertycount = this.ID;
+			                        }
+			                        else if (this.EduLevels == EduLevel[i] && this.PovertyStates == "1") {
+			                            SumCount += parseInt(this.ID);
+			                            NotPovertycount = this.ID;
+			                        }
+			                    });
+			                    PovertyList.push(Povertycount);
+			                    NotPovertyList.push(NotPovertycount);
+			                }
+			                var otherpovertyCount = 0;
+			                var otherOutPovertyCount = 0;
+			                $(result.Data).each(function () {
+			                    if (EduLevel.indexOf(this.EduLevels) == -1) {
+			                        SumCount += parseInt(this.ID);
+			                        if (this.PovertyStates == "0") {
+			                            otherpovertyCount += parseInt(this.ID);
+			                        }
+			                        else {
+			                            otherOutPovertyCount += parseInt(this.ID);
+			                        }
+			                    }
+			                });
+			                PovertyList.push(otherpovertyCount);
+			                NotPovertyList.push(otherOutPovertyCount);
+			                var myarea = echarts.init(document.getElementById('area'));
+			                option = {
+			                    title: {
+			                        text: '教育统计'
+			                    },
+			                    tooltip: {
+			                        trigger: 'axis',
+			                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+			                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                        }
+			                    },
+			                    legend: {
+			                        data: EduLevel
+			                    },
+			                    color: ['#ff7d29', '#3b94e1'],
+			                    grid: {
+			                        left: '3%',
+			                        right: '4%',
+			                        bottom: '3%',
+			                        containLabel: true
+			                    },
+			                    xAxis: [
+                                    {
+                                        type: 'category',
+                                        data: EduLevel
+                                    }
+			                    ],
+			                    yAxis: [
+                                    {
+                                        type: 'value'
+                                    }
+			                    ],
+			                    series: [
+                                    {
+                                        name: '有需求',
+                                        type: 'bar',
+                                        data: PovertyList
+                                    },
+                                    {
+                                        name: '无需求',
+                                        type: 'bar',
+                                        data: NotPovertyList
+                                    },
+
+			                    ]
+			                };
+			                myarea.setOption(option);
+			                var chartnamelist = [];
+			                for (var i = 0; i < EduLevel.length; i++) {
+			                    chartnamelist.push({ text: EduLevel[i] });
+			                }
+			                var myChart2 = echarts.init(document.getElementById('bar'));
+			                option1 = {
+			                    radar: [
+                                    {
+                                        indicator: chartnamelist,
+                                        center: ['50%', '50%'],
+                                        radius: 120,
+                                        startAngle: 90,
+                                        splitNumber: 4,
+                                        shape: 'circle',
+                                        name: {
+                                            formatter: '{value}',
+                                            textStyle: {
+                                                color: '#72ACD1'
+                                            }
+                                        },
+                                        splitArea: {
+                                            areaStyle: {
+                                                color: ['rgba(114, 172, 209, 0.2)',
+                                                'rgba(114, 172, 209, 0.4)', 'rgba(114, 172, 209, 0.6)',
+                                                'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'],
+                                                shadowColor: 'rgba(0, 0, 0, 0.3)',
+                                                shadowBlur: 10
+                                            }
+                                        },
+                                        axisLine: {
+                                            lineStyle: {
+                                                color: 'rgba(255, 255, 255, 0.5)'
+                                            }
+                                        },
+                                        splitLine: {
+                                            lineStyle: {
+                                                color: 'rgba(255, 255, 255, 0.5)'
+                                            }
+                                        }
+                                    }
+			                    ],
+			                    series: [
+                                    {
+                                        name: '雷达图',
+                                        type: 'radar',
+                                        itemStyle: {
+                                            emphasis: {
+                                                // color: 各异,
+                                                lineStyle: {
+                                                    width: 4
+                                                }
+                                            }
+                                        },
+                                        data: [
+                                            {
+                                                value: PovertyList,
+                                                name: '有需求',
+                                                symbol: 'rect',
+                                                symbolSize: 5,
+                                                lineStyle: {
+                                                    normal: {
+                                                        type: 'dashed'
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                value: NotPovertyList,
+                                                name: '无需求',
+                                                areaStyle: {
+                                                    normal: {
+                                                        color: 'rgba(255, 255, 255, 0.5)'
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    },
+			                    ]
+			                }
+			                myChart2.setOption(option1);
+			                $("#SumCount").text(SumCount);
+			            }
+			        }
+
+			    });
+			}
+			function GetMonth() {
+			    var Tag = "";
+			    
+			    if (VillageId != 0) {
+			        Tag = "MonthStateVillage";
+			    }
+			    else if (VillageId == 0 && CountrySideId != 0) {
+			        Tag = "MonthStateCountrySide";
+			    }
+			    else if (VillageId == 0 && CountrySideId == 0 && CountyId != 0) {
+			        Tag = "MonthStateCounty";
+			    }
+			    else if (VillageId == 0 && CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+			        Tag = "MonthStateCity";
+			    }
+			    else {
+			        Tag = "MonthStateProvince";
+			    }
+			    var EduLevel = $(".city_list_active").html().replace("不限","");
+			    $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { Tag: Tag, ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId, CountrySideID: CountrySideId, EduLevels: EduLevel, VillageId: VillageId }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result.Result) {
+			            var monthPovertyRebatelist = [];
+			                var NotPovertyCountlist = [];
+			                var PovertyCountlist = [];
+			                var ListName = "";
+			                var rightPovertyCount = 0;
+			                var rightNotPovertyCount = 0;
+			                for (var j = 1; j < 13; j++) {
+			                    var PovertyCount = 0;
+			                    var NotPovertyCount = 0;
+			                    $(result.Data).each(function () {
+			                        var thismonth = this.FamilySize;
+			                        if (thismonth == 0) {
+			                            thismonth = new Date().getMonth() + 1;
+			                        }
+			                        if (thismonth == j) {
+			                            if (CountrySideId != 0) {
+			                                ListName = this.VillageName;
+			                            }
+			                            else if (CountrySideId == 0 && CountyId != 0) {
+			                                ListName = this.CountrySideName;
+			                            }
+			                            else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+			                                ListName = this.CountyName;
+			                            }
+			                            else {
+			                                ListName = this.CityName;
+			                            }
+			                            if (this.PovertyStates == "0") {
+			                                PovertyCount = this.ID;
+			                            }
+			                            else {
+			                                NotPovertyCount = this.ID;
+			                            }
+			                        }
+			                    });
+			                    var SumCount = parseFloat(PovertyCount) + parseFloat(NotPovertyCount);
+			                    var NotPovertyRebate = 0;
+			                    if (SumCount > 0) {
+			                        NotPovertyRebate = parseFloat(NotPovertyCount / SumCount * 100).toFixed(2);
+			                    }
+			                    rightPovertyCount += parseInt(PovertyCount);
+			                    rightNotPovertyCount += parseInt(NotPovertyCount);
+			                    NotPovertyCountlist.push(NotPovertyCount);
+			                    PovertyCountlist.push(PovertyCount);
+			                    monthPovertyRebatelist.push(NotPovertyRebate);
+			                }
+
+			                var ul_tr = $("#ul_tr");
+			                ul_tr.html("");
+			                var ThisPlaceLi = $("<li>").appendTo(ul_tr);
+			                $("<span>").appendTo(ThisPlaceLi).text("当前地区总贫困人数");
+			                var rightSumCount = parseFloat(rightPovertyCount) + parseFloat(rightNotPovertyCount);
+			                $("<lable>").appendTo(ThisPlaceLi).text(rightSumCount);
+
+			                var PovertyRebate = 0;
+			                var NotPovertyRebate = 0;
+			                if (rightSumCount > 0) {
+			                    PovertyRebate = parseFloat(rightPovertyCount / rightSumCount * 100).toFixed(2);
+			                    NotPovertyRebate = parseFloat(rightNotPovertyCount / rightSumCount * 100).toFixed(2);
+			                }
+			                var NotPovertyCountli = $("<li>").appendTo(ul_tr);
+			                $("<span>").appendTo(NotPovertyCountli).text("无需求人数");
+			                $("<lable>").appendTo(NotPovertyCountli).text(rightNotPovertyCount);
+			                var PovertyCountli = $("<li>").appendTo(ul_tr);
+			                $("<span>").appendTo(PovertyCountli).text("有需求人数");
+			                $("<lable>").appendTo(PovertyCountli).text(rightPovertyCount);
+			                var NotPovertyRateli = $("<li>").appendTo(ul_tr);
+			                $("<span>").appendTo(NotPovertyRateli).text("无需求比例");
+			                $("<lable>").appendTo(NotPovertyRateli).text(NotPovertyRebate.toString().replace(".00", ""));
+			                var PovertyRateli = $("<li>").appendTo(ul_tr);
+			                $("<span>").appendTo(PovertyRateli).text("有需求比例");
+			                $("<lable>").appendTo(PovertyRateli).text(PovertyRebate.toString().replace(".00", ""));
+
+			                var myarea3 = echarts.init(document.getElementById('area3'));
+			                option = {
+			                    tooltip: {
+			                        trigger: 'axis'
+			                    },
+			                    toolbox: {
+			                        feature: {
+			                            dataView: { show: true, readOnly: false },
+			                            magicType: { show: true, type: ['line', 'bar'] },
+			                            restore: { show: true },
+			                            saveAsImage: { show: true }
+			                        }
+			                    },
+			                    legend: {
+			                        data: ['有需求', '无需求', '需求比例']
+			                    },
+			                    xAxis: [
+                                    {
+                                        type: 'category',
+                                        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                                    }
+			                    ],
+			                    yAxis: [
+                                    {
+                                        type: 'value',
+                                        name: '人数',
+                                        //min: 0,
+                                        //max: 250,
+                                        //interval: 50,
+                                        axisLabel: {
+                                            formatter: '{value}'
+                                        }
+                                    },
+                                    {
+                                        type: 'value',
+                                        name: '比例(%)',
+                                        min: 0,
+                                        max: 100,
+                                        //interval: 20,
+                                        axisLabel: {
+                                            formatter: '{value}'
+                                        }
+                                    }
+			                    ],
+			                    series: [
+                                    {
+                                        name: '有需求',
+                                        type: 'bar',
+                                        data: PovertyCountlist
+                                    },
+                                    {
+                                        name: '无需求',
+                                        type: 'bar',
+                                        data: NotPovertyCountlist
+                                    },
+                                    {
+                                        name: '需求比例',
+                                        type: 'line',
+                                        yAxisIndex: 1,
+                                        data: monthPovertyRebatelist
+                                    }
+			                    ]
+			                };
+			                myarea3.setOption(option);
+			        }
+			    });
+			}
+
+			var pagesize = 15;
+			var PageCheck = true;
+			function GetList(Pageno) {
+			    var CityID = $("#dlCity").val() == "" || $("#dlCity").val() == "0" || $("#dlCity").val() == null || $("#dlCounty").val() == null ? CityId : $("#dlCity").val();
+			    var CountyID = $("#dlCounty").val() == "" || $("#dlCounty").val() == "0" || $("#dlCounty").val() == null ? CountyId : $("#dlCounty").val();
+			    var CountrySideID = $("#dlCountrySide").val() == "" || $("#dlCountrySide").val() == "0" || $("#dlCountrySide").val() == null ? CountrySideId : $("#dlCountrySide").val();
+			    var VillageId = $("#dlVillage").val() == "" || $("#dlVillage").val() == "0" || $("#dlVillage").val() == null ? 0 : $("#dlVillage").val();
+			    var dlEduLevel = $(".city_list_active").html().replace("不限", "");
+			    var dlPovertyState = $("#dlPovertyState").val();
+			    var SearchText = $("#SearchText").val();
+			    var IdCardNo = "";
+			    var Name = "";
+			    if (!/[\u4e00-\u9fa5]/g.test(SearchText)) {
+			        IdCardNo = SearchText;
+			    }
+			    else {
+			        Name = SearchText;
+			    }
+			    $.post(ServiceUrl + "PovertyArchivesInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, CityID: CityID, CountyID: CountyID, CountrySideID: CountrySideID, VillageId:VillageId,EduLevels: dlEduLevel, PovertyStates: dlPovertyState, InSchool: 'True', IdCardNo: IdCardNo, Name: Name }, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                if (PageCheck) {
+			                    PageCheck = false;
+			                    $(".tcdPageCode").createPage({
+			                        pageCount: result.PageCount,
+			                        current: 1,
+			                        backFn: function (p) {
+			                            GetList(p);
+			                        }
+			                    });
+			                }
+			                var list = $(".cont_list");
+			                list.html("");
+			                var titleul = $("<ul>").appendTo(list).addClass("cont_list_head");
+			                $("<li style='width:15%'>").appendTo(titleul).text("姓名");
+			                $("<li style='width:20%'>").appendTo(titleul).text("身份证号码");
+			                $("<li style='width:30%'>").appendTo(titleul).text("地区");
+			                $("<li style='width:10%'>").appendTo(titleul).text("是否为两后生");
+			                $("<li style='width:10%'>").appendTo(titleul).text("教育扶贫需求");
+			                $("<li style='width:15%'>").appendTo(titleul).text("教育阶段");
+			                $(result.Data).each(function () {
+			                    var thisul = $("<ul>").appendTo(list).addClass("cont_list_center");
+			                    var ID = this.ID;
+			                    $("<a>").appendTo($("<li style='width:15%'>").appendTo(thisul)).text(this.Name).click(function () {
+			                        GePovertyMessage(ID, $(".PovertyMessage"));
+			                    });
+			                    $("<li style='width:20%'>").appendTo(thisul).text(this.IdCardNo);
+			                    var Region = (this.CityName == null ? "" : this.CityName) + (this.CountyName == null ? "" : this.CountyName) + (this.CounSideName == null ? "" : this.CounSideName) + (this.VillageName == null ? "" : this.VillageName);
+			                    $("<li style='width:30%'>").appendTo(thisul).text(Region);
+			                    if (this.IsLHS == "True") {
+			                        $("<li style='width:10%'>").appendTo(thisul).text("是");
+			                    }
+			                    else {
+			                        $("<li style='width:10%'>").appendTo(thisul).text("否");
+			                    }
+			                    if (this.PovertyStates == "1") {
+			                        $("<li style='width:10%'>").appendTo(thisul).text("无需求");
+			                    }
+			                    else {
+			                        $("<li style='width:10%'>").appendTo(thisul).text("有需求");
+			                    }
+			                    $("<li style='width:15%'>").appendTo(thisul).text(this.EduLevels == null ? "" : this.EduLevels);
+			                    //var caozuoli = $("<li>").appendTo(thisul);
+			                    //var ID = this.ID;
+			                    //$("<a>").appendTo(caozuoli).attr("href", "javascript:void(0)").text("操作").click(function () {
+			                    //    window.location.href = "add_poverty.html?ID=" + ID;
+			                    //});
+			                });
+			            }
+			        }
+
+			    });
+
+			}
+		</script>
+		<!--<script type="text/javascript" src="../js/area.js" ></script>-->
+	</body>
+</html>

@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>未入学列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no" , name="viewport">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style type="text/css">
+        .policy_list {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-top: 1rem;
+        }
+
+            .policy_list > li:first-child {
+                background-color: #e6e6e6;
+            }
+
+            .policy_list > li {
+                width: 100%;
+                height: 3rem;
+                line-height: 3rem;
+                border-bottom: 1px solid #ccc;
+            }
+
+                .policy_list > li:last-child {
+                    border-bottom: none;
+                }
+
+            .policy_list li:first-child > div {
+                color: #333333;
+                font-size: 0.8rem;
+            }
+
+            .policy_list li > div {
+                display: inline-block;
+                line-height: 3rem;
+                text-align: center;
+                color: #808080;
+                font-size: 0.7rem;
+            }
+
+                .policy_list li > div a i {
+                    font-size: 1rem;
+                    margin-right: 0.3rem;
+                }
+
+                .policy_list li > div:nth-of-type(1) {
+                    width: 50%;
+                }
+
+                .policy_list li > div:nth-of-type(2) {
+                    width: 24%;
+                }
+
+                .policy_list li > div:nth-of-type(3) {
+                    width: 24%;
+                }
+
+                    .policy_list li > div:nth-of-type(3) > a.edit {
+                        margin-right: 0.8rem;
+                    }
+
+        .AddOutReason {
+            color: #3b94e1;
+            font-size: 0.7rem;
+            display: block;
+            float: left;
+        }
+
+            .AddOutReason > i {
+                font-size: 1rem;
+                display: block;
+                float: left;
+                margin-right: 0.4rem;
+            }
+        /*弹框*/
+        /*未入学原因弹框*/
+        .school_alert {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: rgba(40,40,40,0.8);
+            left: 0;
+            top: 0;
+            z-index: 10;
+            display: none;
+        }
+
+            .school_alert .scoll_info {
+                width: 20rem;
+                display: block;
+                background-color: #fff;
+                margin-left: auto;
+                margin-right: auto;
+                height: 10rem;
+                position: fixed;
+                left: 35%;
+                top: 30%;
+                border-radius: 5px;
+                overflow-y: auto;
+            }
+
+                .school_alert .scoll_info h3 {
+                    background-color: #fafafa;
+                    color: #7a7a7a;
+                    font-size: 0.9rem;
+                    height: 2.25rem;
+                    line-height: 2.25rem;
+                    text-align: center;
+                    border-radius: 5px 5px 0 0;
+                    position: fixed;
+                    width: 20rem;
+                }
+
+                .school_alert .scoll_info > ul {
+                    width: 90%;
+                    margin: 13% 5% 1rem 5%;
+                }
+
+                    .school_alert .scoll_info > ul li {
+                        width: 100%;
+                        display: inline-block;
+                        margin-top: 0.5rem;
+                    }
+
+                        .school_alert .scoll_info > ul li span {
+                            float: left;
+                            font-size: 0.7rem;
+                            color: #808080;
+                            line-height: 1.5rem;
+                            margin-right: 0.5rem;
+                            width: 20%;
+                        }
+
+                        .school_alert .scoll_info > ul li input {
+                            float: left;
+                            border: 1px solid #e3e4e6;
+                            border-radius: 3px;
+                            outline: none;
+                            color: #cccccc;
+                            font-size: 0.6rem;
+                            padding: 0 0.3rem;
+                            height: 1.5rem;
+                            width: 9rem;
+                            line-height: 1.5rem;
+                            background-color: #fff;
+                        }
+
+        .btn {
+            margin: 0;
+            text-align: center;
+            width: auto;
+        }
+
+            .btn > a {
+                margin: 0 0.8rem;
+            }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div class="cont_box">
+            <div class="middle">
+                <h1 class="title">适龄未入学儿童</h1>
+                <ul class="tit_search">
+                    <li>
+                        <a href="javascript:void(0)" class="AddOutReason"><i class="iconfont">&#xe616;</i>添加原因</a>
+                    </li>
+                </ul>
+                <ul class="policy_list">
+                    <li>
+                        <div>未入学具体原因</div>
+                        <div>状态</div>
+                        <div>操作</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--弹框-->
+    <div class="school_alert">
+        <div class="scoll_info">
+            <h3 id="AddTitle">添加未入学原因</h3>
+            <ul>
+                <li>
+                    <span>具体原因:</span>
+                    <input type="text" name="" id="EditName" value="" />
+                    <input type="hidden" name="" id="EditId" value="" />
+                </li>
+            </ul>
+            <div class="btn">
+                <a class="school_ok" href="javascript:void(0)">确定</a>
+                <a class="school_no" href="javascript:void(0)">取消</a>
+
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-1.12.1.min.js"></script>
+    <script src="../js/Common.js"></script>
+    <script type="text/javascript">
+			$(function(){
+				$(".policy_left ul li ").click(function() {
+					$(this).addClass("active").siblings("li").removeClass("active");
+					GetList();
+				});
+				$('.AddOutReason').click(function () {
+				    $("#AddTitle").html("添加未入学原因");
+				    $("#EditName").val("");
+				    $("EditId").val("");
+				    $('.school_alert').show();
+
+				});
+				$('.school_ok').click(function () {
+				    var EditName = $("#EditName").val();
+				    var EditId = $("#EditId").val();
+				    if (EditId != "") {
+				        $.post(ServiceUrl + "OutPreschoolReasonInterface/EditHandler.ashx", { Name: EditName, ID: EditId }, function (data) {
+				            var result = JSON.parse(data);
+				            if (result != null) {
+				                if (result.Result) {
+				                    alert("修改成功");
+				                    GetList();
+				                    $('.school_alert').hide();
+				                }
+				                else {
+				                    alert("修改失败");
+				                }
+				            }
+				            else {
+				                alert("修改失败");
+				            }
+				        });
+				    }
+				    else {
+				        $.post(ServiceUrl + "OutPreschoolReasonInterface/PostHandler.ashx", { Name: EditName }, function (data) {
+				            var result = JSON.parse(data);
+				            if (result != null) {
+				                if (result.Result) {
+				                    alert("添加成功");
+				                    GetList();
+				                    $('.school_alert').hide();
+				                }
+				                else {
+				                    alert("添加失败");
+				                }
+				            }
+				            else {
+				                alert("添加失败");
+				            }
+				        });
+				    }
+				    $('.school_alert').hide();
+				})
+				$('.school_no').click(function () {
+				    $("#EditName").val("");
+				    $("EditId").val("");
+				    $('.school_alert').hide();
+				})
+            	$('.btn>a').click(function(){
+            		$('.school_alert').hide();
+            	});
+            	GetList();
+			})
+			function GetList() {
+			    var policy_list = $(".policy_list");
+			    policy_list.empty();
+			    var titleli = $("<li>").appendTo(policy_list);
+			    $("<div>").appendTo(titleli).text("未入学具体原因");
+			    $("<div>").appendTo(titleli).text("状态")
+			    $("<div>").appendTo(titleli).text("操作");
+			    $.post(ServiceUrl + "OutPreschoolReasonInterface/GetHandler.ashx", {}, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    var listli = $("<li>").appendTo($(".policy_list"));
+			                    $("<div>").appendTo(listli).text(this.Name);
+			                    if (this.IsEnable == "True") {
+			                        $("<div>").appendTo(listli).text("已启用");
+			                    }
+			                    else {
+			                        $("<div>").appendTo(listli).text("已停用");
+			                    }
+			                    var editli = $("<div>").appendTo(listli);
+			                    var ID = this.ID;
+			                    var IsEnable = this.IsEnable;
+			                    var EditName = this.Name;
+			                    $("<a>").appendTo(editli).click(function () {
+			                        $("#AddTitle").html("修改未入学原因");
+			                        $("#EditName").val(EditName);
+			                        $("#EditId").val(ID);
+			                        $('.school_alert').show();
+
+			                    }).addClass("edit").prop("href", "javascript:void(0)").html("<i class='iconfont'>&#xe60f;</i>编辑");
+			                    var updatea = $("<a>").appendTo(editli).prop("href", "javascript:void(0)").click(function () {
+			                        var updateenable;
+			                        if (IsEnable == "True") {
+			                            updateenable = "False";
+			                        }
+			                        else {
+			                            updateenable = "True";
+			                        }
+			                        if (confirm("确认修改吗")) {
+			                            $.post(ServiceUrl + "OutPreschoolReasonInterface/UpdateStateHandler.ashx", { ID: ID, IsEnable: updateenable }, function (data) {
+			                                var result = JSON.parse(data);
+			                                if (result != null) {
+			                                    if (result.Result) {
+			                                        GetList();
+			                                    }
+			                                }
+			                            });
+			                        }
+
+			                    });
+			                    if (IsEnable == 'True') {
+			                        $("<i>").appendTo(updatea.addClass("nonUse")).addClass("iconfont").html("&#xe618;");
+			                        $("<text>").appendTo(updatea).text("停用");
+			                    }
+			                    else {
+			                        $("<i>").appendTo(updatea.addClass("use")).addClass("iconfont").html("&#xe617;");
+			                        $("<text>").appendTo(updatea).text("启用");
+			                    }
+
+			                });
+			            }
+			        }
+			    });
+			}
+    </script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>登录</title>
+    <meta id="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no" , name="viewport">
+    <link rel="stylesheet" type="text/css" href="css/font/iconfont.css" />
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <style type="text/css">
+        html {
+            font-size: 20px;
+            height: 100%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        ol, ul, li {
+            list-style: none;
+        }
+
+        .login_back {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            height: 100%;
+        }
+
+            .login_back div {
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: transparent;
+                opacity: 0;
+                animation: imageAnimation 12s infinite linear;
+                -moz-animation: imageAnimation 12s infinite linear;
+                -webkit-animation: imageAnimation 12s infinite linear;
+                -o-animation: imageAnimation 12s infinite linear;
+            }
+
+        @-webkit-keyframes imageAnimation {
+            4% {
+                opacity: 0;
+                animation-timing-function: ease-in;
+            }
+
+            17% {
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-moz-keyframes imageAnimation {
+            4% {
+                opacity: 0;
+                animation-timing-function: ease-in;
+            }
+
+            17% {
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-o-keyframes imageAnimation {
+            4% {
+                opacity: 0;
+                animation-timing-function: ease-in;
+            }
+
+            17% {
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-ms-keyframes imageAnimation {
+            4% {
+                opacity: 0;
+                animation-timing-function: ease-in;
+            }
+
+            17% {
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes imageAnimation {
+            4% {
+                opacity: 0;
+                animation-timing-function: ease-in;
+            }
+
+            17% {
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .content {
+            z-index: 2;
+            position: absolute;
+            top: 3rem;
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            display: block;
+            left: 0;
+        }
+
+            .content > h3 {
+                background: url(img/login/login_text.png) no-repeat center;
+                background-size: 100%;
+                width: 34.65rem;
+                height: 2.5rem;
+                margin: 0 auto;
+            }
+
+            .content .login {
+                width: 15rem;
+                display: block;
+                margin: 0 auto;
+                background: rgba(0, 0, 0, .6);
+                margin-top: 4.25rem;
+                border-radius: .15rem;
+                border: .05rem solid #d3dce4;
+            }
+
+                .content .login h3 {
+                    font-size: .9rem;
+                    text-align: center;
+                    margin-top: 1.5rem;
+                    color: #fff;
+                }
+
+                .content .login ul {
+                    width: 12rem;
+                    margin: 1rem 10%;
+                    display: block;
+                }
+
+        .login li {
+            width: 100%;
+            height: 1rem;
+            line-height: 1rem;
+            margin-top: .7rem;
+            display: block;
+        }
+
+            .login li i {
+                width: 16%;
+                display: inline-block;
+                font-size: 1rem;
+                color: #999;
+                vertical-align: top;
+            }
+
+            .login li.login_num,
+            .login li.login_pwd {
+                border: 1px solid #d7d8d9;
+                border-radius: 3px;
+                background-color: #fff;
+                height: 2rem;
+                line-height: 2rem;
+            }
+
+                .login li.login_num div,
+                .login li.login_pwd div {
+                    display: inline-block;
+                    height: 1.7rem;
+                    width: 78%;
+                    border-left: 1px solid #cfcfcf;
+                    margin: .2rem 0;
+                    vertical-align: top;
+                }
+
+                .login li.login_num input,
+                .login li.login_pwd input {
+                    border: 0;
+                    outline: 0;
+                    padding-left: .5rem;
+                    font-size: .6rem;
+                    width: 95%;
+                    height: 1.7rem;
+                    color: #333;
+                    display: block;
+                }
+
+            .login li .btn-login {
+                background: #0075a9;
+                color: #fff;
+                height: 1.75rem;
+                width: 100%;
+                font-size: .9rem;
+                border-radius: 3px;
+                display: inline-block;
+                line-height: 1.75rem;
+                text-align: center;
+                border: 1px solid #61a8c7;
+                text-decoration: none;
+            }
+
+        .content .copyright {
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: .7rem;
+            margin-top: 2rem;
+            line-height: 1.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--登陆 start-->
+    <div class="content">
+        <h3></h3>
+        <div class="login">
+            <h3>青海省精准扶贫大数据平台</h3>
+            <ul>
+                <li class="login_num">
+                    <i class="iconfont">&#xe601;</i>
+                    <div>
+                        <input type="text" placeholder="账号/手机号" value="" id="LoginName" />
+                    </div>
+
+                </li>
+                <li class="login_pwd">
+                    <i class="iconfont">&#xe600;</i>
+                    <div>
+                        <input type="password" placeholder="请输入密码" value="" id="PassWord" />
+                    </div>
+
+                </li>
+                <li style="text-align: left;color: #fff;font-size: 0.6rem;">
+                    <input name="rememberme" type="checkbox" checked="checked" id="remberUser" style="vertical-align: middle;"> 记住账号
+                </li>
+                <li style="height:1.75rem;">
+                    <a class="btn-login" href="javascript:void(0)" onclick="CheckLogin()">登录</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="copyright">
+            <h3>
+                技术支持:青海城市云计算大数据技术有限公司
+            </h3>
+            <h3>版权所有:青海省教育厅</h3>
+        </div>
+    </div>
+    <!--轮播 start-->
+    <div class="login_back">
+        <div style="background-image: url(img/login/banner3.jpg);"></div>
+        <div style="background-image: url(img/login/banner1.jpg); animation-delay: 3s;"></div>
+        <div style="background-image: url(img/login/banner2.jpg); animation-delay: 6s;"></div>
+    </div>
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (localStorage.getItem("qh_userName") != "" && localStorage.getItem("qh_userName") != null && localStorage.getItem("qh_userName") != undefined) {
+                $("#remberUser").attr("checked", true);
+                $("#LoginName").val(localStorage.getItem("qh_userName"));
+                $("#PassWord").val(localStorage.getItem("qh_passWord"));
+            }
+        });
+        function CheckLogin() {
+            var LoginName = $("#LoginName").val();
+            var PassWord = $("#PassWord").val();
+            var RemberUser = $("#remberUser").prop('checked') ? true : false;
+            if (LoginName == "") {
+                alert("请输入账号/手机号");
+                return;
+            }
+            if (PassWord == "") {
+                alert("请输入密码");
+                return;
+            }
+            $.post(ServiceUrl + "UserInterface/LoginHandler.ashx", { LoginName: LoginName, PassWord: PassWord }, function (data) {
+                var result = JSON.parse(data);
+                if (result.Result) {
+                    if (RemberUser) {
+                        localStorage.setItem('qh_userName', LoginName);
+                        localStorage.setItem('qh_passWord', PassWord);
+                    }
+                    else {
+                        localStorage.setItem('qh_userName', "");
+                        localStorage.setItem('qh_passWord', "");
+                    }
+                    result.Data[0].LoginTime=new Date().getFullYear() + "-" + checklength(new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getMilliseconds();
+                    localStorage.setItem('qhfp_user', JSON.stringify(result.Data[0]));
+                    window.location.href = "index.html";
+                }
+                else {
+                    alert(result.Message);
+                }
+            });
+
+        }
+    </script>
+</body>
+
+</html>

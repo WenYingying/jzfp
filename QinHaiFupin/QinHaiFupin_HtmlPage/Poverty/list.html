@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no" , name="viewport">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script type="text/javascript" src="../js/jquery-1.12.1.min.js"></script>
+    <style type="text/css">
+        .progress {
+            margin-top: 0.5rem;
+        }
+
+            .progress > a {
+                width: 7rem;
+                margin: 0.5rem 0.5rem;
+                line-height: 1.5rem;
+                height: 1.5rem;
+                display: inline-block;
+                border-radius: 3px;
+                border: 1px solid #CCCCCC;
+                outline: none;
+                padding: 0 0.3rem;
+                font-size: 0.7rem;
+            }
+
+            .progress a:hover, .progress a.active {
+                border: 1px solid #3b94e1 !important;
+                color: #3b94e1;
+            }
+
+        .crumbs {
+            width: 100%;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            color: #4f4f4f;
+            font-size: 0.7rem;
+            overflow: hidden;
+        }
+
+            .crumbs > span, .listcount {
+                display: inline-block;
+            }
+
+                .listcount > span {
+                    color: #005982;
+                    font-size: 0.8rem;
+                }
+
+        .cont_list {
+            margin-top: 0;
+        }
+
+        .box_list li {
+            border-bottom: 1px solid #81afcd;
+            font-size:0;
+        }
+
+            .box_list li > div {
+                display: inline-block;
+                font-size: 0.7rem;
+                text-align: center;
+                height: 2rem;
+                line-height: 2rem;
+            }
+
+            .box_list li:first-child {
+                background-color: #7198ba;
+                color: #fff;
+            }
+
+            .box_list li > div > a {
+                color: #0193de;
+            }
+
+            .box_list li > div:nth-child(1) {
+                width: 11%;
+            }
+
+            .box_list li > div:nth-child(2) {
+                width: 12%;
+            }
+
+            .box_list li > div:nth-child(3) {
+                width: 16%;
+            }
+
+            .box_list li > div:nth-child(4) {
+                width: 35%;
+            }
+
+            .box_list li > div:nth-child(5) {
+                width: 6%;
+            }
+
+            .box_list li > div:nth-child(6) {
+                width: 5%;
+            }
+
+            .box_list li > div:nth-child(7) {
+                width: 15%;
+            }
+
+            .box_list li > div:nth-child(8) {
+                width: 7%;
+            }
+
+            .box_list li > div:nth-child(9) {
+                width: 10%;
+            }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div class="cont_box">
+            <div class="middle">
+                <h1 class="title"><text class="EduPlace"></text>贫困人员列表</h1>
+                <ul class="tit_search">
+                    <!--<li>
+                        <input type="text" placeholder="输入户主姓名/证件号" id="SearchText">
+                    </li>-->
+                    <li>
+                        <a class="a_search searchlist" href="javascript:void(0)" onclick="history.back(-1)">返回</a>
+                    </li>
+                </ul>
+                <div class="cont_list" data-role="povertylist">
+                    <div class="crumbs">
+                        <p class="listcount">共计<span>0</span>人</p>
+                    </div>
+                    <div class="box_list">
+                        <ul>
+                            <li>
+                                <div>序列</div>
+                                <div>姓名</div>
+                                <div>身份证号码</div>
+                                <div>地区</div>
+                                <div>状态</div>
+                                <div>年龄</div>
+                                <div>教育阶段</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clear">
+                        <div class="tcdPageCode"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../js/jquery-1.12.1.min.js"></script>
+    <script src="../js/Common.js"></script>
+    <script src="../js/echarts.js"></script>
+    <script src="../js/jquery.page.js"></script>
+    <script type="text/javascript">
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        $(function () {
+            var RequestType = GetQueryString("RequestType"), PageSize = 20, PageNo = 1, Area = GetQueryString("Area"), AreaId = GetQueryString("AreaId"), MinAge = GetQueryString("MinAge"), MaxAge = GetQueryString("MaxAge"), OutpreschoolReason = GetQueryString("OutpreschoolReason"), WorkType = GetQueryString("WorkType"), EduLevels = GetQueryString("EduLevels"),PlaceName=GetQueryString("PlaceName");
+
+            RequestType = RequestType ? unescape(RequestType) : "";
+            Area = Area ? Area : "Province";
+            AreaId = AreaId ? AreaId : "29";
+            MinAge = MinAge ? MinAge : "";
+            MaxAge = MaxAge ? MaxAge : "";
+            OutpreschoolReason = OutpreschoolReason ? OutpreschoolReason : "";
+            WorkType = WorkType ? unescape(WorkType) : "";
+            EduLevels = EduLevels ?unescape( EduLevels) : "";
+
+            switch (RequestType.toLocaleLowerCase())
+            {
+                case "age":
+                    $(".EduPlace").text(PlaceName+" "+ MinAge+"岁到"+MaxAge+"岁");
+                    break;
+                case "edulevels":
+                    $(".EduPlace").text(PlaceName + " " + EduLevels+"及以上");
+                    break;
+                case "policy":
+                    $(".EduPlace").text(PlaceName + " " + "享受" + EduLevels + "政策");
+                    break;
+                case "outreason":
+                    $(".EduPlace").text(PlaceName + " " + unescape(GetQueryString("reasonName")));
+                    break;
+                case "outschool":
+                    $(".EduPlace").text(PlaceName + " " + MinAge + "岁到" + MaxAge + "岁未入学");
+                    break;
+                case "work":
+                    $(".EduPlace").text(PlaceName + " " + WorkType + "培训需求");
+                    break;
+            }
+
+            var data = { "RequestType": RequestType, PageSize: PageSize, PageNo: PageNo, Area: Area, AreaId: AreaId, MinAge: MinAge, MaxAge: MaxAge, OutpreschoolReason: OutpreschoolReason, WorkType: escape(WorkType), EduLevels: escape(EduLevels) };
+            console.log(data);
+            GetList();
+            function GetList() {
+                $.post(ServiceUrl + "PovertyArchivesInterface/PagerListHandler.ashx", data, function (json) {
+                    if (json.Result) {
+                        $(".box_list>ul li:gt(0)").remove();
+                        $(".listcount>span").text(json.RecordCnt);
+                        $(json.Data).each(function () {
+                            var li = $("<li>").appendTo($(".box_list>ul"));
+                            $("<div>").appendTo(li).text(this.ID);
+                            var div = $("<div>").appendTo(li);
+                            var HouseholderId = this.HouseholderId;
+                            $("<a>").appendTo(div).text(this.Name).prop("href", "javascript:void(0)").click(function () {
+                                GetDetailByHoseHold(HouseholderId);
+                            });
+                            $("<div>").appendTo(li).text(this.IdCardNo);
+                            $("<div>").appendTo(li).text(this.CountrySideName+this.VillageName);
+                            $("<div>").appendTo(li).text(this.PovertyStates==1?"已复核":"未复核");
+                            $("<div>").appendTo(li).text((new Date().getFullYear() - new Date(this.BirthDay).getFullYear()) + "岁");
+                            $("<div>").appendTo(li).text(this.EduLevels);
+                        });
+                        $(".clear").empty();
+                        $("<div>").appendTo($(".clear")).addClass("tcdPageCode").createPage({
+                            pageCount: json.PageCnt,
+                            current: data.PageNo,
+                            backFn: function (p) {
+                                data.PageNo = p;
+                                GetList();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        function GetDetailByHoseHold(HouseHolderId) {
+            $(parent.document).find(".household_alert").empty();
+            $(parent.document).find(".household_alert").css("display", "inline-block");
+            var nam_alert = $("<div>").appendTo($(parent.document).find(".household_alert")).addClass("nam_alert");
+            var h1 = $("<h1>").appendTo(nam_alert);
+            $("<text>").appendTo(h1).text("贫困档案");
+            $("<a>").appendTo(h1).prop("href", "javascript:void(0)").addClass("iconfont").html("&#xe60e;").click(function () {
+                $(parent.document).find(".household_alert").hide();
+                $(parent.document).find(".household_alert").empty();
+            });
+            var name_box = $("<div>").appendTo(nam_alert).addClass("name_box");
+            var middle1 = $("<div>").appendTo(name_box).addClass("middle");
+            $("<h1>").appendTo(middle1).addClass("title").text("户口信息");
+            var Anmelden1 = $("<ul>").appendTo(middle1).addClass("Anmelden");
+            var middle2 = $("<div>").appendTo(name_box).addClass("middle");
+            $("<h1>").appendTo(middle2).addClass("title").text("贫困信息");
+            var Anmelden2 = $("<ul>").appendTo(middle2).addClass("Anmelden");
+            var flag = false;
+            $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { ID: HouseHolderId }, function (res) {
+                var json = JSON.parse(res);
+                if (json.Result) {
+                    if (json.Data.length > 0) {
+
+                        flag = json.Data[0].IsHouseHolder;
+                        //户主姓名
+                        if (!flag) {
+                            var li = $("<li>").appendTo(Anmelden1);
+                            $("<span>").appendTo(li).text("户主姓名:");
+                            $("<div>").appendTo(li).text(json.Data[0].Name);
+                        } else {
+                            var li = $("<li>").appendTo(Anmelden1);
+                            $("<span>").appendTo(li).text("姓名:");
+                            $("<div>").appendTo(li).text(json.Data[0].Name);
+                        }
+
+                        //户主证件
+                        if (!flag) {
+                            li = $("<li>").appendTo(Anmelden1);
+                            $("<span>").appendTo(li).text("户主证件:");
+                            $("<div>").appendTo(li).text(json.Data[0].IdCardNo);
+                        } else {
+                            li = $("<li>").appendTo(Anmelden1);
+                            $("<span>").appendTo(li).text("证件:");
+                            $("<div>").appendTo(li).text(json.Data[0].IdCardNo);
+                        }
+
+                        //城市
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("市/州:");
+                        $("<div>").appendTo(li).text(json.Data[0].CityName);
+                        //县/区
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("县/区:");
+                        $("<div>").appendTo(li).text(json.Data[0].CountyName);
+                        //乡/镇
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("乡/镇:");
+                        $("<div>").appendTo(li).text(json.Data[0].CountrySideName);
+                        //村/居委会
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("村/居委会:");
+                        $("<div>").appendTo(li).text(json.Data[0].VillageName);
+                        //详细地址
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("详细地址:");
+                        $("<div>").appendTo(li).text(json.Data[0].Address);
+                        //家庭人数
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("家庭人数:");
+                        $("<div>").appendTo(li).text(json.Data[0].FamilySize + "人");
+                        //联系电话
+                        li = $("<li>").appendTo(Anmelden1);
+                        $("<span>").appendTo(li).text("联系电话:");
+                        $("<div>").appendTo(li).text(json.Data[0].Phone);
+                        //贫困原因
+                        li = $("<li>").appendTo(Anmelden2);
+                        $("<span>").appendTo(li).text("贫困原因:");
+                        $("<div>").appendTo(li).text(json.Data[0].PovertyReason);
+                        //贫困属性
+                        li = $("<li>").appendTo(Anmelden2);
+                        $("<span>").appendTo(li).text("贫困原因:");
+                        $("<div>").appendTo(li).text(json.Data[0].PovertyProperties);
+                        //识别标准
+                        li = $("<li>").appendTo(Anmelden2);
+                        $("<span>").appendTo(li).text("识别标准:");
+                        $("<div>").appendTo(li).text(json.Data[0].DiscerningStandards);
+                    }
+                }
+            });
+             
+             
+            $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { HouseHolderId: HouseHolderId }, function (res) {
+                var json = JSON.parse(res);
+                if (json.Result) {
+                    var data = [];
+                    var familydata = PaiXu(json.Data);
+                    if (json.Data[0].IsHouseHolder) {
+                        var middle3 = $("<div>").appendTo(name_box).addClass("middle");
+                        $("<h1>").appendTo(middle3).addClass("title").text("家庭成员信息");
+
+                    } else {
+                        var middle3 = "";
+                        $("<h1>").appendTo(middle3).addClass("title").text("");
+                    }
+                    $(familydata).each(function () {
+                        var div = $("<div>").appendTo(middle3);
+                        var Anmelden3 = $("<ul>").appendTo(div).addClass("Anmelden");
+                        var anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("姓名:");
+                        $("<div>").appendTo(anmeldenli).text(this.Name);
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("证件号码:");
+                        $("<div>").appendTo(anmeldenli).text(this.IdCardNo);
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("民族信息:");
+                        $("<div>").appendTo(anmeldenli).text(this.Nation);
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("性别:");
+                        if (this.Gender == "True") {
+                            $("<div>").appendTo(anmeldenli).text("男");
+                        }
+                        else {
+                            $("<div>").appendTo(anmeldenli).text("女");
+                        }
+                        var Birthday = new Date(this.BirthDay).getFullYear() + "-" + checklength(new Date(this.BirthDay).getMonth() + 1) + "-" + checklength(new Date(this.BirthDay).getDate());
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("出生日期:");
+                        $("<div>").appendTo(anmeldenli).text(Birthday);
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("是否复核:");
+                        if (this.PovertyStates == "1") {
+                          
+                            $("<div>").appendTo(anmeldenli).text("已复核").css("color", "#008B00");
+                        }
+                        else {
+                            $("<div>").appendTo(anmeldenli).text("未复核").css("color", "#f00");
+                        }
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("户主关系:");
+                        $("<div>").appendTo(anmeldenli).text(this.HouseholderRelation);
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("文化程度:");
+                        $("<div>").appendTo(anmeldenli).text(this.DropoutSchool == "" ? "未辍学" : this.DropoutSchool);
+                        if (this.DropoutSchool != "" && this.DropoutSchool != null && this.DropoutSchool != undefined && this.DropoutSchool != "NULL") {
+                            anmeldenli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(anmeldenli).text("劝返情况:");
+                            $("<div>").appendTo(anmeldenli).text(this.ReturnSchool == "True" ? "已返校" : "未返校");
+                        }
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("省内外就读:");
+                        if (this.IsProvinceStudy == "True") {
+                            $("<div>").appendTo(anmeldenli).text("省内");
+                        }
+                        else {
+                            $("<div>").appendTo(anmeldenli).text("省外");
+                        }
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("培训需求:");
+                        if (this.studentArchivesID == 0) {
+                            $("<div>").appendTo(anmeldenli).text("有");
+                            var peixunli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(peixunli).text("培训:");
+                            $("<div>").appendTo(peixunli).text("无需求");
+                        }
+                        else {
+
+
+                            if (this.IsLHS == "True") {
+                                $("<div>").appendTo(anmeldenli).text("有");
+                                var peixunli = $("<li>").appendTo(Anmelden3);
+                                $("<span>").appendTo(peixunli).text("培训:");
+                                if (this.LHSWorkId != 0 && this.LHSWorkId != "" && this.LHSWorkId != null && this.LHSWorkId != undefined && this.LHSWorkId != NaN) {
+                                    $.post(ServiceUrl + "WorkInterface/GetHandler.ashx", { ID: this.LHSWorkId }, function (res) {
+                                        var json = JSON.parse(res);
+                                        if (json.Result) {
+                                            if (json.Data.length > 0) {
+                                                $("<div>").appendTo(peixunli).text(json.Data[0].Name);
+                                            }
+                                        }
+
+                                    });
+                                }
+                            }
+                            else {
+                                $("<div>").appendTo(anmeldenli).text("无");
+                            }
+                        }
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("教育阶段:");
+                        $("<div>").appendTo(anmeldenli).text(this.EduLevels);
+                        if ("" != this.StudentStatus) {
+                            anmeldenli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(anmeldenli).text("年级:");
+                            $("<div>").appendTo(anmeldenli).text(this.StudentStatus);
+                        }
+                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                        $("<span>").appendTo(anmeldenli).text("学校性质:");
+                        if (this.SchoolNature == "True") {
+                            $("<div>").appendTo(anmeldenli).text("公办");
+                        }
+                        else {
+                            $("<div>").appendTo(anmeldenli).text("民办");
+                        }
+                        if ("" != this.SchoolName) {
+                            anmeldenli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(anmeldenli).text("学校名称:");
+                            $("<div>").appendTo(anmeldenli).text(this.SchoolName);
+
+                        }
+                        if ("" != this.StudentNo) {
+                            anmeldenli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(anmeldenli).text("学号:");
+                            $("<div>").appendTo(anmeldenli).text(this.StudentNo);
+                        }
+                        var Outschoolreason = "";
+                        $(this.OutpreschoolReason.toString().split('|')).each(function () {
+                            var Outpreschoolid = this.toString();
+                            if (Outpreschoolid == "" || Outpreschoolid == null) {
+                                return;
+                            }
+                            $.post(ServiceUrl + "OutPreschoolReasonInterface/GetHandler.ashx", { ID: Outpreschoolid }, function (res) {
+                                var json = JSON.parse(res);
+                                if (json.Result) {
+                                    $(json.Data).each(function () {
+                                        Outschoolreason += this.Name + " ";
+                                        outschooldiv.text(Outschoolreason);
+                                    });
+                                }
+                            });
+                        });
+                        if ("" != Outschoolreason) {
+                            anmeldenli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(anmeldenli).text("未入学原因:");
+                            var outschooldiv = $("<div>").appendTo(anmeldenli);
+                       
+                           
+                        }
+                        if ("" != this.Remark) {
+                            anmeldenli = $("<li>").appendTo(Anmelden3);
+                            $("<span>").appendTo(anmeldenli).text("备注:");
+                            $("<div>").appendTo(anmeldenli).text(this.Remark);
+
+                        }
+                         
+                        $(this.PolicyID.split(",")).each(function () {
+                            var policyid = this.toString();
+                            
+                            $.post(ServiceUrl + "PolicyInterface/GetHandler.ashx", { ID: policyid }, function (res1) {
+                                var json1 = JSON.parse(res1);
+                                if (json1.Result) {
+                                    if (json1.Data.length > 0) {
+                                        anmeldenli = $("<li>").appendTo(Anmelden3);
+                                        $("<span>").appendTo(anmeldenli).text("帮扶政策:");
+                                        var policydiv = $("<div>").appendTo(anmeldenli);
+                                        var p = $("<p>").appendTo(policydiv).text(json1.Data[0].Name + "(补助金额：" + json1.Data[0].Amount + "元）");
+                                    }
+                                }
+                            });
+                        });
+ 
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

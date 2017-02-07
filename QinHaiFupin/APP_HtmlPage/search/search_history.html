@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索历史</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <style type="text/css">
+            .content .no_search {
+                color: #333333;
+                text-align: center;
+                width: 80%;
+                position: absolute;
+                top: 30%;
+                left: 10%;
+            }
+
+           .content .no_search  i.iconfont {
+                display: block;
+                color: #999999;
+                font-size: 1.5rem;
+            }
+
+           .content .no_search h1 {
+                font-size: 0.7rem;
+                margin-top: 1rem;
+            }
+
+        </style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<a href="javascript:void(0)" class="head_search">
+						<i class="iconfont  search">&#xe600;</i>
+						<input type="text" name="" id="" value="" placeholder="请输入户主姓名、身份证号" />
+					</a>
+					<a href="javascript:void(0)" class="head_search2">搜索</a>
+				</li>
+			</ul>
+		</header>
+		 <div class="content">
+	        <ul>
+	            
+           </ul>
+           <div class="no_search" style="display:none">
+               <i class="iconfont">&#xe60d;</i>
+               <h1>对不起，暂无相关的搜索数据</h1>
+           </div>
+	    </div>
+        <script src="../js/jquery-3.1.0.min.js"></script>
+        <script src="../js/common.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                IsLogin();
+
+                var user = JSON.parse(localStorage.UserInfo);
+                var data = { "PageNo": 1, "PageSize": 20, "ProvinceID": user.ProvinceID, "CityId": user.CityId, "CountyId": user.CountyId, "CountrysideId": user.CountrysideId }, CanRead = true;
+                //赋值关键字
+                $(".head .head_search input").val(unescape(GetQueryString("Search")));
+                //搜索点击
+                $(".head .head_search2").click(function () {
+                    var searchtext = $(".head .head_search input").val();
+                    if (searchtext == "" || data.IdCardNo == searchtext || data.Name==searchtext)
+                    {
+                        return false;
+                    }
+                    data.Keyword = searchtext;
+                    var keyword = localStorage.getItem("SearchHistory") == null || localStorage.getItem("SearchHistory") == "null" ? [] : JSON.parse(localStorage.getItem("SearchHistory"));
+                    if ($.inArray(searchtext, keyword) < 0)
+                    {
+                        keyword.push(searchtext);
+                    }
+                    localStorage.setItem("SearchHistory", JSON.stringify(keyword));
+                    CanRead = true;
+                    data.PageNo = 1;
+                    GetList();
+                });
+                $(".head .head_search2").click();
+                //滚动加载
+                $(".content").scroll(function () {
+                    if ($(".content").scrollTop() >= $(".content")[0].scrollHeight - $(this).height()) {
+                        data.PageNo = data.PageNo + 1;
+                        GetList();
+                    }
+                });
+                function GetList() {
+                    if (!CanRead) return;
+                    CanRead = false;
+                    loading();
+                    $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/PagerByHouseHandler.ashx", data, function (res) {
+                        var json = JSON.parse(res);
+                        closeloading();
+                        if (json.Result) {
+                            CanRead = !((data.PageNo + 1) > json.PageCount);
+                            if (data.PageNo == 1) {
+                                $(".content>ul").empty();
+                                if(json.Data==0)
+                                {
+                                    $(".content>ul").hide();
+                                    $(".content>.no_search").show();
+                                }
+                                else
+                                {
+                                    $(".content>ul").show();
+                                    $(".content>.no_search").hide();
+                                }
+                            }
+                            $(json.Data).each(function () {
+                                var li = $("<li>").appendTo(".content>ul").addClass("household");
+                                var a = $("<a>").appendTo(li).prop("href", "../poverty/poverty_file.html?houseid=" + this.ID);
+                                var ul = $("<ul>").appendTo($("<div>").appendTo(a));
+                                li = $("<li>").appendTo(ul).addClass("name").text("户主姓名 " + this.Name);
+                                $("<i>").appendTo(li).addClass("iconfont").html("&#xe610;");
+                                li = $("<li>").appendTo(ul).addClass("name_info");
+                                var div = $("<div>").appendTo(li);
+                                if (this.PovertyStates == 0) {
+                                    div.text("未复核").addClass("not_porverty");
+                                } else {
+                                    div.text("已复核").addClass("yes_porverty");
+                                }
+                                div = $("<div>").appendTo(li).addClass("name_number");
+                                var sul = $("<ul>").appendTo(div);
+                                $("<li>").appendTo(sul).text("家庭人数 " + this.FamilySize + "人");
+                                $("<li>").appendTo(sul).text("在读人数 " + this.InSchoolCount + "人");
+                                $("<li>").appendTo(sul).text("识别标准 " + this.DiscerningStandards);
+                                $("<li>").appendTo(sul).text("贫困属性 " + this.PovertyProperties);
+                                $("<li>").appendTo(sul).addClass("cause").text("贫困原因 " + this.PovertyReason);
+
+                                li = $("<li>").appendTo(ul).addClass("card").text("身份证号 ");
+                                $("<label>").appendTo(li).text(this.IdCardNo);
+                                li = $("<li>").appendTo(ul).addClass("card").text("家庭地址 ");
+                                $("<label>").appendTo(li).text(this.CountrySideName + " " + this.VillageName);
+                            });
+                        }
+                    });
+                }
+            });
+           
+        </script>
+	</body>
+</html>

@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="css/reset.css" rel="stylesheet" />
+	<meta charset="utf-8" />
+    <style>
+.wrap{
+	width: 100%;
+	background-color: #f5f5f5;
+	display: inline-block;
+}
+.header{
+	background-color: #005982;
+	width: 100%;
+	display: inline-block;
+	height: 80px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	/*box-shadow: 1px 1px 5px #333333;*/
+	
+}
+.head{
+	width: 1180px;
+	display: block;
+	margin: 0 auto;
+	
+}
+.head div:nth-of-type(1){
+	float: left;
+}
+.head div:nth-of-type(1) h3{
+	color: #fff;
+}
+.head div:nth-of-type(1) h3:nth-of-type(1){
+	font-size: 18px;
+	margin-top: 20px;
+}
+.head div:nth-of-type(1) h3:nth-of-type(2){
+	font-size: 12px;
+	margin-top: 14px;
+}
+.head div:nth-of-type(2){
+	float: right;
+	margin-top: 40px;
+	width: 35%;
+	height: 40px;
+	line-height: 40px;
+	display: inline-block;
+}
+.head ul{
+	width: 100%;
+    display: inline-block;
+}
+.head ul li{
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+.head ul li a{
+	display: block;
+	color: #fff;
+	font-size: 14px;
+	cursor: pointer;
+}
+.head ul li a.active{
+	background-color: #fff;
+	color: #f39800;
+	border-radius: 5px 5px 0 0;
+}
+
+
+.small_nav,.policy_nav{
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #CCCCCC;
+	background-color: #fafafa;
+	margin-top: 80px;
+}
+.small_nav>div,.policy_nav>div{
+	width: 40%;
+	float: right;
+	display: inline-block;
+	
+}
+.small_nav>div ul,.policy_nav>div ul{
+	width: 100%;
+	display: inline-block;
+	
+}
+.small_nav>div ul li,.policy_nav>div ul li{
+	float: left;
+	line-height: 30px;
+}
+.small_nav>div ul li a,.policy_nav>div ul li a{
+	display: block;
+	color: #999999;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+}
+.small_nav>div ul li a i,.policy_nav>div ul li a i{
+	font-style: normal;
+	padding: 0 20px;
+	color: #a0a0a0;
+}
+.small_nav>div ul li a.small_nav_active,.policy_nav>div ul li a.policy_nav_active{color: #005982;}
+.affiche{
+	width: 100%;
+	height: 30px;
+	display: block;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 30px;
+	overflow: hidden;
+}
+.affiche div{
+	width: 1180px;
+	display: block;
+	margin: 0 auto;
+}
+.affiche div>span{
+	 width: 6%;
+    height: 30px;
+    background: url(../img/data.jpg) no-repeat 20% 9px;
+    background-size: 16%;
+    float: left;
+    padding-left: 4%;
+    color: #ee422f;
+}
+.affiche ul{
+	color: #999999;
+	    width: 89%;
+    float: left;
+    overflow: hidden;
+    height: 30px;
+}
+.affiche ul li{
+	    width: 100%;
+    display: inline-block;
+}
+.affiche ul li span{
+	padding: 0 1.5%;
+}
+.Ibox{
+	width: 100%;
+	display: inline-block;
+}
+.footer{
+	width: 100%;
+	display: inline-block;
+	background-color: #333333;
+	height: 80px;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.footer h3{
+	color: #fff;
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+	font-size: 12px;
+}
+.footer h3:nth-of-type(1){
+	margin-top: 20px;
+}
+.footer h3:nth-of-type(2){
+	margin-top: 15px;
+}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="header">
+            <div class="head">
+                <div>
+                    <h3>青海省教育精准扶贫大数据平台</h3>
+                    <h3>Big data platform of education precision poverty relief for QingHai province</h3>
+                </div>
+                <div>
+                    <ul>
+                        <li><a id="nav" class="active" href="data/data.html" target="unusual">扶贫大数据</a> </li>
+                        <li><a id="Poverty" class="nav2" href="Poverty/poverty_list.html" target="unusual" style="margin-top:80px;">精准扶贫</a> </li>
+                        <li><a id="s_nav" href="policy_manage/index.html" target="unusual">综合管理</a> </li>
+                        <li><a class="nav2" id="User" href="javascript:void(0)" target="unusual" style="margin-top:80px;">用户管理</a> </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+        <div class="small_nav">
+            <div>
+                <ul>
+                    <li><a class="small_nav_active" href="data/data.html" target="unusual"><i>|</i>扶贫概览</a></li>
+                    <li><a href="data/area.html" target="unusual"><i>|</i>地区指数</a></li>
+                    <li><a href="data/education.html" target="unusual"><i>|</i>教育指数</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="policy_nav" style="display: none;">
+            <div>
+                <ul>
+                    <li><a class="policy_nav_active" href="policy_manage/index.html" target="unusual"><i>|</i>政策管理</a></li>
+                    <li class="OutSchoolReason"><a href="Not_school/Not_school.html" target="unusual"><i>|</i>未入学原因管理</a></li>
+                    <li><a href="notice/notice.html" target="unusual"><i>|</i>公告</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="affiche">
+            <div>
+                <span>最新公告:</span>
+                <div class="roll">
+                    <ul></ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="Ibox">
+            <iframe class="IndexIframe" src="about:blank" style="width: 100%;height: 100%;" name="unusual"></iframe>
+        </div>
+
+        <footer class="footer">
+            <h3>技术支持：青海城市云计算大数据技术有限公司</h3>
+            <h3>版权所有：青海省教育厅</h3>
+        </footer>
+    </div>
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript">
+        //var ServiceUrl = "http://101.201.113.251:8080/";
+        var ServiceUrl = "http://localhost:11464/";
+        (function ($) {
+            $.fn.myScroll = function (options) {
+                //默认配置
+                var defaults = {
+                    speed: 40,  //滚动速度,值越大速度越慢
+                    rowHeight: 24 //每行的高度
+                };
+
+                var opts = $.extend({}, defaults, options), intId = [];
+
+                function marquee(obj, step) {
+
+                    obj.find("ul").animate({
+                        marginTop: '-=1'
+                    }, 0, function () {
+                        var s = Math.abs(parseInt($(this).css("margin-top")));
+                        if (s >= step) {
+                            $(this).find("li").slice(0, 1).appendTo($(this));
+                            $(this).css("margin-top", 0);
+                        }
+                    });
+                }
+
+                this.each(function (i) {
+                    var sh = opts["rowHeight"], speed = opts["speed"], _this = $(this);
+                    intId[i] = setInterval(function () {
+                        if (_this.find("ul").height() <= _this.height()) {
+                            clearInterval(intId[i]);
+                        } else {
+                            marquee(_this, sh);
+                        }
+                    }, speed);
+
+                    _this.hover(function () {
+                        clearInterval(intId[i]);
+                    }, function () {
+                        intId[i] = setInterval(function () {
+                            if (_this.find("ul").height() <= _this.height()) {
+                                clearInterval(intId[i]);
+                            } else {
+                                marquee(_this, sh);
+                            }
+                        }, speed);
+                    });
+
+                });
+
+            }
+
+        })(jQuery);
+        $(document).ready(function () {
+            if (window.location.pathname.indexOf("Login.html") > -1) {
+                return;
+            }
+            var str = localStorage.getItem("qhfp_user");
+            if (str != "" && str != null && str != undefined) {
+                UserList = str = JSON.parse(str);
+                var d = new Date(str.LastLoginTime);
+                d.setDate(d.getDate() + 1);
+                var nowdate = new Date();
+                if (d < nowdate) {
+                    window.location.href = "../Login.html";
+                }
+            }
+            else {
+                window.location.href = "../Login.html";
+            }
+            //公告
+            $("div.roll").myScroll({
+                speed: 120, //数值越大，速度越慢
+                rowHeight: 24//li的高度
+            });
+        });
+				$(function () {
+				    $('.Ibox').css('height', '' + ($(window).height() - 200) + 'px');
+				    $(window).on('resize', function () {
+				        $('.Ibox').css('height', '' + ($(window).height() - 200) + 'px');
+				        console.log(11111);
+				    })
+
+				    if(UserList.CountyId==0)
+				    {
+				        $("#nav").click();
+				        $(".IndexIframe").attr("src", "data/data.html");
+				        $("#Poverty").hide();
+
+				    }
+				    else
+				    {
+				        $("#Poverty").click();
+				        $(".IndexIframe").attr("src", "Poverty/poverty_list.html");
+				        $("#s_nav").attr("href", "notice/notice.html");
+				        $(".policy_nav_active").hide();
+				    }
+				    if (UserList.CityId != 0) {
+				        $(".OutSchoolReason").hide();
+				    }
+				    if(UserList.CountyId==0)
+				    {
+				        $("#User").attr("href","user/user_manage.html");
+				    }
+				    else
+				    {
+				        $("#User").attr("href", "user/modify_user.html");
+				    }
+				    $.post(ServiceUrl + "NoticeInterface/PagerHandler.ashx", { pageno: 1, pagesize: 5, ProvinceID: UserList.ProvinceId, CityId: UserList.CityId, CountyId: UserList.CountyId }, function (data) {
+				        var result = JSON.parse(data);
+				        if(result!=null)
+				        {
+				            if(result.Result)
+				            {
+				               $(".roll ul").empty();
+				                $(result.Data).each(function () {
+				                    var rollul = $(".roll ul");
+				                    var li = $("<li>").appendTo(rollul);
+				                    var lia = $("<a>").appendTo(li);
+				                    var PostTime = "";
+				                    if (this.PostTime != "" && this.PostTime != null && this.PostTime != undefined) {
+				                        PostTime = new Date(this.PostTime).getFullYear() + "-" + checklength(new Date(this.PostTime).getMonth() + 1) + "-" + checklength(new Date(this.PostTime).getDate());
+				                    }
+				                    $("<text>").appendTo(lia).text(PostTime);
+				                    $("<span>").appendTo(lia).text("|");
+				                    $("<text>").appendTo(lia).text(this.Name);
+				                    lia.attr("href", "notice/notice_info.html?ID=" + this.ID).attr("target", "unusual");
+				                });
+				            }
+				        }
+
+				    });
+				});
+//				二级导航
+				$(".small_nav div ul li a").click(function() {
+					$(".small_nav div ul li a").removeClass("small_nav_active");
+					$(this).addClass("small_nav_active");
+
+				});
+//				二级导航
+				$(".policy_nav div ul li a").click(function() {
+					$(".policy_nav div ul li a").removeClass("policy_nav_active");
+					$(this).addClass("policy_nav_active");
+
+				});
+//				导航
+				$(".head div:nth-of-type(2) ul li a").click(function() {
+					$(".head div:nth-of-type(2) ul li a").removeClass("active");
+					$(this).addClass("active");
+
+				});
+//				二级导航显示
+				$('#nav').click(function() {
+					$('.small_nav').show();
+					$('.policy_nav').hide();
+					
+				})
+				$('.nav2').click(function() {
+					$('.small_nav').hide();
+					
+					$('.policy_nav').hide();
+				})
+
+				$('#s_nav').click(function() {
+					$('.policy_nav').show();
+					$('.small_nav').hide();
+					
+				})
+				function checklength(str) {
+				    if (str.toString().length < 2) {
+				        return "0" + str;
+				    }
+				    else {
+				        return str;
+				    }
+				}
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户管理</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.head>h2{
+				text-indent: 0.8rem;
+			}
+			.content li{
+				margin-top: 0.5rem;
+				background-color: #fff;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				border-bottom: 1px solid #cccccc;
+				color: #333333;
+				font-size: 0.7rem;
+				text-indent: 0.8rem;
+			}
+			.content li>a{
+				width: 100%;
+				display: block;
+			}
+			.content li>a>i.iconfont{
+				margin-right: 0.5rem;
+				float: right;
+				color: #999999;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<h2>用户管理</h2>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li>
+					<a href="personage_info.html">
+						个人信息
+						<i class="iconfont">&#xe610;</i>
+					</a>
+				</li>
+				<li>
+					<a href="password.html">
+						修改密码
+						<i class="iconfont">&#xe610;</i>
+					</a>
+				</li>
+				<li>
+					<a href="about.html">
+						关于
+						<i class="iconfont">&#xe610;</i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<footer>
+	        <ul>
+	            <li>
+	                <a href="../index.html">
+	                    <i class="iconfont">&#xe621;</i>
+	                    <label>精准扶贫</label>
+	                </a>
+	            </li>
+	            <li class="active">
+	                <a href="index.html">
+	                    <i class="iconfont">&#xe623;</i>
+	                    <label>用户管理</label>
+	                </a>
+	            </li>
+	        </ul>
+	    </footer>
+	    <script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+	    <script type="text/javascript">
+	    	$(function(){
+		    	 $("footer>ul>li").click(function () {
+	                $(this).addClass("active").siblings("li").removeClass("active");
+	            });
+	        });
+	    </script>
+	</body>
+</html>

@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>用户管理</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+        <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+        <script type="text/javascript" src="../js/jquery.page.js"></script>
+	</head>
+	<body>
+		
+			
+			<div class="content">
+				<div class="cont_user" >
+					
+					<div style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;">
+						<div class="a_cont">
+							<div>
+								您好！<span id="Name"></span>
+								<a href="modify_user.html">修改信息</a>
+							</div>
+							<div>
+								今天是<span id="NowDate"></span>&nbsp;<span id="WeekDay"></span>    
+							</div>
+							<div>
+								<ul>
+									<li>
+										<img src="../img/user_limits.png"/>
+										<span>用户权限:</span>
+										<span id="Jurisdiction"></span>
+									</li>
+									<li>
+										<img src="../img/user_ area.png"/>
+										<span>当前地区:</span>
+										<span id="Place"></span>
+									</li>
+									<li>
+										<img src="../img/user_phone.png"/>
+										<span>手机号码:</span>
+										<span id="Phone"></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div style="margin: 20px 0 10px 0;background-color: #fff;">
+						<div class="cont_middle">
+							<h3>账户管理</h3>
+                            <div class="cont_middle_right" style="width: 55%;">
+                                
+                                <ul>
+                                    <li>
+                                        <a href="add_user.html" style="width: 150px;">添加省/市/县级用户</a>
+                                    </li>
+                                    <li>
+                                        <select id="dlCity"></select>
+                                    </li>
+                                    <li>
+                                        <select id="dlCounty"></select> 
+                                    </li>
+                                    <li>
+                                       
+                                    </li>
+                                    <li>
+                                        <input type="text" placeholder="输入姓名/手机号/证件号" id="SearchText">
+                                        <a class="SearchList" onclick="GetList(1)">
+                                            <img src="../img/search.png">
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+							
+							
+							<div class="cont_list">
+							</div>
+							<div class="clear">
+								<div class="tcdPageCode"></div>
+							</div>
+								
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		
+
+		<script>
+            $(function () {
+                var nowdate = new Date().getFullYear() + "年" + checklength(new Date().getMonth() + 1) + "月" + checklength(new Date().getDate()) + "日";
+                $("#NowDate").text(nowdate);
+                $("#WeekDay").text(getweek);
+                if (UserList.CountyId != 0) {
+                    $("#Jurisdiction").text("县级权限");
+                    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { ID: UserList.CountyId }, function (data) {
+                        var result = JSON.parse(data);
+                        if (result != null) {
+                            if (result.Result) {
+                                if (result.Data.length > 0) {
+                                    $("#Place").text(result.Data[0].Name);
+                                }
+                            }
+                        }
+                    });
+                }
+                else if (UserList.CountyId == 0 && UserList.CityId != 0) {
+                    $("#Jurisdiction").text("市级权限");
+                    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ID: UserList.CityId }, function (data) {
+                        var result = JSON.parse(data);
+                        if (result != null) {
+                            if (result.Result) {
+                                if (result.Data.length > 0) {
+                                    $("#Place").text(result.Data[0].Name);
+                                }
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#Jurisdiction").text("省级权限");
+                    $("#Place").text("青海省");
+                }
+                $("#Phone").text(UserList.Phone);
+                $("#Name").text(UserList.Name);
+                $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $("<option>").appendTo($("#dlCity")).val("").text("全部");
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                            });
+                            if (UserList.CityId != 0 && UserList.CountyId == 0)
+                            {
+                                $("#dlCity").val(UserList.CityId);
+                                $("#dlCity").attr("disabled", "disabled");
+                            }
+                            GetList(1);
+                            $("#dlCity").trigger("change");
+                        }
+                    }
+                });
+                $("#dlCity").change(function () {
+                    var CityId = $(this).val();
+                    $("#dlCounty").empty();
+                    if (CityId == "") {
+                        $("<option>").appendTo($("#dlCounty")).val("").text("全部");
+                        return;
+                    }
+                    $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityId }, function (data) {
+                        var result = JSON.parse(data);
+                        if (result != null) {
+                            if (result.Result) {
+                                $("<option>").appendTo($("#dlCounty")).val("").text("全部");
+                                $(result.Data).each(function () {
+                                    $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+            var pagesize = 15;
+            var PageCheck = true;
+            function GetList(Pageno)
+            {
+                var CityId = $("#dlCity").val();
+                var CountyId = $("#dlCounty").val();
+                var searchtext = $("#searchtext").val();
+                $.post(ServiceUrl + "UserInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, SearchAll: searchtext, CityId: CityId, CountyId: CountyId }, function (data) {
+                    var result = JSON.parse(data);
+                    if(result!=null)
+                    {
+                        if(result.Result)
+                        {
+                            if (PageCheck)
+                            {
+                                PageCheck = false;
+                                $(".tcdPageCode").createPage({
+                                    pageCount: result.PageCount,
+                                    current: 1,
+                                    backFn: function (p) {
+                                        GetList(p);
+                                    }
+                                });
+                            }
+                            var list = $(".cont_list");
+                            list.html("");
+                            var titleul = $("<ul>").appendTo(list).addClass("cont_list_head");
+                            $("<li>").appendTo(titleul).text("序列");
+                            $("<li>").appendTo(titleul).text("登录名");
+                            $("<li>").appendTo(titleul).text("姓名");
+                            $("<li>").appendTo(titleul).text("手机号码");
+                            $("<li>").appendTo(titleul).text("地区");
+                            $("<li>").appendTo(titleul).text("用户权限");
+                            var xulie = 0;
+                            $(result.Data).each(function () {
+                                xulie += 1;
+                                var thisul = $("<ul>").appendTo(list).addClass("cont_list_center");
+                                $("<li>").appendTo(thisul).text(xulie);
+                                $("<li>").appendTo(thisul).text(this.LoginName);
+                                $("<li>").appendTo(thisul).text(this.Name);
+                                $("<li>").appendTo(thisul).text(this.Phone);
+                                var Region = this.ProvinceName + (this.CityName == null ? "" : this.CityName) + (this.CountyName == null ? "" : this.CountyName);
+                                $("<li>").appendTo(thisul).text(Region);
+                                if (this.CountyId != 0)
+                                {
+                                    $("<li>").appendTo(thisul).text("县级权限");
+                                }
+                                else if(this.CountyId == 0&&this.CityId!=0)
+                                {
+                                    $("<li>").appendTo(thisul).text("市级权限");
+                                }
+                                else
+                                {
+                                    $("<li>").appendTo(thisul).text("省级权限");
+                                }
+                              
+                            });
+                        }
+                    }
+
+                });
+            }
+			 function getweek()
+			 {   
+			     var day = new Date();   //需要正则转换的则 此处为 ： var day = new Date(Date.parse(date.replace(/-/g, '/')));  
+			     var today = new Array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
+			     var week = today[day.getDay()];
+			     return week;
+			 }
+		
+		</script>
+	</body>
+</html>

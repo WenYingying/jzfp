@@ -1,0 +1,782 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>地区指数</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			/*.area_box{
+				width: auto;
+				margin: 20px 4px 0px 4px;
+			}*/
+		</style>
+	</head>
+	<body>
+		
+			<div class="content" style="background-color:#f5f5f5">
+					
+					<div class="cont_user">
+						<div>
+							<div>
+								
+								
+								<div class="area_box" >
+									
+								
+									<div class="area_left">
+										<div id="area" style="width: 630px;height:360px;"></div>
+									</div>
+									<div class="data_right">
+										<div class="cont_middle" style="    margin-bottom: 49px;">
+											<h3><text id="PlaceName" class="Place_name">载入中...</text>
+												<a href="../Poverty/poverty_list.html" class="Place_GoNext">精准扶贫</a>
+											</h3>
+											<div class="data_right_info">
+                                                <ul>
+                                                    <li>
+                                                        <span>当前地区总贫困人数</span>
+                                                        <label class="palce_SumCount">载入中...</label>
+                                                    </li>
+                                                    <li>
+                                                        <span>无需求人数:</span>
+                                                        <label class="palce_NotPovertyCount">载入中...</label>
+                                                    </li>
+                                                    <li>
+                                                        <span>有需求人数:</span>
+                                                        <label class="data_right_info_color palce_PovertyCount">载入中...</label>
+                                                    </li>
+                                                    <li>
+                                                        <span>无需求比例:</span>
+                                                        <label class="palce_NotPovertyRebate">载入中...</label>
+                                                    </li>
+                                                    <li>
+                                                        <span>有需求比例:</span>
+                                                        <label class="data_right_info_color palce_PovertyRebate">载入中...</label>
+                                                    </li>
+                                                </ul>
+
+												<div class="progress">
+													<div>
+														<ul>
+															<li>
+																<span>选择市</span>
+																<select id="dlCity">
+																</select>
+															</li>
+															<li>
+																<span>选择县</span>
+																<select id="dlCounty">
+																</select>
+															</li>
+															<li>
+																<span>选择乡</span>
+																<select id="dlCountrySide">
+																</select>
+															</li>
+														</ul>
+                                                        <div class="btn" style="height: 40px;margin-top: 0px;margin-left: 50px;position: absolute;    bottom: -25px;">
+                                                            <a href="javascript:void(0)" class="SearchAll">查询</a>
+                                                        </div>
+													</div>
+													<div>
+														<div id="bar" style="width: 100%;height:155px;"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>	
+								</div>
+								<div  class="area_box" >
+									<div id="area2" style="width: 90%;height: 380px; margin: 0 auto;display: block;padding-top: 20px;"></div>
+								</div>
+                                <div class="area_box" style="height:auto">
+                                    <div class="cont_middle">
+                                        <h3>贫困档案</h3>
+                                        <div class="cont_middle_right" style="width: 47%;">
+                                            <ul>
+                                                <li>
+                                                    <span>筛选信息</span>
+                                                </li>
+                                                <li>
+                                                    <select id="dlEduLevel">
+                                                        <option value="">全部</option>
+                                                        <option value="学前教育">学前教育</option>
+                                                        <option value="小学">小学</option>
+                                                        <option value="初中">初中</option>
+                                                        <option value="特教学生">特教学生</option>
+                                                        <option value="高中">高中</option>
+                                                        <option value="中职教育">中职教育</option>
+                                                        <option value="高职教育">高职教育</option>
+                                                        <option value="专科">专科</option>
+                                                        <option value="本科">本科</option>
+                                                        <option value="硕士">硕士</option>
+                                                        <option value="博士">博士</option>
+                                                        <option value="其他">其他</option>
+                                                    </select>
+                                                </li>
+                                                <li>
+                                                    <select id="dlPovertyState">
+                                                        <option value="">全部</option>
+                                                        <option value="0">有需求</option>
+                                                        <option value="1">无需求</option>
+                                                    </select>
+                                                </li>
+                                                <li>
+                                                    <input type="text" placeholder="输入姓名/手机号/证件号" id="SearchText" />
+                                                    <a class="SearchList">
+                                                        <img src="../img/search.png" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+
+                                        </div>
+                                        <div class="cont_list">
+                                        </div>
+                                        <div class="clear">
+                                            <div class="tcdPageCode"></div>
+                                        </div>
+
+                                    </div>
+
+                                </div></div>
+						</div>
+					</div>
+			</div>
+        <div class="PovertyMessage"></div>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+		<script type="text/javascript" src="../js/echarts.js" ></script>
+		<script type="text/javascript" src="../js/jquery.page.js" ></script>
+        <script src="../js/Common.js"></script>
+		<script type="text/javascript">
+            $(parent.document).find(".small_nav").find("a").removeClass("small_nav_active");
+            $(parent.document).find(".small_nav").find("a:eq(1)").addClass("small_nav_active");
+            var CityId = 0;
+            var ProvinceId = 0;
+            var CountyId = 0;
+            var CountrySideId = 0;
+            var PlaceName = "";
+            $(function () {
+                //			二级导航
+                $(".small_nav div ul li a").click(function () {
+                    $(".small_nav div ul li a").removeClass("small_nav_active");
+                    $(this).addClass("small_nav_active");
+
+                });
+                if (UserList.CountyId != 0) {
+                    $("#dlCity").attr("disabled", "disabled");
+                    $("#dlCounty").attr("disabled", "disabled");
+                }
+                else {
+                    $(".Place_GoNext").hide();
+                }
+                CityId = getUrlParam("CityId") == null || getUrlParam("CityId") == 0 ? UserList.CityId : getUrlParam("CityId");
+                ProvinceId = getUrlParam("ProvinceId") == null || getUrlParam("ProvinceId") == 0 ? UserList.ProvinceId : getUrlParam("ProvinceId");
+                CountyId = getUrlParam("CountyId") == null || getUrlParam("CountyId") == 0 ? UserList.CountyId : getUrlParam("CountyId");
+                CountrySideId = getUrlParam("CountrySideId") == null || getUrlParam("CountrySideId") == 0 ? UserList.CountrySideId : getUrlParam("CountrySideId");
+                PlaceName = getUrlParam("PlaceName");
+                console.log(CityId);
+                LoadChart();
+                GetRight(ProvinceId, CityId, CountyId, CountrySideId);
+                GetLeft(ProvinceId, CityId, CountyId, CountrySideId);
+                GetMonth(ProvinceId, CityId, CountyId, CountrySideId)
+                GetCityList(CityId);
+                GetList(1);
+                //县/区
+                GetCountyList(CityId,CountyId);
+
+                //乡/镇
+                GetCountrySideList(CountyId,CountrySideId);
+                if (UserList.CountyId != 0)
+                {
+                    $("#dlCity").attr("disabled", "disabled");
+                    $("#dlCounty").attr("disabled", "disabled");
+                }
+                if (UserList.CountyId == 0 && UserList.CityId!=0) {
+                    $("#dlCity").attr("disabled", "disabled");
+                }
+                //市县乡村联动
+                $("#dlCity").change(function () {
+                    var thisCityID = $(this).val();
+                    GetCountyList(thisCityID, 0);
+                    CityId = thisCityID;
+                    CountyId = 0;
+                   
+                });
+                $("#dlCounty").change(function () {
+                    var thisCountyID = $(this).val();
+                    GetCountrySideList(thisCountyID, 0);
+                    CountyId = thisCountyID;
+                    CountrySideId = 0;
+                });
+                $("#dlCountrySide").change(function () {
+                    CountrySideId = $(this).val();
+                });
+                $(".SearchAll").click(function () {
+                    GetRight(ProvinceId, CityId, CountyId, CountrySideId);
+                    GetLeft(ProvinceId, CityId, CountyId, CountrySideId);
+                    GetMonth(ProvinceId, CityId, CountyId, CountrySideId);
+                    PageCheck = true;
+                    GetList(1);
+                });
+                $(".SearchList").click(function () {
+                    PageCheck = true;
+                    GetList(1);
+                });
+                $("#GoNext").click(function () {
+                    window.location.href = "education.html?CountrySideId=" + CountrySideId + "&CountyId=" + CountyId + "&CityId=" + CityId + "&ProvinceId=" + ProvinceId;
+                });
+            });
+            function GetCityList(SelectID) {
+                $("#dlCity").html("");
+                $("<option>").appendTo($("#dlCity")).val(0).text("全部");
+                $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                            });
+                            if (SelectID != 0) {
+                                $("#dlCity").val(SelectID);
+                            }
+
+                        }
+                    }
+                });
+            }
+            function GetCountyList(CityID, SelectID) {
+                $("#dlCounty").html("");
+                $("<option>").appendTo($("#dlCounty")).val(0).text("全部");
+                $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityID }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+                            });
+                            if (SelectID != 0) {
+                                $("#dlCounty").val(SelectID);
+                            }
+                        }
+                    }
+                });
+            }
+            function GetCountrySideList(CountyID, SelectID) {
+                $("#dlCountrySide").html("");
+                $("<option>").appendTo($("#dlCountrySide")).val(0).text("全部");
+                $.post(ServiceUrl + "CountrysideInterface/GetHandler.ashx", { CountyID: CountyID }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCountrySide")).val(this.ID).text(this.Name);
+                            });
+                            if (SelectID != 0) {
+                                $("#dlCountrySide").val(SelectID);
+                            }
+                        }
+                    }
+                });
+            }
+            function GetRight(ProvinceId, CityId, CountyId,CountrySideId)
+            {
+                $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { Tag: Tag, ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId, CountrySideID: CountrySideId }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result.Result) {
+
+                        var name = "";
+                        var PovertyCount = 0;
+                        var NotPovertyCount = 0;
+                        $(result.Data).each(function () {
+                            if (CountrySideId != 0) {
+                                name = this.CountrySideName;
+                            }
+                            else if (CountrySideId == 0 && CountyId != 0) {
+                                name = this.CountyName;
+                            }
+                            else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                                name = this.CityName;
+                            }
+                            else {
+                                name = this.ProvinceName;
+                            }
+                            if (this.PovertyStates == "0") {
+                                PovertyCount = this.ID;
+                            }
+                            else {
+                                NotPovertyCount = this.ID;
+                            }
+                        });
+                        $(".Place_name").text(name);
+                        $(".Place_GoNext").attr("href", "education.html?ProvinceId=" + ProvinceId + "&CountyId=" + CountyId + "&CityId=" + CityId + "&PlaceName=" + escape(name));
+                        var SumCount = parseFloat(PovertyCount) + parseFloat(NotPovertyCount);
+                        $(".palce_SumCount").text(SumCount + "人");
+
+                        var PovertyRebate = 0;
+                        var NotPovertyRebate = 0;
+                        if (SumCount > 0) {
+                            PovertyRebate = parseFloat(PovertyCount / SumCount * 100).toFixed(2);
+                            NotPovertyRebate = parseFloat(NotPovertyCount / SumCount * 100).toFixed(2);
+                        }
+                        $(".palce_NotPovertyCount").text(NotPovertyCount + "人");
+                        $(".palce_PovertyCount").text(PovertyCount + "人");
+                        $(".palce_NotPovertyRebate").text(NotPovertyRebate.toString().replace(".00", "") + "%");
+                        $(".palce_PovertyRebate").text(PovertyRebate.toString().replace(".00", "") + "%");
+                    }
+                });
+            }
+
+            function GetLeft(ProvinceId, CityId, CountyId,CountrySideId)
+            {
+                var Tag = "";
+                if (CountrySideId != 0) {
+                    Tag = "StateVillage";
+                }
+                else if (CountrySideId == 0 && CountyId != 0) {
+                    Tag = "StateCountrySide";
+                }
+                else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                    Tag = "StateCounty";
+                }
+                else {
+                    Tag = "StateCity";
+                }
+                console.log(CountrySideId);
+                $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { Tag: Tag, ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId, CountrySideID: CountrySideId }, function (data) {
+                    console.log(data);
+                    var result = JSON.parse(data);
+                    if (result.Result) {
+                        var IDList = [];
+                        $(result.Data).each(function () {
+                            if (CountrySideId != 0)
+                            {
+                                if (IDList.indexOf(this.VillageId) == -1)
+                                { IDList.push(this.VillageId); }
+                            }
+                            else if (CountyId != 0 && CountrySideId==0) {
+                                if (IDList.indexOf(this.CountrySideID) == -1)
+                                { IDList.push(this.CountrySideID); }
+                            }
+                            else if (CountyId == 0 && CityId != 0 && CountrySideId == 0) {
+                                if (IDList.indexOf(this.CountyID) == -1)
+                                { IDList.push(this.CountyID); }
+                            }
+                            else {
+                                if (IDList.indexOf(this.CityID) == -1) {
+                                    IDList.push(this.CityID);
+                                }
+                            }
+                        });
+                        var PovertyCountlist = [];
+                        var NotPovertyCountlist = [];
+                        var Namelist = [];
+                        for (var i = 0; i < IDList.length; i++) {
+                            var PovertyCount = 0;
+                            var NotPovertyCount = 0;
+                            var ListName = "";
+                            $(result.Data).each(function () {
+                                var thisId = 0;
+                                if (CountrySideId != 0) {
+                                    thisId = this.VillageId;
+                                }
+                                else if (CountrySideId == 0 && CountyId != 0) {
+                                    thisId = this.CountrySideID;
+                                }
+                                else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                                    thisId = this.CountyID;
+                                }
+                                else {
+                                    thisId = this.CityID;
+                                }
+                                if (thisId == IDList[i]) {
+                                    if (CountrySideId != 0) {
+                                        ListName = this.VillageName;
+                                    }
+                                    else if (CountrySideId == 0 && CountyId != 0) {
+                                        ListName = this.CountrySideName;
+                                    }
+                                    else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                                        ListName = this.CountyName;
+                                    }
+                                    else {
+                                        ListName = this.CityName;
+                                    }
+                                    if (this.PovertyStates == "0") {
+                                        PovertyCount = this.ID;
+                                    }
+                                    else {
+                                        NotPovertyCount = this.ID;
+                                    }
+                                }
+                            });
+                            PovertyCountlist.push(PovertyCount);
+                            NotPovertyCountlist.push(NotPovertyCount);
+                            Namelist.push(ListName);
+                        }
+                        var myarea = echarts.init(document.getElementById('area'));
+                        option = {
+                            title: {
+                                text: '地区统计'
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                }
+                            },
+                            legend: {
+                                data: ['有需求', '无需求']
+                            },
+                            color: ['#ff7d29', '#3b94e1'],
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    data: Namelist
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value'
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: '有需求',
+                                    type: 'bar',
+                                    data: PovertyCountlist
+                                },
+                                {
+                                    name: '无需求',
+                                    type: 'bar',
+                                    stack: '广告',
+                                    data: NotPovertyCountlist
+                                },
+
+                            ]
+                        };
+                        myarea.setOption(option);
+                    }
+                });
+            }
+
+
+            function GetMonth(ProvinceId, CityId, CountyId, CountrySideId) {
+                var Tag = "";
+                if (CountrySideId != 0) {
+                    Tag = "MonthStateVillage";
+                }
+                else if (CountrySideId == 0 && CountyId != 0) {
+                    Tag = "MonthStateCountrySide";
+                }
+                else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                    Tag = "MonthStateCounty";
+                }
+                else {
+                    Tag = "MonthStateCity";
+                }
+                $.post(ServiceUrl + "PovertyArchivesInterface/GetHandler.ashx", { Tag: Tag, ProvinceID: ProvinceId, CityID: CityId, CountyID: CountyId, CountrySideID: CountrySideId }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result.Result) {
+                        var IDList = [];
+                        $(result.Data).each(function () {
+                            if (CountrySideId != 0) {
+                                if (IDList.indexOf(this.VillageId) == -1)
+                                { IDList.push(this.VillageId); }
+                            }
+                            else if (CountyId != 0 && CountrySideId == 0) {
+                                if (IDList.indexOf(this.CountrySideID) == -1)
+                                { IDList.push(this.CountrySideID); }
+                            }
+                            else if (CountyId == 0 && CityId != 0) {
+                                if (IDList.indexOf(this.CountyID) == -1)
+                                { IDList.push(this.CountyID); }
+                            }
+                            else {
+                                if (IDList.indexOf(this.CityID) == -1) {
+                                    IDList.push(this.CityID);
+                                }
+                            }
+                        });
+                        var monthPovertyRebatelist = [];
+                        for (var i = 0; i < IDList.length; i++) {
+
+                            var PovertyCountlist = [];
+                            var ListName = "";
+                            for(var j=1;j<13;j++)
+                            {
+                                var PovertyCount = 0;
+                                var NotPovertyCount = 0;
+                                $(result.Data).each(function () {
+                                    var thisId = 0;
+                                    if (CountrySideId != 0) {
+                                        thisId = this.VillageId;
+                                    }
+                                    else if (CountrySideId == 0 && CountyId != 0) {
+                                        thisId = this.CountrySideID;
+                                    }
+                                    else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                                        thisId = this.CountyID;
+                                    }
+                                    else {
+                                        thisId = this.CityID;
+                                    }
+                                    var thismonth = this.FamilySize;
+                                    if (thismonth == 0)
+                                    {
+                                        thismonth = new Date().getMonth() + 1;
+                                    }
+                                    if (thisId == IDList[i]&&thismonth==j) {
+                                        if (CountrySideId != 0) {
+                                            ListName = this.VillageName;
+                                        }
+                                        else if (CountrySideId == 0 && CountyId != 0) {
+                                            ListName = this.CountrySideName;
+                                        }
+                                        else if (CountrySideId == 0 && CountyId == 0 && CityId != 0) {
+                                            ListName = this.CountyName;
+                                        }
+                                        else {
+                                            ListName = this.CityName;
+                                        }
+                                        if (this.PovertyStates == "0") {
+                                            PovertyCount = this.ID;
+                                        }
+                                        else {
+                                            NotPovertyCount = this.ID;
+                                        }
+                                    }
+                                });
+                                var SumCount = parseFloat(PovertyCount) + parseFloat(NotPovertyCount);
+                                var NotPovertyRebate = 0;
+                                if (SumCount > 0) {
+                                    NotPovertyRebate = parseFloat(NotPovertyCount / SumCount * 100).toFixed(2);
+                                }
+                                PovertyCountlist.push(NotPovertyRebate);
+                            }
+                            monthPovertyRebatelist.push({
+                                name: ListName,
+                                    type:'line',
+                                    stack: '总量',
+                                    areaStyle: {normal: {}},
+                                    data: PovertyCountlist
+                            });
+                        }
+                        var myarea2 = echarts.init(document.getElementById('area2'));
+                        option = {
+                            title: {
+                                text: '月份比例'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: ['城1区', '城2区', '城3区', '城4区', '城5区']
+                            },
+                            color: ['#cccccc', '#7492af', '#f85600', '#f39800', '#22ac38'],
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value'
+                                }
+                            ],
+                            series: monthPovertyRebatelist
+                        };
+
+                        myarea2.setOption(option);
+                    }
+                });
+            }
+
+            var pagesize = 15;
+            var PageCheck = true;
+            function GetList(Pageno) {
+                var CityID = $("#dlCity").val() == "" || $("#dlCity").val() == "0" || $("#dlCity").val() == null || $("#dlCity").val() == null || $("#dlCity").val() == undefined ? CityId : $("#dlCity").val();
+                var CountyID = $("#dlCounty").val() == "" || $("#dlCounty").val() == "0" || $("#dlCounty").val() == null || $("#dlCounty").val() == undefined ? CountyId : $("#dlCounty").val();
+                var CountrySideID = $("#dlCountrySide").val() == "" || $("#dlCountrySide").val() == "0" || $("#dlCountrySide").val() == null || $("#dlCountrySide").val() == undefined ? CountrySideId : $("#dlCounty").val();
+                var dlEduLevel = $("#dlEduLevel").val();
+                var dlPovertyState = $("#dlPovertyState").val();
+                var SearchText = $("#SearchText").val();
+                var IdCardNo = "";
+                var Name = "";
+                if (!/[\u4e00-\u9fa5]/g.test(SearchText)) {
+                    IdCardNo = SearchText;
+                }
+                else {
+                    Name = SearchText;
+                }
+                $.post(ServiceUrl + "PovertyArchivesInterface/PagerHandler.ashx", { pageno: Pageno, pagesize: pagesize, CityID: CityID, CountyID: CountyID, CountrySideID: CountrySideID, EduLevels: dlEduLevel, PovertyStates: dlPovertyState, InSchool: 'True', IdCardNo: IdCardNo, Name: Name }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            if (PageCheck) {
+                                PageCheck = false;
+                                $(".tcdPageCode").createPage({
+                                    pageCount: result.PageCount,
+                                    current: 1,
+                                    backFn: function (p) {
+                                        GetList(p);
+                                    }
+                                });
+                            }
+                            var list = $(".cont_list");
+                            list.html("");
+                            var titleul = $("<ul>").appendTo(list).addClass("cont_list_head");
+                            $("<li style='width:15%'>").appendTo(titleul).text("姓名");
+                            $("<li style='width:20%'>").appendTo(titleul).text("身份证号码");
+                            $("<li style='width:30%'>").appendTo(titleul).text("地区");
+                            $("<li style='width:10%'>").appendTo(titleul).text("是否为两后生");
+                            $("<li style='width:10%'>").appendTo(titleul).text("教育扶贫需求");
+                            $("<li style='width:15%'>").appendTo(titleul).text("教育阶段");
+                            //$("<li>").appendTo(titleul).text("操作");
+                            $(result.Data).each(function () {
+                                var thisul = $("<ul>").appendTo(list).addClass("cont_list_center");
+                                var ID = this.ID;
+                                $("<a>").appendTo($("<li style='width:15%'>").appendTo(thisul)).text(this.Name).click(function () {
+                                    GePovertyMessage(ID, $(".PovertyMessage"));
+                                });
+                                $("<li style='width:20%'>").appendTo(thisul).text(this.IdCardNo);
+                                var Region = (this.CityName == null ? "" : this.CityName) + (this.CountyName == null ? "" : this.CountyName) + (this.CounSideName == null ? "" : this.CounSideName) + (this.VillageName == null ? "" : this.VillageName);
+                                $("<li style='width:30%'>").appendTo(thisul).text(Region);
+                                if (this.IsLHS == "True") {
+                                    $("<li style='width:10%'>").appendTo(thisul).text("是");
+                                }
+                                else {
+                                    $("<li style='width:10%'>").appendTo(thisul).text("否");
+                                }
+                                if (this.PovertyStates == "1") {
+                                    $("<li style='width:10%'>").appendTo(thisul).text("无需求");
+                                }
+                                else {
+                                    $("<li style='width:10%'>").appendTo(thisul).text("有需求");
+                                }
+                                $("<li style='width:15%'>").appendTo(thisul).text(this.EduLevels == null ? "" : this.EduLevels);
+                                //var caozuoli = $("<li>").appendTo(thisul);
+                                //var ID = this.ID;
+                                //$("<a>").appendTo(caozuoli).attr("href", "javascript:void(0)").text("操作").click(function () {
+                                //    window.location.href = "add_poverty.html?ID=" + ID;
+                                //});
+                            });
+                        }
+                    }
+
+                });
+
+            }
+
+            function LoadChart()
+            {
+                var myarea = echarts.init(document.getElementById('area'));
+                option = {
+                    title: {
+                        text: '地区统计'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['有需求', '无需求']
+                    },
+                    color: ['#ff7d29', '#3b94e1'],
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: []
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '有需求',
+                            type: 'bar',
+                            data: []
+                        },
+                        {
+                            name: '无需求',
+                            type: 'bar',
+                            stack: '广告',
+                            data: []
+                        },
+
+                    ]
+                };
+                myarea.setOption(option);
+                var myarea2 = echarts.init(document.getElementById('area2'));
+                option = {
+                    title: {
+                        text: '月份比例'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                    },
+                    color: ['#cccccc', '#7492af', '#f85600', '#f39800', '#22ac38'],
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: []
+                };
+
+                myarea2.setOption(option);
+            }
+		</script>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+.header{
+	background-color: #005982;
+	width: 100%;
+	display: inline-block;
+	height: 4rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.head{
+	width: 59rem;
+	display: block;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.head div:nth-of-type(1){
+	float: left;
+}
+.head div:nth-of-type(1) h3{
+	color: #fff;
+}
+.head div:nth-of-type(1) h3:nth-of-type(1){
+	font-size: 0.9rem;
+	margin-top: 1rem;
+}
+.head div:nth-of-type(1) h3:nth-of-type(2){
+	font-size: 0.6rem;
+	margin-top: 0.7rem;
+}
+.head div:nth-of-type(2){
+	float: right;
+	margin-top: 2rem;
+	width: 35%;
+	height: 40px;
+	line-height: 40px;
+	display: inline-block;
+}
+.head ul{
+	width: 100%;
+    display: inline-block;
+}
+.head ul li{
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+.head ul li a{
+	display: block;
+	color: #fff;
+	font-size: 14px;
+	cursor: pointer;
+}
+.head ul li a.active{
+	background-color: #fff;
+	color: #f39800;
+	border-radius: 5px 5px 0 0;
+}
+
+
+.small_nav,.policy_nav{
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #CCCCCC;
+	background-color: #fafafa;
+	margin-top: 80px;
+}
+.small_nav>div,.policy_nav>div{
+	width: 40%;
+	float: right;
+	display: inline-block;
+	
+}
+.small_nav>div ul,.policy_nav>div ul{
+	width: 100%;
+	display: inline-block;
+	
+}
+.small_nav>div ul li,.policy_nav>div ul li{
+	float: left;
+	line-height: 30px;
+}
+.small_nav>div ul li a,.policy_nav>div ul li a{
+	display: block;
+	color: #999999;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+}
+.small_nav>div ul li a i,.policy_nav>div ul li a i{
+	font-style: normal;
+	padding: 0 20px;
+	color: #a0a0a0;
+}
+.small_nav>div ul li a.small_nav_active,.policy_nav>div ul li a.policy_nav_active{color: #005982;}
+
+
+
+

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加政策/修改</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			.Anmelden li{
+				width: 100%;
+			}
+			.Anmelden li>span{
+				width: 8%;
+			}
+			.Anmelden li>input{
+				width: 19.4rem;
+			}
+			.Anmelden>li textarea{
+				height: 8rem;
+    			max-height: 8rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="cont_box">
+				<h3>
+					青海省各学段现行资助政策
+				</h3>
+				<div class="policy_left">
+					<h3>教育阶段实施</h3>
+					<ul>
+						<li class="active"><a href="javascript:void(0)">学前教育</a></li>
+						<li><a href="javascript:void(0)">义务教育</a></li>
+						<li><a href="javascript:void(0)">高中</a></li>
+						<li><a href="javascript:void(0)">职业教育</a></li>
+						<li><a href="javascript:void(0)">普通高等教育</a></li>
+					</ul>
+				</div>
+				<div class="policy_right">
+					<div class="middle">
+						<h1 class="title" id="PolicyTitle">
+							编辑内容
+						</h1>
+						<ul class="Anmelden">
+							<li>
+								<span>政策标题:</span>
+								<input type="text" name="" id="Name" value="" placeholder="请输入标题" />
+							</li>
+							<li>
+								<span>政策内容:</span>
+								<textarea id="Detail" placeholder="请输入内容"></textarea>
+							</li>
+						</ul>
+						<div class="btn">
+							<a href="javascript:void(0)" onclick="Add()">确定</a>
+							<a href="Pager.html">取消</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-1.12.1.min.js" ></script>
+        <script src="../js/Common.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".policy_left ul li ").click(function() {
+					$(this).addClass("active").siblings("li").removeClass("active");
+					GetList();
+				});
+            	
+			})
+			var ID = null;
+			$(function () {
+			    ID = getUrlParam("ID");
+			    if (ID != null) {
+			        $.post(ServiceUrl + "PolicyInterface/GetHandler.ashx", { ID: ID }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result != null) {
+			                if (result.Result) {
+			                    if (result.Data.length > 0) {
+			                        $("#Name").val(result.Data[0].Name);
+			                        $("#Detail").val(result.Data[0].Detail);
+			                        $(".policy_left").find("li").each(function () {
+			                            if ($(this).find("a").html() == result.Data[0].EduLevels) {
+			                                $(this).addClass("active");
+			                            }
+			                        });
+			                    }
+			                }
+			            }
+			        });
+			    }
+			});
+
+			function Add() {
+			    var Name = $("#Name").val();
+			    var Detail = $("#Detail").val();
+			    var EduLevels = $(".policy_left .active a").html();
+			    var ProvinceID = UserList.ProvinceId;
+			    var CityID = UserList.CityId;
+			    var CountyID = UserList.CountyId;
+			    if (CountyID != 0)
+			    {
+			        ProvinceID = 0;
+			        CityID = 0;
+			    }
+			    if (CityID != 0 && CountyID == 0)
+			    {
+			        ProvinceID = 0;
+			        CountyID = 0;
+			    }
+			    if (ID != null) {
+			        $.post(ServiceUrl + "PolicyInterface/EditHandler.ashx", { ID: ID, Name: Name, Detail: Detail }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result != null) {
+			                if (result.Result) {
+			                    alert("修改成功");
+			                    window.history.go(-1);
+			                }
+			                else {
+			                    alert("修改失败")
+			                }
+			            }
+			            else {
+			                alert("修改失败")
+			            }
+			        });
+			    }
+			    else {
+			        $.post(ServiceUrl + "PolicyInterface/PostHandler.ashx", { Name: Name, Detail: Detail, EduLevels: EduLevels, ProvinceID: ProvinceID, CityID: CityID, CountyID: CountyID }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result != null) {
+			                if (result.Result) {
+			                    alert("添加成功");
+			                    window.location.href = "Pager.html";
+			                }
+			                else {
+			                    alert("添加失败")
+			                }
+			            }
+			            else {
+			                alert("添加失败")
+			            }
+			        });
+			    }
+			}
+		</script>
+	</body>
+</html>

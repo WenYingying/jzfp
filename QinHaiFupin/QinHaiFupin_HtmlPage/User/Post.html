@@ -1,0 +1,461 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>添加用户</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			.Anmelden li{
+				width: 100%;
+			}
+			.Anmelden li>span{
+				width: 9.5%;
+				color: #aaa;
+			}
+			.Anmelden li>div{
+				display: inline-block;
+				color: #4F4F4F;
+			}
+			.Anmelden li>a{
+				width: 5.5rem;
+			    height: 1.5rem;
+			    display: inline-block;
+			    margin-right: 0.8rem;
+			    border: 1px solid #e3e4e6;
+			    border-radius: 3px;
+			    line-height: 1.5rem;
+			    text-align: center;
+			}
+			.Anmelden li>a:hover,.Anmelden li>a.active{
+				border: 1px solid #3b94e1;
+   				color: #3b94e1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="cont_box">
+				<div class="middle">
+					<h1 class="title">添加用户</h1>
+					<ul class="Anmelden">
+						<li>
+							<span>登陆账号:</span>
+                            <input type="text" name="" id="LoginName" value="" placeholder="请输入登陆账号" onblur="CheckLoginName()" />
+                            <b id="CheckLoginStr" class="red"></b>
+						</li>
+						<li>
+							<span>输入密码:</span>
+                            <input type="password" name="" id="PassWord" value="" placeholder="密码长度为6-15位" onblur="CkeckPassWord()" />
+                            <b id="CheckPassWordStr"  class="red"></b>
+						</li>
+						<li>
+							<span>再次输入:</span>
+                            <input type="password" name="" id="RepatPassWord" value="" placeholder="请再一次输入登陆密码" onblur="CheckRepatPassword()" />
+                            <b id="CheckReaptPassWordStr" class="red"></b>
+						</li>
+						<li>
+							<span>手机号码:</span>
+                            <input type="tel" name="" id="Phone" value="" placeholder="请输入对方手机号码" onblur="CheckPhone()" />
+                            <b id="CheckPhoneStr" class="red"></b>
+						</li>
+						<li>
+							<span>真实姓名:</span>
+                            <input type="text" name="" id="Name" value="" placeholder="请输入真实姓名" onblur="CheckName()" />
+                            <b id="CheckNameStr" class="red"></b>
+						</li>
+						<li class="Jurisdiction">
+							<span>用户级别:</span>
+							<a href="javasxript:void(0)" class="active" id="Provincepower">省级级别<input value="0" type="hidden" data-role="user-level" /></a>
+							<a href="javasxript:void(0)" id="Citypower">市级级别<input value="1" type="hidden" data-role="user-level" /></a>
+							<a href="javasxript:void(0)" id="Countypower">县级级别<input value="2" type="hidden" data-role="user-level" /></a>
+                            <a href="javasxript:void(0)" id="Counrysidepower">乡级级别<input value="3" type="hidden" data-role="user-level" /></a>
+						</li>
+						<li class="checkcity">
+							<span>选择城市:</span>
+                            <select id="dlCity"></select>
+						</li>
+						<li class="checkcounty">
+							<span>选择县/区:</span>
+                            <select id="dlCounty"></select>
+						</li>
+                        <li class="checkcountryside">
+                            <span>选择乡/镇:</span>
+                            <select id="dlCountryside"></select>
+                        </li>
+					</ul>
+					<div class="btn">
+                        <a href="javascript:void(0)" onclick="Add()">确认</a>
+                        <a href="javascript:void(0)" onclick="window.history.go(-1)">取消</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-1.12.1.min.js" ></script>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+        <script type="text/javascript">
+			$(function(){
+				$('.Anmelden>li>a').click(function(){
+					$(this).addClass('active').siblings('a').removeClass('active');
+				})
+			});
+
+            var CheckLogin = 0;
+            $(function () {
+                $(".checkcity").hide();
+                $(".checkcounty").hide();
+                $(".checkcountryside").hide();
+                if (UserList.CountyId != 0)
+                {
+                    $("#Provincepower").hide();
+                    $("#Citypower").hide();
+                    $(".user_limits a").removeClass("active");
+                    $("#Countypower").addClass("active");
+                    $("#dlCounty").empty();
+                    $("<option>").appendTo($("#dlCity")).val(UserList.CityId).text(UserList.CityName);
+                    $("#dlCounty").empty();
+                    $("<option>").appendTo($("#dlCounty")).val(UserList.CountyId).text(UserList.CountyName);
+                    $(".checkcity").show();
+                    $(".checkcounty").show();
+
+                }
+                else if (UserList.CityId != 0 && UserList.CountyId == 0) {
+                    $("#Provincepower").hide();
+                    $(".user_limits a").removeClass("active");
+                    $("#Citypower").addClass("active");
+                    LoadCity();
+                }
+                $(".Jurisdiction a").click(function () {
+                    $(".Jurisdiction a").removeClass("active");
+                    $(this).addClass("active");
+                    switch(Number($(this).children("input[data-role='user-level']").val()))
+                    {
+                        case 0:
+                            $(".checkcity").hide();
+                            $(".checkcounty").hide();
+                            $(".checkcountryside").hide();
+                            break;
+                        case 1:
+                            LoadCity();
+                            break;
+                        case 2:
+                            $(".checkcity").show();
+                            $(".checkcounty").show();
+                            $(".checkcountryside").hide();
+                            if (UserList.CityId == 0)
+                            {
+                                if ($("#dlCity").children("option").length < 2) {
+                                    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+                                        $("<option>").appendTo($("#dlCity")).val("").text("-请选择-");
+                                        var result = JSON.parse(data);
+                                        if (result != null) {
+                                            if (result.Result) {
+                                                $(result.Data).each(function () {
+                                                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                            if (UserList.CountyId == 0)
+                            {
+                                $("#dlCity").change(function () {
+                                    var CityID = $(this).val();
+                                    loadcounty(CityID);
+                                });
+
+                                $("#dlCity").trigger("change");
+                            }
+                            $("#dlCounty").off();
+                            break;
+                        case 3:
+                            $(".checkcity").show();
+                            $(".checkcounty").show();
+                            $(".checkcountryside").show();
+                            if (UserList.CityId == 0) {
+                                if ($("#dlCity").children("option").length < 2) {
+                                    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+                                        $("<option>").appendTo($("#dlCity")).val("").text("-请选择-");
+                                        var result = JSON.parse(data);
+                                        if (result != null) {
+                                            if (result.Result) {
+                                                $(result.Data).each(function () {
+                                                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                            if (UserList.CountyId == 0) {
+                                $("#dlCity").change(function () {
+                                    var CityID = $(this).val();
+                                    loadcounty(CityID);
+                                });
+                                $("#dlCity").trigger("change");
+                            }
+                            $("#dlCounty").change(function () {
+                                var CountyID = $(this).val();
+                                loadcountryside(CountyID);
+                            });
+                            $("#dlCounty").trigger("change");
+                            break;
+                    }
+
+                });
+            })
+            function LoadCity() {
+                $(".checkcity").show();
+                $(".checkcounty").hide();
+                $(".checkcountryside").hide();
+                if ($("#dlCity").children("option").length < 2) {
+                    $.post(ServiceUrl + "CityInterface/GetHandler.ashx", { ProvinceID: 29 }, function (data) {
+                        $("<option>").appendTo($("#dlCity")).val("").text("-请选择-");
+                        var result = JSON.parse(data);
+                        if (result != null) {
+                            if (result.Result) {
+                                $(result.Data).each(function () {
+                                    $("<option>").appendTo($("#dlCity")).val(this.ID).text(this.Name);
+                                });
+                                if (UserList.CityId != 0 && UserList.CountyId == 0) {
+                                    $("#dlCity").val(UserList.CityId);
+                                    $("#dlCity").attr("disabled", "disabled");
+                                }
+                            }
+                        }
+                    });
+                }
+                $("#dlCity").off();
+            }
+
+            function loadcounty(CityId)
+            {
+                $("#dlCounty").empty();
+                $("<option>").appendTo($("#dlCounty")).val("").text("-请选择-");
+                $.post(ServiceUrl + "CountyInterface/GetHandler.ashx", { CityID: CityId }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCounty")).val(this.ID).text(this.Name);
+                            });
+                        }
+                    }
+                });
+            }
+            function loadcountryside(CountyId) {
+                $("#dlCountryside").empty();
+                $("<option>").appendTo($("#dlCountryside")).val("").text("-请选择-");
+                $.post(ServiceUrl + "CountrySideInterface/GetHandler.ashx", { CountyID: CountyId }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            $(result.Data).each(function () {
+                                $("<option>").appendTo($("#dlCountryside")).val(this.ID).text(this.Name);
+                            });
+                        }
+                    }
+                });
+            }
+            function Add()
+            {
+                if (CheckLogin == 1)
+                {
+                    return;
+                }
+                var LoginName = $("#LoginName").val();
+                var Password = $("#PassWord").val();
+                var Phone = $("#Phone").val();
+                var Name = $("#Name").val();
+                var ProvinceId = 29;
+                var CityId = 0;
+                var CountyId = 0;
+                var CountrySideId = 0;
+                if ($(".active input[data-role='user-level']").val() == 1)
+                {
+                    CityId = $("#dlCity").val();
+                    if(CityId=="")
+                    {
+                        alert("请选择城市");
+                        return;
+                    }
+                }
+                else if ($(".active input[data-role='user-level']").val() == 2)
+                {
+                    CityId = $("#dlCity").val();
+                    CountyId = $("#dlCounty").val();
+                    if (CountyId == "") {
+                        alert("请选择县/区");
+                        return;
+                    }
+                }
+                else if ($(".active input[data-role='user-level']").val() == 3) {
+                   CityId = $("#dlCity").val();
+                   CountyId = $("#dlCounty").val();
+                   CountrySideId = $("#dlCountryside").val();
+                   if (CountrySideId == "") {
+                       alert("请选择乡/镇");
+                       return;
+                   }
+               }
+                if(LoginName==""||Password==""||Phone==""||Name=="")
+                {
+                    alert("请输入必填项");
+                    return;
+                }
+                $.post(ServiceUrl + "UserInterface/PostHandler.ashx", { LoginName: LoginName, Password: Password, Phone: Phone, Name, ProvinceId: ProvinceId, CityId: CityId, CountyId: CountyId, CountrySideId: CountrySideId }, function (data) {
+                    var result = JSON.parse(data);
+                    if(result!=null)
+                    {
+                        if(result.Result)
+                        {
+                            alert("添加成功");
+                            window.location.href = "Pager.html";
+                        }
+                        else
+                        {
+                            alert("添加失败");
+                        }
+                    }
+                    else {
+                        alert("添加失败");
+                    }
+
+                });
+            }
+            function CheckLoginName()
+            {
+                var LoginName = $("#LoginName").val();
+                if (LoginName == "")
+                {
+                    $("#CheckLoginStr").text("* 请输入登陆账号");
+                    $("#CheckLoginStr").show();
+                    return;
+                }
+                $.post(ServiceUrl + "UserInterface/GetHandler.ashx", { LoginName: LoginName }, function (data) {
+                    var result = JSON.parse(data);
+                    if(result!=null)
+                    {
+                        if(result.Result)
+                        {
+                            if(result.Data.length>0)
+                            {
+                                CheckLogin = 1;
+                                $("#CheckLoginStr").text("* 登陆账号已存在");
+                                $("#CheckLoginStr").show();
+                            }
+                            else
+                            {
+                                CheckLogin = 0;
+                                $("#CheckLoginStr").hide();
+                            }
+                        }
+                        else {
+                            CheckLogin = 0;
+                            $("#CheckLoginStr").hide();
+                        }
+                    }
+                    else {
+                        CheckLogin = 0;
+                        $("#CheckLoginStr").hide();
+                    }
+                });
+            }
+
+            function CkeckPassWord()
+            {
+                var PassWord = $("#PassWord").val();
+                if (PassWord.length < 6 || PassWord.length > 15 ) {
+                    $("#CheckPassWordStr").html("* 密码长度为6-15位")
+                    $("#CheckPassWordStr").show();
+                    CheckLogin = 1;
+                    return;
+                }
+                else {
+                    $("#CheckPassWordStr").hide();
+                    CheckLogin = 0;
+                }
+            }
+            function CheckRepatPassword()
+            {
+                var PassWord = $("#PassWord").val();
+                var RepatPassWord = $("#RepatPassWord").val();
+                if (PassWord != RepatPassWord) {
+                    $("#CheckReaptPassWordStr").html("* 两次密码不正确")
+                    $("#CheckReaptPassWordStr").show();
+                    CheckLogin = 1;
+                    return;
+                }
+                else {
+                    $("#CheckReaptPassWordStr").hide();
+                    CheckLogin = 0;
+                }
+            }
+            function CheckPhone()
+            {
+                var Phone = $("#Phone").val();
+                if (!Phone.match(/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(14[0-9]{1}))+\d{8})$/)) {
+                    CheckLogin = 1;
+                    $("#CheckPhoneStr").html("* 手机号码格式不正确");
+                    $("#CheckPhoneStr").show();
+                    return;
+                }
+                else
+                {
+                    CheckLogin = 0;
+                    $("#CheckPhoneStr").hide();
+                }
+                $.post(ServiceUrl + "UserInterface/GetHandler.ashx", { Phone: Phone }, function (data) {
+                    var result = JSON.parse(data);
+                    if (result != null) {
+                        if (result.Result) {
+                            if (result.Data.length > 0) {
+                                CheckLogin = 1;
+                                $("#CheckPhoneStr").html("* 手机号码已存在");
+                                $("#CheckPhoneStr").show();
+                            }
+                            else {
+                                CheckLogin = 0;
+                                $("#CheckPhoneStr").hide();
+                            }
+                        }
+                        else {
+                            CheckLogin = 0;
+                            $("#CheckPhoneStr").hide();
+                        }
+                    }
+                    else {
+                        CheckLogin = 0;
+                        $("#CheckPhoneStr").hide();
+                    }
+                });
+            }
+            function CheckName()
+            {
+                var Name = $("#Name").val();
+                if(Name=="")
+                {
+                    $("#CheckNameStr").html("* 请输入真实姓名");
+                    $("#CheckNameStr").show();
+                    return;
+                }
+                else
+                {
+                }
+                if(Name.length>10)
+                {
+                    $("#CheckNameStr").html("* 真实姓名长度超长");
+                    $("#CheckNameStr").show();
+                    return;
+                }
+                else
+                {
+                    $("#CheckNameStr").hide();
+                }
+            }
+        </script>
+	</body>
+</html>

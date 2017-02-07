@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>成员信息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.btn > .btn-login{
+				background-color: #ff0000;
+			}
+			.household_info{
+				border-bottom: 1px solid #cccccc;
+			}
+			.active{
+				color: #0075a9 !important;
+			}
+            .content .left{
+                width:24%;
+            }
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<h2>成员信息</h2>
+					<a href="" class="save">修改</a>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<ul>
+				<li class="household_info">
+					<div>
+						<ul>
+							<li data-val="idcardno">
+								<i class="iconfont icon">&#xe60e;</i>
+								<label class="left">证件证号</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="name">
+								<i class="iconfont icon">&#xe607;</i>
+								<label class="left">姓　　名</label>
+                                <span class="right"></span>
+							</li>
+							<li data-val="nation">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">民　　族</label>
+                                <span class="right"></span>
+							</li>
+							<li data-val="birthday">
+								<i class="iconfont icon">&#xe611;</i>
+								<label class="left">出生日期</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="gender">
+								<i class="iconfont icon">&#xe622;</i>
+								<label class="left">性　　别</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="householderrelation">
+								<i class="iconfont icon">&#xe605;</i>
+								<label class="left">户主关系</label>
+                                <span class="right"></span>
+							</li>
+							<li data-val="povertystate">
+								<i class="iconfont icon">&#xe606;</i>
+								<label class="left">是否复核</label>
+                                <span class="right"></span>
+							</li>
+                            <li data-val="edulevels" class="lhshide">
+                                <i class="iconfont icon">&#xe612;</i>
+                                <label class="left">教育阶段</label>
+                                <span class="right"></span>
+                            </li>
+							<li data-val="dropoutschool">
+								<i class="iconfont icon">&#xe618;</i>
+								<label class="left">文化程度</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="returnschool" style="display:none">
+								<i class="iconfont icon">&#xe60b;</i>
+								<label class="left">劝返情况</label>
+                                <span class="right"></span>
+							</li>
+							<li data-val="islhs">
+								<i class="iconfont icon">&#xe615;</i>
+								<label class="left">培训需求</label>
+								<span class="right"></span>
+							</li>
+                            <li data-val="lhsworkid" class="lhshide" >
+                                <i class="iconfont icon">&#xe616;</i>
+                                <label class="left">需　　求</label>
+                                <span class="right"></span>
+                            </li>
+							<li data-val="isprovincestudy">
+								<i class="iconfont icon">&#xe617;</i>
+								<label class="left">省内外就读</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="studentstatus" class="lhshide" >
+								<i class="iconfont icon">&#xe60a;</i>
+								<label class="left">年　　级</label>
+                                <span class="right"></span>
+							</li>
+							<li data-val="schoolname" class="lhshide" >
+								<i class="iconfont icon">&#xe61b;</i>
+								<label class="left">学校名称</label>
+								<span class="right"></span>
+							</li>
+							<li data-val="schoolnature" class="lhshide" >
+								<i class="iconfont icon">&#xe603;</i>
+								<label class="left">学校性质</label>
+                                <span class="right"></span>
+							</li>
+							<li data-val="studentno" class="lhshide" >
+								<i class="iconfont icon">&#xe619;</i>
+								<label class="left">学　　号</label>
+                                <span class="right"></span>
+							</li>
+							<li class="multi-line lhshide" data-val="policy">
+								<i class="iconfont icon">&#xe61a;</i>
+								<label class="left">帮扶政策</label>
+								<span class="right"></span>
+							</li>
+							<li class="multi-line" data-val="outpreschoolreason">
+								<i class="iconfont icon">&#xe60c;</i>
+								<label class="left">未入学原因</label>
+								<span class="right"></span>
+							</li>
+							<li class="multi-line"  data-val="remark">
+								<i class="iconfont icon">&#xe627;</i>
+								<label class="left">备　　注</label>
+								<span class="right"></span>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="btn">
+                <a class="btn-login" href="javascript:void(0)">删除成员</a>
+            </div>
+            
+		</div>
+		<div class="alert" style="display:none">
+			<div>
+				<ul>
+					<li class="alert_tit">
+						<h1>提示</h1>
+					</li>
+					<li>是否删除成员信息？</li>
+					
+				</ul>
+				<div class="cause_btn">
+					<a href="javascript:void(0)" class="cancel">取消</a>
+					<a href="javascript:void(0)" class="active add">确定</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+        <script src="../js/common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                IsLogin();
+                var peopleid = GetQueryString("id");
+                var user = JSON.parse(localStorage.UserInfo);
+                if (user.CountyId == 0 || new Date(user.InputEndTime)<new Date())
+                {
+                    $(".save").hide();
+                    $(".btn-login").hide();
+                }
+                $(".btn>.btn-login").click(function () {
+                    if ($("[data-val='householderrelation']>span").text() == "本人或户主") {
+                        alert("户主不能删除");
+                        return false;
+                    }
+				    $(".alert").show();
+				});
+				$(".cancel").click(function () {
+				    $(this).parents(".alert").hide();
+				});
+				$(".save").prop("href","poverty_eidt.html?id=" + peopleid);
+			    //获取数据
+				$.post(sysConfig.serviceUrl + "PovertyArchivesInterface/GetHandler.ashx", { ID: peopleid }, function (res) {
+				    var json = JSON.parse(res);
+				    if (json.Result) {
+				        if (json.Data.length > 0) {
+				            CheckData = json.Data[0];
+				            $("[data-val='idcardno']>span").text(json.Data[0].IdCardNo);
+				            $("[data-val='name']>span").text(json.Data[0].Name);
+				            $("[data-val='nation']>span").text(json.Data[0].Nation);
+				            $("[data-val='gender']>span").text(json.Data[0].Gender == "True" ? "男" : "女");
+				            var Birthday  ="";
+				            if (json.Data[0].IdCardNo.length > 15)
+				            {
+				                Birthday = json.Data[0].IdCardNo.substr(6, 4) + "-" + json.Data[0].IdCardNo.substr(10, 2) + "-" + json.Data[0].IdCardNo.substr(12, 2);
+				            }
+				            $("[data-val='birthday']>span").text(Birthday);
+				            $("[data-val='householderrelation']>span").text(json.Data[0].HouseholderRelation);
+				            $("[data-val='povertystate']>span").text(json.Data[0].PovertyStates == "1" ? "已复核" : "未复核");
+				            $("[data-val='dropoutschool']>span").text(json.Data[0].DropoutSchool == "" ? "未选择" : json.Data[0].DropoutSchool);
+				            if (json.Data[0].EduLevels == "适龄未入学或辍学") {
+				                $(".lhshide").hide();
+				                $("[data-val='returnschool']").show();
+				                $("[data-val='islhs']").show();
+				                if (json.Data[0].IsLHS == "True")
+				                    $("[data-val='lhsworkid']").show();
+                                else
+				                    $("[data-val='lhsworkid']").hide();
+                            }
+				            $("[data-val='ReturnSchool']>span").text(json.Data[0].EduLevels != "适龄未入学或辍学" ? "无需劝返" : (json.Data[0].ReturnSchool == "True" ? "已返校" : "未返校"));
+				            if (json.Data[0].studentArchivesID == 0 && (new Date().getFullYear() - new Date(json.Data[0].BirthDay).getFullYear() < 60)) {
+				                $("[data-val='islhs']>span").text("有");
+				                $("[data-val='islhs']>input").val("True");
+				                $("[data-val='lhsworkid']>span").text("无需求");
+				                if (json.Data[0].EduLevels != "适龄未入学或辍学") {
+				                    $("[data-val='returnschool']").hide();
+				                }
+				            }
+				            else {
+				                $("[data-val='islhs']>span").text(json.Data[0].IsLHS == "True" ? "有" : "无");
+				                $("[data-val='islhs']>input").val(json.Data[0].IsLHS);
+				                if (json.Data[0].IsLHS == "True")
+				                    $("[data-val='lhsworkid']").show();
+				                else
+				                    $("[data-val='lhsworkid']").hide();
+				                if (json.Data[0].IsLHS == "True" && json.Data[0].EduLevels != "非学龄段") {
+				                    $("[data-val='returnschool']").hide();
+				                    $.post(sysConfig.serviceUrl + "WorkInterface/GetHandler.ashx", { ID: json.Data[0].LHSWorkId }, function (res) {
+				                        var json = JSON.parse(res);
+				                        if (json.Result) {
+				                            if (json.Data.length > 0) {
+				                                $("[data-val='lhsworkid']>span").text(json.Data[0].Type + " " + json.Data[0].Name);
+				                            }
+				                        }
+
+				                    });
+				                }
+				            }
+				            $("[data-val='isprovincestudy']>span").text(json.Data[0].IsProvinceStudy == "True" ? "省内" : "省外");
+				            $("[data-val='edulevels']>span").text(json.Data[0].EduLevels);
+				            $("[data-val='studentstatus']>span").text(json.Data[0].StudentStatus);
+				            $("[data-val='schoolname']>span").text(json.Data[0].SchoolName);
+				            $("[data-val='schoolnature']>span").text(json.Data[0].SchoolNature == "True" ? "公办" : "民办");
+				            $("[data-val='studentno']>span").text(json.Data[0].StudentNo);
+				            if (json.Data[0].PolicyID != "")
+				            {
+				                if (json.Data[0].PolicyID == 0)
+				                {
+				                    $("[data-val='policy']>span").text("不享受政策");
+				                    return;
+				                }
+				                var policylist = "";
+				                $(json.Data[0].PolicyID.split(",")).each(function () {
+				                    var policyid=this.toString();
+				                    $.post(sysConfig.serviceUrl + "PolicyInterface/GetHandler.ashx", { ID: policyid }, function (res1) {
+				                        var json1 = JSON.parse(res1);
+				                        if (json1.Result) {
+				                            if(json1.Data.length>0)
+				                            {
+				                                policylist += json1.Data[0].Name + "(补助金额：" + json1.Data[0].Amount + "元）,";
+				                                $("[data-val='policy']>span").text(policylist);
+				                            }
+				                        }
+				                    });
+				                });
+				            }
+				            else
+				            {
+				                $("[data-val='policy']>span").text("无");
+				            }
+				            if (json.Data[0].OutpreschoolReason != "") {
+				                $.post(sysConfig.serviceUrl + "OutPreschoolReasonInterface/GetHandler.ashx", { ID: json.Data[0].OutpreschoolReason }, function (res2) {
+				                    var json2 = JSON.parse(res2);
+				                    if (json2.Result) {
+				                        if (json2.Data.length > 0) {
+				                            $("[data-val='outpreschoolreason']>span").text(json2.Data[0].Name);
+				                        }
+				                    }
+				                });
+				            }
+				            else
+				            {
+				                $("[data-val='outpreschoolreason']>span").text("无");
+				            }
+				            $("[data-val='remark']>span").text(json.Data[0].Remark);
+				        }
+				    }
+				});
+				$(".cause_btn .add").click(function () {
+				    $.post(sysConfig.serviceUrl + "PovertyArchivesInterface/UpdateHouseholderIdHandler.ashx", { ID: peopleid, HouseholderId: 0 }, function (res) {
+				        var json = JSON.parse(res);
+				        if(json.Result)
+				        {
+				            alert("删除成功！");
+				            setTimeout(function () { window.history.go(-1) }, 1000);
+				        }
+				        else
+				        {
+				            alert("删除失败");
+				        }
+				    });
+				});
+            });
+            function checklength(str) {
+                if (str.toString().length < 2) {
+                    return "0" + str;
+                }
+                else {
+                    return str;
+                }
+            }
+		</script>
+	</body>
+</html>

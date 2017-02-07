@@ -1,0 +1,5 @@
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\bin\x86\Debug\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\bin\x86\Debug\AbstractFactory.pdb
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\x86\Debug\AbstractFactory.dll
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\x86\Debug\AbstractFactory.pdb
+E:\work\扶贫项目\QinHaiFupin\AbstractFactory\obj\x86\Debug\AbstractFactory.csprojResolveAssemblyReference.cache

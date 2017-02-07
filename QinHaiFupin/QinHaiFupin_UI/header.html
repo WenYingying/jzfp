@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>头部</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="css/header.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	</head>
+	<body>
+		<header class="header">
+			<div class="head">
+				<div>
+					<h3>青海省教育精准扶贫大数据平台</h3>
+					<h3>Big data platform of education precision poverty relief for QingHai province</h3>
+				</div>
+				<div>
+					<ul>
+						<li><a class="active" href="javascript:void(0)">统计数据</a> </li>
+						<li><a href="javascript:void(0)">精准扶贫</a> </li>
+						<li><a href="javascript:void(0)">综合管理</a> </li>
+						<li><a href="javascript:void(0)">用户管理</a> </li>
+					
+					</ul>
+				</div>
+				
+			</div>
+		</header>
+        <script src="js/jquery-1.12.1.min.js"></script>
+		<script>
+			$(function(){
+				
+				$(".head div:nth-of-type(2) ul li a").click(function() {
+					$(".head div:nth-of-type(2) ul li a").removeClass("active");
+					$(this).addClass("active");
+			
+				});
+			})
+			
+		</script>
+	</body>
+</html>

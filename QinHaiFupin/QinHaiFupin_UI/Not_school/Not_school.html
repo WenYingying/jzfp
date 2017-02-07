@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>未入学原因管理</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style>
+			.policy_list ul:nth-of-type(1) li,.policy_list ul li{
+				width: 60%;
+			}
+			.policy_list ul:nth-of-type(1) li:last-child,.policy_list ul li:last-child{
+				width: 36%;
+				text-align: center;
+			}
+           .policy_right .cont_middle h3>a{
+                width: 96px;
+                height: 30px;
+                line-height: 30px;
+                color: #fff;
+                float: right;
+                background-color: #7198ba;
+                display: block;
+                text-align: center;
+                border-radius: 3px;
+                margin-top: 18px;
+            }
+		</style>
+	</head>
+	<body>
+		
+			<div class="content">
+				
+				<div class="cont_user" >
+					
+					
+					<div style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;width: 100%;display: inline-block;">
+						<div class="policy">
+							<div class="policy_left">
+								<h3>未入学原因管理
+                                
+                                
+                                </h3>
+								<ul>
+									<li class="policy_left_active"><a   href="javascript:void(0)">适龄未入学儿童</a></li>
+								</ul>
+							</div>
+							<div class="policy_right">
+								<div class="cont_middle">
+									<h3>适龄未入学儿童<a href="javascript:void(0)" class="AddOutReason">添加</a></h3>
+									<ul class="policy_list">
+										<li>
+											<div></div>
+										</li>
+									</ul>
+								</div>
+                            
+							</div>
+							
+						</div>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+
+        <div class="school_alert">
+            <div class="scoll_info">
+                <h3 id="AddTitle">添加未入学原因</h3>
+                <ul>
+                    <li>
+                        <span>具体原因:</span>
+                        <input type="text" name="" id="EditName" value="" />
+                        <input type="text" name="" id="EditId" value="" hidden />
+                    </li>
+                </ul>
+                <div class="btn" style="margin-left: 82px;">
+                    <a class="school_ok" href="javascript:void(0)">确定</a>
+                    <a class="school_no" href="javascript:void(0)">取消</a>
+
+                </div>
+            </div>
+        </div>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+		<script>
+            $(parent.document).find(".policy_nav").find("a").removeClass("policy_nav_active");
+            $(parent.document).find(".policy_nav").find("a:eq(1)").addClass("policy_nav_active");
+//		二级导航
+			$(".small_nav div ul li a").click(function() {
+				$(".small_nav div ul li a").removeClass("small_nav_active");
+				$(this).addClass("small_nav_active");
+		
+			});
+////			左边导航
+//			$(".policy_left ul li ").click(function() {
+//				$(".policy_left ul li").removeClass("policy_left_active");
+//				$(this).addClass("policy_left_active");
+		
+            //			});
+			$(function () {
+			    if(UserList.CityId!=0||UserList.CountyId!=0)
+			    {
+			        alert("对不起，您没有权限访问此页面");
+			        window.history.go(-1);
+
+			    }
+			    GetList();
+			});
+			$('.AddOutReason').click(function () {
+			    $("#AddTitle").html("添加未入学原因");
+			    $("#EditName").val("");
+			    $("EditId").val("");
+			    $('.school_alert').show();
+
+			})
+			$('.school_ok').click(function () {
+			    var EditName = $("#EditName").val();
+			    var EditId = $("#EditId").val();
+			    if (EditId != "")
+			    {
+			        $.post(ServiceUrl + "OutPreschoolReasonInterface/EditHandler.ashx", { Name: EditName, ID: EditId }, function (data) {
+			            var result = JSON.parse(data);
+			            if(result!=null)
+			            {
+			                if(result.Result)
+			                {
+			                    alert("修改成功");
+			                    GetList();
+			                    $('.school_alert').hide();
+			                }
+			                else
+			                {
+			                    alert("修改失败");
+			                }
+			            }
+			            else {
+			                alert("修改失败");
+			            }
+			        });
+			    }
+			    else
+			    {
+			        $.post(ServiceUrl + "OutPreschoolReasonInterface/PostHandler.ashx", { Name: EditName }, function (data) {
+			            var result = JSON.parse(data);
+			            if (result != null) {
+			                if (result.Result) {
+			                    alert("添加成功");
+			                    GetList();
+			                    $('.school_alert').hide();
+			                }
+			                else {
+			                    alert("添加失败");
+			                }
+			            }
+			            else {
+			                alert("添加失败");
+			            }
+			        });
+			    }
+			    $('.school_alert').hide();
+			})
+			$('.school_no').click(function () {
+			    $("#EditName").val("");
+			    $("EditId").val("");
+			    $('.school_alert').hide();
+			})
+			function GetList() {
+			    var policy_list = $(".policy_list");
+			    policy_list.empty();
+			    var titleul = $("<ul>").appendTo(policy_list);
+			    $("<li style='width:45%'>").appendTo(titleul).text("未入学具体原因");
+			    $("<li style='width:24%'>").appendTo(titleul).text("状态")
+			    $("<li style='width:24%'>").appendTo(titleul).text("操作");
+			    $.post(ServiceUrl + "OutPreschoolReasonInterface/GetHandler.ashx", {}, function (data) {
+			        var result = JSON.parse(data);
+			        if (result != null) {
+			            if (result.Result) {
+			                $(result.Data).each(function () {
+			                    var listul = $("<ul>").appendTo($(".policy_list"));
+			                    $("<li style='width:45%'>").appendTo(listul).text(this.Name);
+			                    if (this.IsEnable == "True") {
+			                        $("<li style='width:24%'>").appendTo(listul).text("启用");
+			                    }
+			                    else {
+			                        $("<li style='width:24%'>").appendTo(listul).text("停用");
+			                    }
+			                    var editli = $("<li style='width:24%'>").appendTo(listul);
+			                    var ID = this.ID;
+			                    var IsEnable = this.IsEnable;
+			                    var EditName = this.Name;
+			                    $("<a>").appendTo(editli).click(function () {
+			                        $("#AddTitle").html("修改未入学原因");
+			                        $("#EditName").val(EditName);
+			                        $("EditId").val(ID);
+			                        $('.school_alert').show();
+
+			                    }).text("修改");
+			                    var updatea = $("<a>").appendTo(editli).addClass("delete").click(function () {
+			                        var updateenable;
+			                        if (IsEnable == "True") {
+			                            updateenable = "False";
+			                        }
+			                        else {
+			                            updateenable = "True";
+			                        }
+			                        if (confirm("确认修改吗")) {
+			                            $.post(ServiceUrl + "OutPreschoolReasonInterface/UpdateStateHandler.ashx", { ID: ID, IsEnable: updateenable }, function (data) {
+			                                var result = JSON.parse(data);
+			                                if (result != null) {
+			                                    if (result.Result) {
+			                                        GetList();
+			                                    }
+			                                }
+			                            });
+			                        }
+
+			                    });
+			                    if (IsEnable == 'True') {
+			                        updatea.text("停用");
+			                    }
+			                    else {
+			                        updatea.text("启用");
+			                    }
+			                });
+			            }
+			        }
+			    });
+			}
+		</script>
+	</body>
+</html>

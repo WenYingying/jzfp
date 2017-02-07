@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>修改密码</title>
+		<meta id="viewport" content="width=device-width,initial-scale=0.2, maximum-scale=1,user-scalable=no", name="viewport">
+        <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+	</head>
+	<body>
+			<div class="content">
+				<div class="cont_user" style="margin-top: 20px;box-shadow: 1px 2px 2px 2px #e5e5e5;">
+					
+					<div >
+						<div class="cont_middle">
+							<h3>修改密码</h3>
+							<ul>
+								<li>
+									<span>登陆账号:</span>
+									<label class="modify" id="LoginName"></label>
+								</li>
+								
+								<li>
+									<span>手机号码:</span>
+									<label class="modify" id="Phone"></label>
+								</li>
+								<li>
+									<span>真实姓名:</span>
+									<label class="modify" id="Name"></label>
+								</li>
+								<li>
+									<span>用户权限:</span>
+									<label class="modify" id="Quanxian"></label>
+									
+									
+								</li>
+								<li>
+									<span>地区:</span>
+									<label class="modify" id="Place"></label>
+								</li>
+								<li>
+									<span>输入旧密码:</span>
+									<input type="password" name="" id="OldPassword" value="" placeholder="密码长度为6-15位" />
+								</li>
+								<li>
+									<span>输入新密码:</span>
+									<input type="password" name="" id="PassWord" value="" placeholder="密码长度为6-15位"  onblur="CkeckPassWord()" />
+                                    <label class="red" id="CheckPassWordStr"></label>
+								</li>
+								<li>
+									<span>确认密码:</span>
+									<input type="password" name="" id="RepatPassWord" value="" placeholder="请再一次输入登陆密码" onblur="CheckRepatPassword()"  />
+									<label class="red" id="CheckReaptPassWordStr"></label>
+								</li>
+							</ul>
+							<div class="btn">
+								<a href="javascript:void(0)" onclick="Change()">确认</a>
+								<a href="javascript:void(0)">取消</a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+        <script src="../js/jquery-1.12.1.min.js"></script>
+        <script src="../js/Common.js"></script>
+        <script src="../js/jquery.cookie.js"></script>
+		<script>
+            var CheckLogin = 0;
+			$(function(){
+				$(".user_limits a").click(function() {
+					$(".user_limits a").removeClass("user_limits_active");
+					$(this).addClass("user_limits_active");
+				});
+                
+				var UserID = UserList.ID;
+				$.post(ServiceUrl + "UserInterface/GetAllHandler.ashx", { ID: UserID }, function (data) {
+				    var result = JSON.parse(data);
+				    if(result!=null)
+				    {
+				        if(result.Result)
+				        {
+				            if(result.Data.length>0)
+				            {
+				                $("#LoginName").text(result.Data[0].LoginName);
+				                $("#Phone").text(result.Data[0].Phone);
+				                $("#Name").text(result.Data[0].Name);
+				                var Region = (result.Data[0].ProvinceName == null ? "" : result.Data[0].ProvinceName) + (result.Data[0].CityName == null ? "" : result.Data[0].CityName) + (result.Data[0].CountyName == null ? "" : result.Data[0].CountyName);
+				                $("#Place").text(Region);
+				                if(result.Data[0].CountyID!=0)
+				                {
+				                    $("#Quanxian").text("县级权限");
+				                }
+				                else if (result.Data[0].CityID != 0) {
+				                    $("#Quanxian").text("市级权限");
+				                }
+				                else
+				                {
+				                    $("#Quanxian").text("省级权限");
+				                }
+				            }
+				        }
+				    }
+				});
+			})
+			function CkeckPassWord() {
+			    var PassWord = $("#PassWord").val();
+			    if (PassWord.length < 6 || PassWord.length > 15) {
+			        $("#CheckPassWordStr").html("* 密码长度为6-15位")
+			        $("#CheckPassWordStr").show();
+			        CheckLogin = 1;
+			        return;
+			    }
+			    else {
+			        $("#CheckPassWordStr").hide();
+			        CheckLogin = 0;
+			    }
+			}
+			function CheckRepatPassword() {
+			    var PassWord = $("#PassWord").val();
+			    var RepatPassWord = $("#RepatPassWord").val();
+			    if (PassWord != RepatPassWord) {
+			        $("#CheckReaptPassWordStr").html("* 两次密码不正确")
+			        $("#CheckReaptPassWordStr").show();
+			        CheckLogin = 1;
+			        return;
+			    }
+			    else {
+			        $("#CheckReaptPassWordStr").hide();
+			        CheckLogin = 0;
+			    }
+			}
+			function Change()
+			{
+			    if (CheckLogin == 1) {
+			        return;
+			    }
+			    var OldPassword = $("#OldPassword").val();
+			    var PassWord = $("#PassWord").val();
+			    var RepatPassWord = $("#RepatPassWord").val();
+			    if(OldPassword==""||PassWord==""||RepatPassWord=="")
+			    {
+			        alert("请输入密码");
+			        return;
+			    }
+			    if(OldPassword.trim()!=UserList.PassWord)
+			    {
+			        alert("旧密码输入错误，请重新输入");
+			        return;
+			    }
+			    $.post(ServiceUrl + "UserInterface/UpdatePasswordHandler.ashx", { ID: UserList.ID, PassWord: PassWord }, function (data) {
+			        var result = JSON.parse(data);
+			        if(result!=null)
+			        {
+			            if(result.Result)
+			            {
+			                alert("修改成功,请重新登录");
+			                var d = d;
+			                d.setTime(d.getTime() - 24 * 60 * 60 * 1000);
+			                var nowdate = d.getFullYear() + "/" + checklength(d.getMonth() + 1) + "/" + checklength(d.getDate()) + " " + checklength(d.getHours()) + ":" + checklength(d.getMinutes()) + ":" + checklength(d.getSeconds());
+			                UserList.LastLoginTime = nowdate;
+			                localStorage.setItem('qhfp_user', JSON.stringify(UserList));
+			                window.location.href = "../login.html";
+			            }
+			            else
+			            {
+			                alert("修改失败");
+			            }
+			        }
+			        else {
+			            alert("修改失败");
+			        }
+			    });
+			}
+		</script>
+	</body>
+</html>

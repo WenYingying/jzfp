@@ -1,0 +1,15 @@
+E:\work\扶贫项目\QinHaiFupin\Model\bin\Release\Model.dll
+E:\work\扶贫项目\QinHaiFupin\Model\bin\Release\Model.pdb
+E:\work\扶贫项目\QinHaiFupin\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+E:\work\扶贫项目\QinHaiFupin\Model\obj\Release\Model.dll
+E:\work\扶贫项目\QinHaiFupin\Model\obj\Release\Model.pdb
+D:\WorkStation\教育扶贫项目\QinHaiFupin\Model\bin\Release\Model.dll
+D:\WorkStation\教育扶贫项目\QinHaiFupin\Model\bin\Release\Model.pdb
+D:\WorkStation\教育扶贫项目\QinHaiFupin\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+D:\WorkStation\教育扶贫项目\QinHaiFupin\Model\obj\Release\Model.dll
+D:\WorkStation\教育扶贫项目\QinHaiFupin\Model\obj\Release\Model.pdb
+E:\教育扶贫项目\QinHaiFupin\Model\bin\Release\Model.dll
+E:\教育扶贫项目\QinHaiFupin\Model\bin\Release\Model.pdb
+E:\教育扶贫项目\QinHaiFupin\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+E:\教育扶贫项目\QinHaiFupin\Model\obj\Release\Model.dll
+E:\教育扶贫项目\QinHaiFupin\Model\obj\Release\Model.pdb

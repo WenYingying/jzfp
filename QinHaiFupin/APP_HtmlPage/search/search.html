@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.content>h1{
+				width: 95%;
+				height: 1.8rem;
+				background-color: #f0f0f0;
+				border-top: 1px solid #e6e6e6;
+				font-size: 0.7rem;
+				color: #333;
+				line-height: 1.8rem;
+				padding-left: 0.75rem;
+				
+			}
+			.content>ul{
+				background-color: #fff;
+				border-bottom: 1px solid #cccccc;
+			}
+			.content>ul>li{
+				width: 90%;
+				margin: 0 auto;
+				height: 1.875rem;
+				border-bottom: 1px solid #cccccc;
+				line-height: 1.875rem;
+			}
+			.content>ul>li:last-child{
+				border-bottom: 0;
+			}
+			.content>h1>a{
+				float: right;
+				margin-right: 0.75rem;
+				font-size: 1rem;
+			}
+			.content>ul>li>a{
+				color: #999999;
+				font-size:0.8rem;
+				vertical-align: top;
+                
+			}
+            .content>ul>li>a:nth-of-type(2){
+                width:85%;
+                overflow: hidden;
+	            white-space: nowrap;
+	            text-overflow:ellipsis;
+                display:inline-block;
+            }
+			.content>ul>li>a.sub_remove{
+				color: #6c6c6c;
+				float: right;
+			}
+			.content>ul>li>a[href="javascript:void(0)"]{
+				font-size: 0.7rem;
+			    color: #333;
+			    margin-left: 0.5rem;
+			    width: 80%;
+			    display: inline-block;
+			    overflow: hidden;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li class="head">
+					<a href="javascript:void(0)" class="iconfont" onclick="window.history.go(-1)" >&#xe60f;</a>
+					<a href="javascript:void(0)" class="head_search">
+						<i class="iconfont  search">&#xe600;</i>
+						<input type="text" name="" id="" value="" placeholder="请输入户主姓名、身份证号" />
+					</a>
+					<a href="javascript:void(0)" class="head_search2">搜索</a>
+				</li>
+			</ul>
+		</header>
+		<div class="content">
+			<h1>历史搜索
+				<a class="iconfont remove">&#xe613;</a>
+			</h1>
+			<ul>
+			
+			</ul>
+		</div>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js" ></script>
+        <script src="../js/common.js"></script>
+		<script type="text/javascript">
+            $(function () {
+                IsLogin();
+                $(".head .head_search input").focus();
+				$(".remove").click(function(){
+				    $(this).parents("h1").siblings("ul").remove();
+				    localStorage.setItem("SearchHistory", null);
+				});
+				$(".head .head_search2").click(function () {
+				    window.location.href = "search_history.html?Search=" +escape( $(".head .head_search input").val());
+				});
+				var hskeyword =localStorage.getItem("SearchHistory")==null||localStorage.getItem("SearchHistory")==undefined?"": JSON.parse(localStorage.getItem("SearchHistory"));
+				$(".content>ul").empty();
+				$(hskeyword).each(function () {
+				    var li = $("<li>").appendTo($(".content>ul"));
+				    $("<a>").appendTo(li).addClass("iconfont").html("&#xe600;").prop("href", "search_history.html?Search=" + escape(this));
+				    $("<a>").appendTo(li).text(this).prop("href", "search_history.html?Search=" +escape(this));
+				    var keywordval = this.toString();
+				    $("<a>").appendTo(li).addClass("iconfont sub_remove").html("&#xe608;").click(function () {
+				        hskeyword.splice($.inArray(keywordval, hskeyword), 1);
+				        localStorage.setItem("SearchHistory", JSON.stringify(hskeyword));
+				        li.remove();
+				    });
+				});
+			});
+		</script>
+	</body>
+</html>
