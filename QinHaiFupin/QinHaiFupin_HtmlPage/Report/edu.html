@@ -692,10 +692,10 @@
 
             $.post(ServiceUrl + "PovertyArchivesInterface/CountByEduLevelsHandler.ashx", { area: area, areaid: areaid }, function (json) {
                 if (json.Result) {
-                    var cnt = 0;
+                    var cnt = 0, gz = 0;
                     if (json.Data.length > 0) {
                         $(json.Data).each(function () {
-                            if (this.EduLevels == "学前教育" || this.EduLevels == "小学" || this.EduLevels == "初中" || this.EduLevels == "高中") {
+                            if (this.EduLevels == "学前教育" || this.EduLevels == "小学" || this.EduLevels == "初中" || this.EduLevels == "高中" || this.EduLevels == "中职教育") {
                                 $("[data-level='" + this.EduLevels + "']").siblings("div").text(this.Count + "人");
                                 $("[data-level='" + this.EduLevels + "']").siblings("a").prop("href", "../Poverty/list.html?requesttype=edulevels&area="+area+"&areaid="+areaid+"&edulevels="+escape(this.EduLevels)+"&placename="+escape($(".EduPlace").text()));
                                 if (this.EduLevels == "学前教育")
@@ -704,14 +704,18 @@
                                     eduOption.series[0].data[1] = this.Count;
                                 if (this.EduLevels == "初中")
                                     eduOption.series[0].data[2] = this.Count;
-                                if (this.EduLevels == "高中")
-                                    eduOption.series[0].data[3] = this.Count;
+                                if (this.EduLevels == "高中" || this.EduLevels == "中职教育") 
+                                    gz += this.Count; 
+                                    
                             }
-                            else if (this.EduLevels == "专科" || this.EduLevels == "本科" || this.EduLevels == "硕士" || this.EduLevels == "博士") {
+                            else if (this.EduLevels == "高职教育" || this.EduLevels == "专科" || this.EduLevels == "本科" || this.EduLevels == "硕士" || this.EduLevels == "博士") {
                                 cnt += this.Count;
                             }
                             eduChart.setOption(eduOption);
                         });
+                        eduOption.series[0].data[3] = gz;
+                        $("[data-level='高中']").siblings("div").text(gz + "人");
+                        $("[data-level='高中']").siblings("a").prop("href", "../Poverty/list.html?requesttype=edulevels&area=" + area + "&areaid=" + areaid + "&edulevels=" + escape("高中") + "&placename=" + escape($(".EduPlace").text()));
                         eduOption.series[0].data[4] = cnt;
                         eduChart.setOption(eduOption);
                         $("[data-level='大专及以上']").siblings("div").text(cnt + "人");

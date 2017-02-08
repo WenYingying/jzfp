@@ -176,7 +176,7 @@
                     $(".EduPlace").text(PlaceName+" "+ MinAge+"岁到"+MaxAge+"岁");
                     break;
                 case "edulevels":
-                    $(".EduPlace").text(PlaceName + " " + EduLevels+"及以上");
+                    $(".EduPlace").text(PlaceName + " " + EduLevels + (EduLevels=="大专及以上" ? "大专及以上" : ""));
                     break;
                 case "policy":
                     $(".EduPlace").text(PlaceName + " " + "享受" + EduLevels + "政策");
